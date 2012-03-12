@@ -1,0 +1,21 @@
+Package: gridsampler
+Maintainer: Mark Heckmann <heckmann@uni-bremen.de>
+License: GPL 2
+Title: Simulating grid samples
+Type: Package
+LazyLoad: yes
+Author: Mark Heckmann
+Description: Simulation tool to estimate saturation of construct categories for
+    multiple repertory grid samples
+Version: 0.1
+Date: 2012-03-05
+Depends:
+    ggplot2,
+    RGtk2,
+    cairoDevice,
+    plyr
+Collate:
+    'gridsampler-package.R'
+    'gui.R'
+    'utils.R'
+    'simulation.R'
