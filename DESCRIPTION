@@ -13,7 +13,8 @@ Depends:
     ggplot2,
     RGtk2,
     cairoDevice,
-    plyr
+    plyr,
+    reshape2
 Collate:
     'gridsampler-package.R'
     'gui.R'
