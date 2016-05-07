@@ -1,5 +1,6 @@
 
-sim_one_person <- function(prob, a=10){  
+sim_one_person <- function(prob, a=10)
+{  
   if (a > sum(prob > 0))
     stop("the number of attributes 'a' must not exceed the number of categories, i.e. length of 'prob'")
   d.all <- NULL
@@ -16,7 +17,8 @@ sim_one_person <- function(prob, a=10){
 
 # a can be a number of a function (if wrapped in quote) 
 # returning a number
-sim_n_persons <- function(prob, n, a=10, ap=rep(1/length(a), length(a))){ 
+sim_n_persons <- function(prob, n, a=10, ap=rep(1/length(a), length(a)))
+{ 
   if (length(a) != length(ap))
     stop("the number of attributes must match the attribute probabilites")
   ap <- ap/sum(ap)  # make sure sum of ap equals one (probability)   
