@@ -1,9 +1,12 @@
-Here technical changes are documented. See NEWS for a description of changes affecting the user.
+Technical changes are documented here.
 
 
 gridsampler 0.2 (opened May 2016) ---------------------------------
 
-
+  * document internal functions (TODO)
+  * replace dependencies by import directives (TODO)
+  * rename main function from sampler to gridsampler
+  
 gridsampler 0.1  ----------------------------------------
 
   * first version with working features
