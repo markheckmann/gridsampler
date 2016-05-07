@@ -560,15 +560,19 @@ handler_btn_redraw <- function(w, data, ...){
   return(TRUE)
 }
 
-### MAIN ###
-#' Start GUI
+
+#### MAIN ####
+
+
+#' Start gridsampler GUI
+#' 
 #' @export
 #' @author  Mark Heckmann
 #' @examples \dontrun{
-#' sampler()
+#' gridsampler()
 #' } 
 #'
-sampler <- function()
+gridsampler <- function()
 {  
   win <- gtkWindow(show = F)
   win$setBorderWidth(10)
