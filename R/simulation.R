@@ -65,7 +65,7 @@ draw_n_person_sample <- function(prob, n, a=10, ap=rep(1/length(a), length(a)))
 sim_n_persons_x_times <- function(prob, n, a, ap=rep(1/length(a), 
                                   length(a)), times=100, progress="text")
 {   
-  ldply(1L:times, function(x, prob, n, a, ap){
+  plyr::ldply(1L:times, function(x, prob, n, a, ap){
           sim_n_persons(prob, n, a, ap)
         }, prob=prob, n=n, a=a, ap=ap, .progress=progress)
 }   
@@ -78,7 +78,7 @@ expected_frequencies <- function(r)
 {  
   co <- t(apply(r, 2, quantile, probs=c(.05, .25, .5, .75, .95)))
   df <- cbind(cat=1L:nrow(co), as.data.frame(co)) 
-  df.melted <- melt(df, id.vars="cat")
+  df.melted <- reshape2::melt(df, id.vars="cat")
   df.melted$variable <- as.factor(df.melted$variable) 
   mval <- max(df.melted$value)   
   g <- ggplot(subset(df.melted, variable != "50%"), 

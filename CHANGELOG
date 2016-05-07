@@ -4,7 +4,7 @@ Technical changes are documented here.
 gridsampler 0.2 (opened May 2016) ---------------------------------
 
   * document internal functions (TODO)
-  * replace dependencies by import directives (TODO)
+  * all dependencies replaced by import directives
   * rename main function from sampler to gridsampler
   
 gridsampler 0.1  ----------------------------------------

@@ -89,7 +89,7 @@ modifier_cwidget <- function(min=1, max=100){
 
   
 modifier_da_as_cairo_plus_device_number <- function(cw){
-  asCairoDevice(gget(cw, "da"))
+  cairoDevice::asCairoDevice(gget(cw, "da"))
   Sys.sleep(.1)
   gset(gget(cw, "da"), "device.number", dev.cur()) 
 }

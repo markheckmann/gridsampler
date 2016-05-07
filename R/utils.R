@@ -1,6 +1,6 @@
 
-gset <- gObjectSetData
-gget <- gObjectGetData
+gset <- RGtk2::gObjectSetData
+gget <- RGtk2::gObjectGetData
 
 # sapply_pb <- function(X, FUN, ..., progress=TRUE)
 # {
