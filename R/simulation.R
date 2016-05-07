@@ -1,12 +1,27 @@
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+#
+#               FUNCTIONS TO SIMULATE SAMPLING CONSTRUCTS  
+#        
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
+
+#' Simulate a single grid
+#' 
+#' @param prob Probability to draw a construct from a certain category
+#' @param a Number of constructs to be sampled
+#' @export
+#' @keywords internal
+#' 
 sim_one_person <- function(prob, a=10)
 {  
   if (a > sum(prob > 0))
-    stop("the number of attributes 'a' must not exceed the number of categories, i.e. length of 'prob'")
+    stop("The number of attributes 'a' must not exceed ",
+         "the number of categories, i.e. length of 'prob'", call. = FALSE)
   d.all <- NULL
-  for (i in 1:a){
-    prob <- prob / sum(prob)
-    d <- rmultinom(1, size = 1, prob=prob) 
+  for (i in 1:a) {
+    prob <- prob / sum(prob)                # norm sum of probabilities to 1
+    d <- rmultinom(1, size = 1, prob=prob)  # draw from multinomial distribution
     d.index <- which(d == 1) 
     prob[d.index] <- 0  
     d.all <- cbind(d.all, d) 
@@ -15,8 +30,11 @@ sim_one_person <- function(prob, a=10)
 } 
 # sim_one_person(dexp(1:30, rate=.05), a=10)
 
+
+
 # a can be a number of a function (if wrapped in quote) 
 # returning a number
+#
 sim_n_persons <- function(prob, n, a=10, ap=rep(1/length(a), length(a)))
 { 
   if (length(a) != length(ap))
@@ -32,7 +50,8 @@ sim_n_persons <- function(prob, n, a=10, ap=rep(1/length(a), length(a)))
 #   
 
 
-draw_n_person_sample <- function(prob, n, a=10, ap=rep(1/length(a), length(a))){
+draw_n_person_sample <- function(prob, n, a=10, ap=rep(1/length(a), length(a)))
+{
   res <- sim_n_persons(prob, n, a, ap)
   df <- data.frame(no=seq_along(res), cat=res)
   g <- ggplot(df, aes(x=no, y=cat)) + geom_line() + geom_point() +
@@ -44,7 +63,8 @@ draw_n_person_sample <- function(prob, n, a=10, ap=rep(1/length(a), length(a))){
 #    
 
 sim_n_persons_x_times <- function(prob, n, a, ap=rep(1/length(a), 
-                                  length(a)), times=100, progress="text"){   
+                                  length(a)), times=100, progress="text")
+{   
   ldply(1L:times, function(x, prob, n, a, ap){
           sim_n_persons(prob, n, a, ap)
         }, prob=prob, n=n, a=a, ap=ap, .progress=progress)
@@ -54,7 +74,8 @@ sim_n_persons_x_times <- function(prob, n, a, ap=rep(1/length(a),
 # sim_n_persons_x_times(dexp(1:30, .05), n=2, a=c(1,30), ti=1000, progress="tk" ) 
 #   
 
-expected_frequencies <- function(r){  
+expected_frequencies <- function(r)
+{  
   co <- t(apply(r, 2, quantile, probs=c(.05, .25, .5, .75, .95)))
   df <- cbind(cat=1L:nrow(co), as.data.frame(co)) 
   df.melted <- melt(df, id.vars="cat")
@@ -75,7 +96,8 @@ expected_frequencies <- function(r){
 
 # Wahrscheinlichkeit, dass mindestens prop Prozent der Kategorien mindestens  
 # m mal gennant wurden. 
-prob_categories <- function(r, m, min.prop=1){
+prob_categories <- function(r, m, min.prop=1)
+{
   s <- apply(r, 1, function(x, min.prop){    # does the sample render more than 
     (sum(x >= m) / length(x)) >= min.prop    # min.prop categories with >=  m attributes                                                                                     
   }, min.prop=min.prop)  
@@ -90,7 +112,8 @@ prob_categories <- function(r, m, min.prop=1){
 # min.prop
 sim_n_persons_x_times_many_n <- function(prob, n=seq(10, 80, by=10), a=7, 
                                ap=rep(1/length(a), length(a)), times=100,
-                               progress="text"){
+                               progress="text")
+{
   r <- list()
   for (i in seq_along(n))
     r[[i]] <- sim_n_persons_x_times(prob, n=n[i], a=a, ap=ap, times=times, 
@@ -102,10 +125,11 @@ sim_n_persons_x_times_many_n <- function(prob, n=seq(10, 80, by=10), a=7,
 # r <- sim_n_persons_x_times_many_n(dexp(1:30, .05), a=5:7, ap=1:3, times=100, prog="tk")
 #  
 
-calc_probabilities <- function(r, n, ms, min.props=c(.9, .95, .99)){  
+calc_probabilities <- function(r, n, ms, min.props=c(.9, .95, .99))
+{  
   res <- NULL
   for (m in ms){
-    for (min.prop in min.props){  
+    for (min.prop in min.props) {  
       probs <- sapply(r, prob_categories, m=m, min=min.prop)
       res.df <- cbind(n=n, m=m, min.prop=min.prop, prob=probs)
       res <- append(res, list(res.df))    
