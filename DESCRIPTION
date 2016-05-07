@@ -1,6 +1,6 @@
 Package: gridsampler
 Maintainer: Mark Heckmann <heckmann@uni-bremen.de>
-License: GPL 2
+License: GPL 3
 Title: Simulation tool for repertory grid studies
 Type: Package
 LazyLoad: yes
@@ -9,7 +9,7 @@ Description: Simulation tool to facilitate determination of
     required sample size to achieve category saturation
     for studies using multiple repertory grids in conjunction with
     content analysis.
-Version: 0.2
+Version: 0.2.1
 Date: 2016-05-07
 Depends:
     ggplot2,
