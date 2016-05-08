@@ -552,7 +552,7 @@ handler_btn_redraw <- function(w, data, ...)
     warning("You need to simulate data first")
   dd <- calc_probabilities(r=res, n=ns, ms=ms, min.props=min.props)
   dd$m <- as.factor(dd$m) 
-  g <- ggplot(dd, aes(x=n, y=prob, group=m, shape=m, color=m)) +  
+  g <- ggplot(dd, aes_string(x="n", y="prob", group="m", shape="m", color="m")) +  
               geom_line() + geom_point() +
               scale_y_continuous("Probability", limits=c(0,1)) + 
               scale_x_continuous("Sample size N") + facet_grid(. ~ min.prop) 

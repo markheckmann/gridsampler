@@ -9,15 +9,16 @@ Description: Simulation tool to facilitate determination of
     required sample size to achieve category saturation
     for studies using multiple repertory grids in conjunction with
     content analysis.
-Version: 0.2.4
+Version: 0.2.5
 Date: 2016-05-07
 Imports:
     RGtk2,
     cairoDevice,
     ggplot2,
     reshape2,
-    plyr,
-    knitr
+    plyr
+Suggests:
+  knitr
 Collate:
     'gridsampler-package.R'
     'gui.R'

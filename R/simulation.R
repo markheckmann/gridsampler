@@ -54,7 +54,8 @@ draw_n_person_sample <- function(prob, n, a=10, ap=rep(1/length(a), length(a)))
 {
   res <- sim_n_persons(prob, n, a, ap)
   df <- data.frame(no=seq_along(res), cat=res)
-  g <- ggplot(df, aes(x=no, y=cat)) + geom_line() + geom_point() +
+  g <- ggplot(df, aes_string(x="no", y="cat")) + 
+              geom_line() + geom_point() +
               scale_y_continuous(limits = c(0, max(res)))  
   print(g)
 }
@@ -76,13 +77,16 @@ sim_n_persons_x_times <- function(prob, n, a, ap=rep(1/length(a),
 
 expected_frequencies <- function(r)
 {  
+  variable <- NULL   # declare to avoid causes CRAN check note
   co <- t(apply(r, 2, quantile, probs=c(.05, .25, .5, .75, .95)))
   df <- cbind(cat=1L:nrow(co), as.data.frame(co)) 
   df.melted <- reshape2::melt(df, id.vars="cat")
   df.melted$variable <- as.factor(df.melted$variable) 
   mval <- max(df.melted$value)   
-  g <- ggplot(subset(df.melted, variable != "50%"), 
-              aes(x=cat, y=value, group=variable, shape=variable)) +  
+  #s <- subset(df.melted, variable != "50%")  # avoid NSE as it causes CRAN check note
+  s <- df.melted[df.melted$variable != "50%", , drop=FALSE]
+  g <- ggplot(s, 
+              aes_string(x="cat", y="value", group="variable", shape="variable")) +  
               geom_line() + geom_point() +
               geom_line(data=subset(df.melted, variable=="50%"), col="blue") +
               geom_point(data=subset(df.melted, variable=="50%"), col="blue") +
@@ -160,9 +164,10 @@ draw_multiple_n_persons_x_times <- function(prob, n=seq(10, 80, by=10), a=7,
                                      times=times, progress=progress)  
  dd <- calc_probabilities(r=res, n=n, ms=ms, min.props=min.props)
  dd$m <- as.factor(dd$m) 
-  g <- ggplot(dd, aes(x=n, y=prob, group=m, shape=m)) +  geom_line() + 
+  g <- ggplot(dd, aes_string(x="n", y="prob", group="m", shape="m")) +  
+         geom_line() + 
          geom_point() +
-         scale_y_continuous("Probability", lim=c(0,1)) + 
+         scale_y_continuous("Probability", limits=c(0,1)) + 
          scale_x_continuous("Sample size N") + facet_grid(. ~ min.prop)
   g  
 }
