@@ -1,6 +1,6 @@
 Package: gridsampler
 Maintainer: Mark Heckmann <heckmann@uni-bremen.de>
-License: GPL 3
+License: GPL-3
 Title: Simulation tool for repertory grid studies
 Type: Package
 LazyLoad: yes
@@ -16,7 +16,8 @@ Imports:
     cairoDevice,
     ggplot2,
     reshape2,
-    plyr
+    plyr,
+    knitr
 Collate:
     'gridsampler-package.R'
     'gui.R'
