@@ -86,7 +86,7 @@ expected_frequencies <- function(r)
               geom_line() + geom_point() +
               geom_line(data=subset(df.melted, variable=="50%"), col="blue") +
               geom_point(data=subset(df.melted, variable=="50%"), col="blue") +
-              scale_y_continuous("Probability", lim=c(0, mval))  
+              scale_y_continuous("Probability", limits=c(0, mval))  
   g
 }                     
 # r <- sim_n_persons_x_times(dexp(1:30, rate=.05), n=50, a=5:7, ap=1:3, 100)  
@@ -146,7 +146,7 @@ calc_probabilities <- function(r, n, ms, min.props=c(.9, .95, .99))
 # 
 # dd$m <- as.factor(dd$m) 
 # g <- ggplot(dd, aes(x=n, y=prob, group=m, shape=m)) +  geom_line() + geom_point() +
-#        scale_y_continuous("Probability", lim=c(0,1)) + 
+#        scale_y_continuous("Probability", limits=c(0,1)) + 
 #        scale_x_continuous("Sample size N") + facet_grid(. ~ min.prop)
 # print(g)  
 
