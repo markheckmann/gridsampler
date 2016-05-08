@@ -1,0 +1,31 @@
+---
+title: "gridsampler"
+output: rmarkdown::html_vignette
+csl: apa.csl
+bibliography: literature.bib
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Intro}
+  \usepackage[utf8]{inputenc}
+---
+
+
+```{r, echo = FALSE, message = FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  error = FALSE,
+  tidy = FALSE,
+  fig.width=5, 
+  fig.height=5,
+  fig.align = "center"
+)
+```
+
+## Intro
+
+```{r setup, warning=FALSE, message=FALSE}
+library(gridsampler)
+```
+
+
+![](gridsampler.png "gridsampler GUI")
