@@ -21,7 +21,7 @@ sim_one_person <- function(prob, a=10)
   d.all <- NULL
   for (i in 1:a) {
     prob <- prob / sum(prob)                # norm sum of probabilities to 1
-    d <- rmultinom(1, size = 1, prob=prob)  # draw from multinomial distribution
+    d <- stats::rmultinom(1, size = 1, prob=prob)  # draw from multinomial distribution
     d.index <- which(d == 1) 
     prob[d.index] <- 0  
     d.all <- cbind(d.all, d) 
@@ -112,7 +112,7 @@ prob_categories <- function(r, m, min.prop=1)
 # prob_categories(r, 4, min.prop=.9)   
 
 
-# Wie ist die Wkt bei der gegebenen Verteilung für verschiedene m und verschiedene
+# Wie ist die Wkt bei der gegebenen Verteilung fuer verschiedene m und verschiedene
 # min.prop
 sim_n_persons_x_times_many_n <- function(prob, n=seq(10, 80, by=10), a=7, 
                                ap=rep(1/length(a), length(a)), times=100,
