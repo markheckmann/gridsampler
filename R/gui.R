@@ -88,14 +88,16 @@ modifier_cwidget <- function(min=1, max=100){
 }
 
   
-modifier_da_as_cairo_plus_device_number <- function(cw){
+modifier_da_as_cairo_plus_device_number <- function(cw)
+{
   cairoDevice::asCairoDevice(gget(cw, "da"))
   Sys.sleep(.1)
   gset(gget(cw, "da"), "device.number", dev.cur()) 
 }
 
 
-get_modifier_object_device_number <- function(cw){
+get_modifier_object_device_number <- function(cw)
+{
   da <- gget(cw, "da")
   gget(da, "device.number")    
 }
@@ -107,7 +109,8 @@ set_cairo_device <- function(cw){
 } 
 
 
-handler_adjust_min_max_spinners <- function(w, data=list(widget="NA")){
+handler_adjust_min_max_spinners <- function(w, data=list(widget="NA"))
+{
   cw <- data$cw
   spin.min <- gget(cw, "spin.min")
   spin.max <- gget(cw, "spin.max")
@@ -132,7 +135,8 @@ handler_adjust_active_attribute_spinner <- function(w, data=list(), ...){
 }
 
 
-handler_update_active_att_probability_value <- function(w, data=list(), ...){
+handler_update_active_att_probability_value <- function(w, data=list(), ...)
+{
   cw <- data$cw
   cur.index <- gget(cw, "spin.select")$getValueAsInt()
   probs <- gget(cw, "probs")
