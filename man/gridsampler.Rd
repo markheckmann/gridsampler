@@ -23,8 +23,6 @@ gridsampler()
 }
 \author{
 Mark Heckmann
-
-Mark Heckmann
 }
 \references{
 TODO
