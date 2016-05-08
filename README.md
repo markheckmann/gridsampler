@@ -12,5 +12,9 @@ A common approach in the evaluation of multiple repertory grids is to sort the c
     # install development version from github
     library(devtools)
     install_github("gridsampler/markheckmann") 
-        
+
+# Docu
+
+An introduction to its usage can be found here: http://markheckmann.github.io/gridsampler/
+
 Jankowicz, D. (2004). The easy guide to repertory grids. Chichester, England: John Wiley & Sons.
