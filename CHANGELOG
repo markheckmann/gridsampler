@@ -1,13 +1,20 @@
-Technical changes are documented here.
+Changes are documented here.
 
 
-gridsampler 0.2 (opened May 2016) ---------------------------------
+gridsampler 0.4 (opened May 2016) ---------------------------------
 
   * document internal functions (TODO)
+
+gridsampler 0.3 ---------------------------------
+
+  * improved grahics, consistent names in all panels
+
+gridsampler 0.2 ---------------------------------
+
   * all dependencies replaced by import directives
   * rename main function from sampler to gridsampler
   
-gridsampler 0.1  ----------------------------------------
+gridsampler 0.1 ----------------------------------------
 
   * first version with working features
 
