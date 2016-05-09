@@ -1,5 +1,12 @@
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+#
+#                   BUILD GUI BASED ON GTK FRAMEWORK
+#        
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-modifier_cwidget <- function(min=1, max=100){
+
+modifier_cwidget <- function(min=1, max=100, xlab="default xlab")
+{
   vbox <- gtkVBox()
   vbox.0.range <- gtkHBox()
   vbox.1.draw <- gtkVBox()
@@ -41,7 +48,7 @@ modifier_cwidget <- function(min=1, max=100){
   # 3. manual modification of probabilities  
   spin.select <- gtkSpinButton(min=min, max=max, step=1)  
   spin.prob <- gtkSpinButton(min=0, max=1, step=.01)
-  label.attribute <- gtkLabel("Counts")
+  label.attribute <- gtkLabel(xlab)  # counts or category
   hbox.3.mod.prob$packStart(label.attribute, expand=F, fill=T, padding=5)
   hbox.3.mod.prob$packStart(spin.select, expand=F, fill=T, padding=5) 
   label.probability <- gtkLabel("Probability")
@@ -69,13 +76,13 @@ modifier_cwidget <- function(min=1, max=100){
                  handler_adjust_active_attribute_spinner, data = list(cw=vbox)) 
 
   gSignalConnect(chk, "clicked", handler_modifier_draw_probs,
-                 data = list(cw=vbox))
+                 data = list(cw=vbox, xlab=xlab))
   gSignalConnect(spin.select, "value-changed", handler_modifier_draw_probs,
-                 data = list(cw=vbox))
+                 data = list(cw=vbox, xlab=xlab))
   gSignalConnect(spin.min, "value-changed", handler_modifier_draw_probs, 
-                 data = list(cw=vbox))
+                 data = list(cw=vbox, xlab=xlab))
   gSignalConnect(spin.max, "value-changed", handler_modifier_draw_probs,
-                 data = list(cw=vbox))   
+                 data = list(cw=vbox, xlab=xlab))   
   
   # manipulation of probabilties                                                
   gSignalConnect(spin.select, "value-changed", 
@@ -83,7 +90,7 @@ modifier_cwidget <- function(min=1, max=100){
                  data=list(cw=vbox))
   gSignalConnect(spin.prob, "value-changed", 
                  handler_change_active_probability,
-                 data=list(cw=vbox))                                                  
+                 data=list(cw=vbox, xlab=xlab))                                                  
   vbox
 }
 
@@ -103,7 +110,8 @@ get_modifier_object_device_number <- function(cw)
 }
 
 
-set_cairo_device <- function(cw){
+set_cairo_device <- function(cw)
+{
   dev.no <- get_modifier_object_device_number(cw) 
   dev.set(dev.no)
 } 
@@ -124,7 +132,8 @@ handler_adjust_min_max_spinners <- function(w, data=list(widget="NA"))
 }
 
 
-handler_adjust_active_attribute_spinner <- function(w, data=list(), ...){
+handler_adjust_active_attribute_spinner <- function(w, data=list(), ...)
+{
   cw <- data$cw
   spin.min <- gget(cw, "spin.min")
   spin.max <- gget(cw, "spin.max")  
@@ -145,19 +154,21 @@ handler_update_active_att_probability_value <- function(w, data=list(), ...)
 }
 
  
-handler_change_active_probability <- function(w, data=list(), ...){
+handler_change_active_probability <- function(w, data=list(), ...)
+{
   cw <- data$cw
   cur.index <- gget(cw, "spin.select")$getValueAsInt()
   probs <- gget(cw, "probs")  
   probs[cur.index] <- gget(cw, "spin.prob")$getValue()
   gset(cw, "probs", probs)   
-  modifier_draw_probs(cw)
+  modifier_draw_probs(cw, xlab=data$xlab)
   return(TRUE)
 }  
 
  
 # norm visible probabilities within window so they add up to 1
-modifier_normalize_modifier_probs <- function(cw){
+modifier_normalize_modifier_probs <- function(cw)
+{
   att.probs <- gget(cw, "probs")
   min <- gget(cw, "spin.min")$getValueAsInt()
   max <- gget(cw, "spin.max")$getValueAsInt() 
@@ -173,7 +184,8 @@ modifier_normalize_modifier_probs <- function(cw){
 
 
 # visualize probabilities (drawing function)
-modifier_draw_probs <- function(cw){
+modifier_draw_probs <- function(cw, xlab="test")
+{
   modifier_normalize_modifier_probs(cw) 
   probs <- gget(cw, "probs")
   min <- gget(cw, "spin.min")$getValueAsInt()
@@ -192,19 +204,21 @@ modifier_draw_probs <- function(cw){
   plot(min:max, probs[min:max], 
        col=att.color, type="h", las=1, 
        cex.axis=.9, cex.lab=.9, xaxt="n", lwd=2, 
-       ylim=ylim, ylab="Probability", 
-       xlab="Counts") 
+       ylim=ylim, 
+       ylab="Probability", xlab=xlab) 
   Axis(at=min:max, side=1, cex.axis=.9)
   text(min:max, probs[min:max], round(probs[min:max], 2), pos=3, cex=.8)
 }
 
 
-handler_modifier_draw_probs <- function(w, data, ...){
-  modifier_draw_probs(data$cw)
+handler_modifier_draw_probs <- function(w, data, ...)
+{
+  modifier_draw_probs(data$cw, xlab=data$xlab)
 }      
   
 
-cw <- function(cw){
+cw <- function(cw)
+{
   #if (gget(cw, "cw_class") == )
   cat("references: spin.min, spin.max, da, chk, spin.select, spin.prob")
   cat("\nprobs:", gget(cw, "probs")) 
@@ -213,7 +227,8 @@ cw <- function(cw){
 
 
 
-probability_preset <- function(cw){
+probability_preset <- function(cw, xlab="undefined")
+{
    # probability presets expander (uniform, normal, poisson)
    btn.width <- 90
    btn.height <- 25
@@ -291,22 +306,23 @@ probability_preset <- function(cw){
    # calculate probability presets
    gSignalConnect(btn.prob.uniform, "clicked", 
                   handler_prob_preset,
-                  data=list(cw=cw, cw_preset=exp, preset="uniform"))    
+                  data=list(cw=cw, cw_preset=exp, preset="uniform", xlab=xlab))    
    gSignalConnect(btn.prob.normal, "clicked", 
                   handler_prob_preset,
-                  data=list(cw=cw, cw_preset=exp, preset="normal"))
+                  data=list(cw=cw, cw_preset=exp, preset="normal", xlab=xlab))
    gSignalConnect(btn.prob.poisson, "clicked", 
                   handler_prob_preset,
-                  data=list(cw=cw, cw_preset=exp, preset="poisson"))                                                   
+                  data=list(cw=cw, cw_preset=exp, preset="poisson", xlab=xlab))                                                   
    gSignalConnect(btn.prob.exponential, "clicked", 
                  handler_prob_preset,
-                 data=list(cw=cw, cw_preset=exp, preset="exponential"))  
+                 data=list(cw=cw, cw_preset=exp, preset="exponential", xlab=xlab))  
    exp 
 }  
 
 
 # handler for probability presets 
-handler_prob_preset <- function(w, data, ...){
+handler_prob_preset <- function(w, data, ...)
+{
    cw <- data$cw   
    pr <- data$cw_preset
    probs <- gget(cw, "probs") 
@@ -332,13 +348,14 @@ handler_prob_preset <- function(w, data, ...){
      probs <- dexp(seq_along(probs), rate)
      gset(cw, "probs", probs)
    }
-   modifier_draw_probs(cw)
+   modifier_draw_probs(cw, xlab=data$xlab)
    handler_update_active_att_probability_value(NULL, data=data) 
    return(TRUE) 
 }   
 
 
-cw_draw_one_sample <- function(cw1, cw2){
+cw_draw_one_sample <- function(cw1, cw2)
+{
   vbox.3 <- gtkVBox()   
   
   # draw one random sample
@@ -347,7 +364,7 @@ cw_draw_one_sample <- function(cw1, cw2){
   btn.one.sample <- gtkButton("Random sample")
   btn.one.sample$setSizeRequest(150, 25)  
   hbox.one.sample.1a <- gtkHBox()   
-  hbox.one.sample.1a$packStart(gtkLabel("Sample size"), padding=10)
+  hbox.one.sample.1a$packStart(gtkLabel("Sample size (N)"), padding=10)
   hbox.one.sample.1a$packStart(spin.sample.size, padding=5)   
   align.1a <- gtkAlignment(0,.5,0,0)
   align.1a$add(hbox.one.sample.1a)
@@ -357,12 +374,12 @@ cw_draw_one_sample <- function(cw1, cw2){
   hbox.one.sample.1$packStart(align.1a)
   hbox.one.sample.1$packStart(align.1b)  
   
-  # expected frequencies for n samples
+  # run simulation n times
   spin.runs <- gtkSpinButton(min=100, max=10000, step=100)
   btn.runs <- gtkButton("Run")
   btn.runs$setSizeRequest(150, 25) 
   hbox.one.sample.2a <- gtkHBox()  
-  hbox.one.sample.2a$packStart(gtkLabel("Expected frequencies for n runs"), padding=10)
+  hbox.one.sample.2a$packStart(gtkLabel("Run simulation n times"), padding=10)
   hbox.one.sample.2a$packStart(spin.runs, padding=5)  
   align.2a <- gtkAlignment(0,.5,0,0)
   align.2a$add(hbox.one.sample.2a)
@@ -395,7 +412,8 @@ cw_draw_one_sample <- function(cw1, cw2){
   vbox.3
 }  
 
-get_probs_from_modifier <- function(cw){
+get_probs_from_modifier <- function(cw)
+{
   probs <- gget(cw, "probs")
   min <- gget(cw, "spin.min")$getValueAsInt()
   max <- gget(cw, "spin.max")$getValueAsInt()  
@@ -405,7 +423,8 @@ get_probs_from_modifier <- function(cw){
 }
 
 
-handler_btn_one_sample <- function(w, data, ...){  
+handler_btn_one_sample <- function(w, data, ...)
+{  
   probs.no.attributes <- get_probs_from_modifier(data$cw1)
   no.attributes <- as.integer(names(probs.no.attributes))
   probs.categories <- get_probs_from_modifier(data$cw2)
@@ -424,11 +443,12 @@ handler_btn_one_sample <- function(w, data, ...){
 }
 
 
-cw_draw_many_samples <- function(cw1, cw2, cw3){
+cw_draw_many_samples <- function(cw1, cw2, cw3)
+{
   vbox.4 <- gtkVBox()
   
   #simulate many samples    
-  lbl.ns <- gtkLabel("Sample size N")
+  lbl.ns <- gtkLabel("Sample size (N)")
   ent.ns <- gtkEntry()
   ent.ns$setSizeRequest(200, 15)
   ent.ns$setText("10, 20, 30, 40, 50, 60, 70, 80") 
@@ -438,11 +458,11 @@ cw_draw_many_samples <- function(cw1, cw2, cw3){
   btn.simulate <- gtkButton("Simulate")
   btn.simulate$setSizeRequest(150, 40)
      
-  lbl.m <- gtkLabel("Minimum count")  
+  lbl.m <- gtkLabel("Minimum count (M)")  
   ent.m <- gtkEntry()
   ent.m$setSizeRequest(90, 15)  
   ent.m$setText("4, 5, 6")
-  lbl.prop <- gtkLabel("Proportion")   
+  lbl.prop <- gtkLabel("Proportion (K)")   
   ent.prop <- gtkEntry() 
   ent.prop$setSizeRequest(90, 15)    
   ent.prop$setText("0.9, 0.95, 1")  
@@ -518,21 +538,23 @@ cw_draw_many_samples <- function(cw1, cw2, cw3){
 }
 
 
-handler_btn_simulate <- function(w, data, ...){  
+handler_btn_simulate <- function(w, data, ...)
+{  
   probs.no.attributes <- get_probs_from_modifier(data$cw1)
   no.attributes <- as.integer(names(probs.no.attributes))
   probs.categories <- get_probs_from_modifier(data$cw2)
   size <- gget(data$cw3, "spin.sample.size")$getValueAsInt() 
   runs <- gget(data$cw4, "spin.runs")$getValueAsInt()   
   ns.text <- gget(data$cw4, "ent.ns")$getText()
-  #TODO ns.text # check if pattern in not number, comma etc.    
+  #TODO ns.text # check if pattern is correct using regex
   ns <- eval(parse(text=paste("c(", ns.text, ")")))
   
+  # working horse part: conducting the  simulation
   res <- sim_n_persons_x_times_many_n(probs.categories, n=ns,
                                       a=no.attributes, ap=probs.no.attributes,
                                       times=runs, progress="tk")
   gset(data$cw4, "simulation.data", res)
-  gget(data$cw4, "btn.redraw")$setSensitive(T)
+  gget(data$cw4, "btn.redraw")$setSensitive(TRUE)
   handler_btn_redraw(NULL, data)
   return(TRUE)
 }
@@ -553,13 +575,18 @@ handler_btn_redraw <- function(w, data, ...)
   
   res <- gget(data$cw4, "simulation.data") 
   if (is.null(res))
-    warning("You need to simulate data first")
+    warning("You need to simulate data first")   # should never actually happen
   dd <- calc_probabilities(r=res, n=ns, ms=ms, min.props=min.props)
   dd$m <- as.factor(dd$m) 
+  dd$min.prop.k <- paste0("K=", dd$min.prop)
   g <- ggplot(dd, aes_string(x="n", y="prob", group="m", shape="m", color="m")) +  
-              geom_line() + geom_point() +
+              geom_line() + 
+              geom_point() +
               scale_y_continuous("Probability", limits=c(0,1)) + 
-              scale_x_continuous("Sample size N") + facet_grid(. ~ min.prop) 
+              scale_x_continuous("Sample size N") + 
+              facet_grid(. ~ min.prop.k) +
+              scale_color_discrete(name="M: Min.\ncount") + 
+              scale_shape_discrete(name="M: Min.\ncount")
   set_cairo_device(data$cw4)
   print(g)    
   return(TRUE)
@@ -585,9 +612,9 @@ gridsampler <- function()
   hbox <- gtkHBox()
     
   ### left pane
-  mod.1 <- modifier_cwidget(max=30)
+  mod.1 <- modifier_cwidget(max=30, xlab="No. of attributes")
   gget(mod.1, "da")$setSizeRequest(200, 250)
-  preset.1 <- probability_preset(mod.1)
+  preset.1 <- probability_preset(mod.1, xlab="No. of attributes")
   vbox.1 <- gtkVBox()
   vbox.1$packStart(mod.1, padding=5)
   vbox.1$packStart(preset.1, padding=20) 
@@ -601,9 +628,9 @@ gridsampler <- function()
   frame.left$add(valign.1)
   
   ### middle pane
-  mod.2 <- modifier_cwidget(max=100)
+  mod.2 <- modifier_cwidget(max=100, xlab="Category")
   gget(mod.2, "da")$setSizeRequest(350, 250) 
-  preset.2 <- probability_preset(mod.2) 
+  preset.2 <- probability_preset(mod.2, xlab="Category") 
   gget(mod.2, "spin.min")$setSensitive(F)  # minimal number set to 1
   vbox.2 <- gtkVBox() 
   vbox.2$packStart(mod.2, padding=5)
@@ -624,7 +651,7 @@ gridsampler <- function()
   vbox.right$add(vbox.3) 
   vbox.right$add(gtkHSeparator())     
   vbox.right$add(vbox.4) 
-  lbl.text <- '<span font_weight = "bold">  3. Simulate sample  </span>'
+  lbl.text <- '<span font_weight = "bold">  3. Simulate </span>'
   lbl.3 <- gtkLabel()
   lbl.3$setMarkup(lbl.text)   
   frame.right <- gtkFrame("")
@@ -643,14 +670,14 @@ gridsampler <- function()
   win$add(hpane.1) 
   
   # add information box
-  info.image <- gtkImageNewFromStock(GTK_STOCK_INFO, "GTK_ICON_SIZE_LARGE_TOOLBAR")
-  info.btn <- gtkButton()
-  info.btn$setImage(info.image)
-  info.btn$setRelief("GTK_RELIEF_NONE")   
-  info.btn$setSizeRequest(60,60)
-  info.align <- gtkAlignment(0,1,0,1)
-  info.align$add(info.btn)
-  vbox.1$packStart(info.align, padding=0)   
+  # info.image <- gtkImageNewFromStock(GTK_STOCK_INFO, "GTK_ICON_SIZE_LARGE_TOOLBAR")
+  # info.btn <- gtkButton()
+  # info.btn$setImage(info.image)
+  # info.btn$setRelief("GTK_RELIEF_NONE")   
+  # info.btn$setSizeRequest(60,60)
+  # info.align <- gtkAlignment(0,1,0,1)
+  # info.align$add(info.btn)
+  # vbox.1$packStart(info.align, padding=0)   
   
   # show all
   win$showAll()
@@ -662,8 +689,8 @@ gridsampler <- function()
   modifier_da_as_cairo_plus_device_number(vbox.4)  
   
   # initial drawing
-  modifier_draw_probs(mod.1)
-  modifier_draw_probs(mod.2)
+  modifier_draw_probs(mod.1, xlab="Number of attributes")
+  modifier_draw_probs(mod.2, xlab="Category")
   
   # set initial values
   gget(mod.1, "spin.min")$setValue(4) 

@@ -13,22 +13,33 @@
 #' @export
 #' @keywords internal
 #' 
+#' @examples 
+#' # draw from exponential distribution
+#' p <- dexp(1:20, rate=.1)
+#' sim_one_person(p, a=10)
+#' 
 sim_one_person <- function(prob, a=10)
 {  
   if (a > sum(prob > 0))
     stop("The number of attributes 'a' must not exceed ",
          "the number of categories, i.e. length of 'prob'", call. = FALSE)
-  d.all <- NULL
-  for (i in 1:a) {
-    prob <- prob / sum(prob)                # norm sum of probabilities to 1
-    d <- stats::rmultinom(1, size = 1, prob=prob)  # draw from multinomial distribution
-    d.index <- which(d == 1) 
-    prob[d.index] <- 0  
-    d.all <- cbind(d.all, d) 
-  }
-  apply(d.all, 1, sum)    
+  # d.all <- NULL
+  # for (i in 1:a) {
+  #   prob <- prob / sum(prob)                # norm sum of probabilities to 1
+  #   d <- stats::rmultinom(1, size = 1, prob=prob)  # draw from multinomial distribution
+  #   d.index <- which(d == 1) 
+  #   prob[d.index] <- 0  
+  #   d.all <- cbind(d.all, d) 
+  # }
+  # apply(d.all, 1, sum)    
+  
+  # simpler code
+  ii <- sample(seq_along(prob), size = a, prob=prob, replace = FALSE)
+  res <- rep(0, length(prob))
+  res[ii] <- 1
+  res
 } 
-# sim_one_person(dexp(1:30, rate=.05), a=10)
+ 
 
 
 
@@ -55,8 +66,10 @@ draw_n_person_sample <- function(prob, n, a=10, ap=rep(1/length(a), length(a)))
   res <- sim_n_persons(prob, n, a, ap)
   df <- data.frame(no=seq_along(res), cat=res)
   g <- ggplot(df, aes_string(x="no", y="cat")) + 
-              geom_line() + geom_point() +
-              scale_y_continuous(limits = c(0, max(res)))  
+              geom_line() + 
+              geom_point() +
+              scale_x_continuous(name="Category") +
+              scale_y_continuous(name="Counts", limits = c(0, max(res))) 
   print(g)
 }
 #draw_n_person_sample(dexp(1:30, rate=.05), 100, a=10)
@@ -83,14 +96,17 @@ expected_frequencies <- function(r)
   df.melted <- reshape2::melt(df, id.vars="cat")
   df.melted$variable <- as.factor(df.melted$variable) 
   mval <- max(df.melted$value)   
-  #s <- subset(df.melted, variable != "50%")  # avoid NSE as it causes CRAN check note
+  #s <- subset(df.melted, variable != "50%")  # avoid NSE as it causes a note in CRAN check 
   s <- df.melted[df.melted$variable != "50%", , drop=FALSE]
   g <- ggplot(s, 
               aes_string(x="cat", y="value", group="variable", shape="variable")) +  
-              geom_line() + geom_point() +
+              geom_line() + 
+              geom_point() +
               geom_line(data=subset(df.melted, variable=="50%"), col="blue") +
               geom_point(data=subset(df.melted, variable=="50%"), col="blue") +
-              scale_y_continuous("Probability", limits=c(0, mval))  
+              scale_y_continuous("Counts", limits=c(0, mval)) +
+              scale_x_continuous(name="Category") +
+              scale_shape_discrete(breaks = levels(s$variable), name="Percentiles")
   g
 }                     
 # r <- sim_n_persons_x_times(dexp(1:30, rate=.05), n=50, a=5:7, ap=1:3, 100)  
@@ -99,7 +115,7 @@ expected_frequencies <- function(r)
 
 
 # Wahrscheinlichkeit, dass mindestens prop Prozent der Kategorien mindestens  
-# m mal gennant wurden. 
+# m mal genannt wurden. 
 prob_categories <- function(r, m, min.prop=1)
 {
   s <- apply(r, 1, function(x, min.prop){    # does the sample render more than 
@@ -156,21 +172,23 @@ calc_probabilities <- function(r, n, ms, min.props=c(.9, .95, .99))
 
 
 
-draw_multiple_n_persons_x_times <- function(prob, n=seq(10, 80, by=10), a=7, 
-                               ap=rep(1/length(a), length(a)), times=100,
-                               progress="text", ms, min.props=c(.9, .95, .99))
-{
- res <- sim_n_persons_x_times_many_n(prob=prob, n=n, a=a, ap=ap, 
-                                     times=times, progress=progress)  
- dd <- calc_probabilities(r=res, n=n, ms=ms, min.props=min.props)
- dd$m <- as.factor(dd$m) 
-  g <- ggplot(dd, aes_string(x="n", y="prob", group="m", shape="m")) +  
-         geom_line() + 
-         geom_point() +
-         scale_y_continuous("Probability", limits=c(0,1)) + 
-         scale_x_continuous("Sample size N") + facet_grid(. ~ min.prop)
-  g  
-}
+# draw_multiple_n_persons_x_times <- function(prob, n=seq(10, 80, by=10), a=7, 
+#                                ap=rep(1/length(a), length(a)), times=100,
+#                                progress="text", ms, min.props=c(.9, .95, .99))
+# {
+#  res <- sim_n_persons_x_times_many_n(prob=prob, n=n, a=a, ap=ap, 
+#                                      times=times, progress=progress)  
+#  dd <- calc_probabilities(r=res, n=n, ms=ms, min.props=min.props)
+#  dd$m <- as.factor(dd$m) 
+#   g <- ggplot(dd, aes_string(x="n", y="prob", group="m", shape="m")) +  
+#          geom_line() + 
+#          geom_point() +
+#          scale_y_continuous("Probability", limits=c(0,1)) + 
+#          scale_x_continuous("Sample size N") + 
+#          facet_grid(. ~ min.prop)  +
+#          scale_shape_discrete(name="test")
+#   g  
+# }
 
 # g <- draw_multiple_n_persons_x_times(dexp(1:30, .05), n=seq(10, 80, by=10),
 #                                       a=7, ms=1:5, min.prop=.95) 
