@@ -45,14 +45,14 @@ By reviewing the corresponding probabilities calculated by measn of simulation (
 
 To install the software from github use the `devtools` package.
 
-```   
+```{r eval=FALSE}
 library(devtools)
 install_github("gridsampler/markheckmann") 
 ```
 
 To load and start the GUI type
 
-```   
+```{r eval=FALSE}
 library(gridsampler)
 gridsampler()
 ```
@@ -98,7 +98,7 @@ All paramters can either given as numeric values separated by commas or using th
 
 The following image shows an enlargement of the lower part of pane 3.
 
-![](gridsampler_pane_3.png "gridsampler result interpretation")
+![](gridsampler_pane_3a.png "gridsampler result interpretation")
 
 The graphic contains three facets, with one facet for each requested proportion value. In each facet, the x-axis shows the simulated sample sizes N and the y-axis the probability of getting the specific result. For each value M, i.e. the minimal number of constructs contained in a category, a separate line is drawn, as indicated in the legend on the right. To answer the question 
 

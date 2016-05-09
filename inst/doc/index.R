@@ -8,3 +8,11 @@ knitr::opts_chunk$set(
   fig.align = "center"
 )
 
+## ----eval=FALSE----------------------------------------------------------
+#  library(devtools)
+#  install_github("gridsampler/markheckmann")
+
+## ----eval=FALSE----------------------------------------------------------
+#  library(gridsampler)
+#  gridsampler()
+
