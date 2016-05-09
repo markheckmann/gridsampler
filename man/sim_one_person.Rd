@@ -14,5 +14,11 @@ sim_one_person(prob, a = 10)
 \description{
 Simulate a single grid
 }
+\examples{
+# draw from exponential distribution
+p <- dexp(1:20, rate=.1)
+sim_one_person(p, a=10)
+
+}
 \keyword{internal}
 
