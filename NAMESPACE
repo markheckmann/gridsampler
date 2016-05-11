@@ -2,5 +2,4 @@
 
 export(gridsampler)
 export(sim_one_person)
-import(RGtk2)
-import(ggplot2)
+import(shiny)
