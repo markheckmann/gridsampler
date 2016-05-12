@@ -5,7 +5,7 @@ shinyUI(
   #### Main tab ####
     tabPanel("Simulate", icon = icon("tasks"),
       wellPanel(
-      fixedPage(
+      fluidPage(
         #### Column 1 ####
         column(4,
           fluidRow(
@@ -31,23 +31,26 @@ shinyUI(
               fluidRow(
                 inputPanel(
                   column(12,
-                    actionButton("1_uni", "Uniform")
+                    actionButton("1_uni", "Uniform", width = "100px")
                   )
                 ),
                 tags$br(),
                 inputPanel(
-                  column(12, actionButton("1_norm", "Normal")),
-                  column(12, numericInput("1_norm_mean", "Mean", value = 0)),
-                  column(12, numericInput("1_norm_sd", "SD", value = 1))
+                  fluidRow(
+                  column(6, actionButton("1_norm", "Normal", width = "100px")),
+                  column(6,
+                         numericInput("1_norm_mean", "Mean", value = 0),
+                         numericInput("1_norm_sd", "SD", value = 1))
+                  )
                 ),
                 tags$br(),
                 inputPanel(
-                  column(6, tags$br(), actionButton("1_pois", "Poisson")),
+                  column(6, tags$br(), actionButton("1_pois", "Poisson", width = "100px")),
                   column(6, numericInput("1_pois_lambda", "Lamda", value = 6))
                 ),
                 tags$br(),
                 inputPanel(
-                  column(6, tags$br(), actionButton("1_exp", "Exponential")),
+                  column(6, tags$br(), actionButton("1_exp", "Exponential", width = "100px")),
                   column(6, numericInput("1_exp_rate", "Rate", value = 0.1))
                 )
               )
