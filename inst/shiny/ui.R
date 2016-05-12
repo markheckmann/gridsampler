@@ -4,6 +4,7 @@ shinyUI(
   navbarPage(title = "gridsampler", inverse = T,
   #### Main tab ####
     tabPanel("Simulate", icon = icon("tasks"),
+      wellPanel(
       fixedPage(
         #### Column 1 ####
         column(4,
@@ -29,15 +30,15 @@ shinyUI(
               h3("Probability Presets"),
               fluidRow(
                 inputPanel(
-                  column(6,
+                  column(12,
                     actionButton("1_uni", "Uniform")
                   )
                 ),
                 tags$br(),
                 inputPanel(
-                  column(4, tags$br(), actionButton("1_norm", "Normal")),
-                  column(3, numericInput("1_norm_mean", "Mean", value = 0)),
-                  column(3, numericInput("1_norm_sd", "SD", value = 1))
+                  column(12, actionButton("1_norm", "Normal")),
+                  column(12, numericInput("1_norm_mean", "Mean", value = 0)),
+                  column(12, numericInput("1_norm_sd", "SD", value = 1))
                 ),
                 tags$br(),
                 inputPanel(
@@ -60,7 +61,7 @@ shinyUI(
         column(4,
                h2("3. Simulate")
                )
-      )
+      ))
     ),
   #### About tab ####
   tabPanel("About", icon = icon("question-circle"))
