@@ -10,23 +10,23 @@ shinyUI(
         column(4,
                h3("1. Number of Attributes per Person"),
                fluidRow(
-                   column(6,
-                     numericInput("minimum1", "Minimum", value = 4, min = 1, max = 100, step = 1, width = "100%")
-                   ),
-                   column(6,
-                     numericInput("maximum1", "Maximum", value = 8, min = 1, max = 100, step = 1, width = "100%")
-                   )
+                column(6,
+                  numericInput("minimum1", "Minimum", value = 4, min = 1, max = 100, step = 1, width = "100%")
+                ),
+                column(6,
+                  numericInput("maximum1", "Maximum", value = 8, min = 1, max = 100, step = 1, width = "100%")
+                )
                ),
               plotOutput("plot1"), checkboxInput("plot1_fixy", "Fix y to [0, 1]", value = F),
-          fluidRow(
-              column(6,
-                     numericInput("attribute_num", "No. of Attributes",
-                                  value = 1, min = 1, max = 100, step = 1, width = "100%")
-              ),
-              column(6,
-                     numericInput("probability1", "Probability",
-                                  value = 0.05, min = 0.001, max = 1, step = 0.01, width = "100%")
-              ),
+              fluidRow(
+                column(6,
+                       numericInput("attribute_num", "No. of Attributes",
+                                    value = 1, min = 1, max = 100, step = 1, width = "100%")
+                ),
+                column(6,
+                       numericInput("probability1", "Probability",
+                                    value = 0.05, min = 0.001, max = 1, step = 0.01, width = "100%")
+              )),
               h4("Probability Presets"),
               fluidRow(
                 column(12, selectInput("preset_types1", "Type of Probability",
@@ -44,7 +44,6 @@ shinyUI(
                                  )),
                 column(12, actionButton("preset_go1", "Apply Preset", width = "100%"))
               )
-            )
         ),
         #### Column 2 ####
         column(4,
@@ -58,6 +57,7 @@ shinyUI(
                  )
                ),
                plotOutput("plot2"), checkboxInput("plot2_fixy", "Fix y to [0, 1]", value = F),
+               fluidRow(
                  column(6,
                         numericInput("category", "Category",
                                      value = 1, min = 1, max = 100, step = 1, width = "100%")
@@ -65,9 +65,9 @@ shinyUI(
                  column(6,
                         numericInput("probability2", "Probability",
                                      value = 0.11, min = 0.001, max = 1, step = 0.01, width = "100%")
-                 ),
+                )),
                h4("Probability Presets"),
-               fluidRow(
+                fluidRow(
                  column(12, selectInput("preset_types2", "Type of Probability",
                                         choices = c("Uniform", "Normal", "Poisson", "Exponential"),
                                         selected = "Normal", selectize = F, width = "80%")),
@@ -99,6 +99,7 @@ shinyUI(
                )
       ))
     ),
+
   #### About tab ####
   tabPanel("About", icon = icon("question-circle"))
   )
