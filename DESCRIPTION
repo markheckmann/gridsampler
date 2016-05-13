@@ -9,8 +9,8 @@ Description: Simulation tool to facilitate determination of
     required sample size to achieve category saturation
     for studies using multiple repertory grids in conjunction with
     content analysis.
-Version: 0.3
-Date: 2016-05-08
+Version: 0.4
+Date: 2016-05-13
 Imports:
     shiny,
     ggplot2,

@@ -7,9 +7,9 @@
 sim_one_person(prob, a = 10)
 }
 \arguments{
-\item{prob}{Probability to draw a construct from a certain category}
+\item{prob}{Probability to draw a construct from a certain category.}
 
-\item{a}{Number of constructs to be sampled}
+\item{a}{Number of constructs to be sampled.}
 }
 \description{
 Simulate a single grid
@@ -20,5 +20,5 @@ p <- dexp(1:20, rate=.1)
 sim_one_person(p, a=10)
 
 }
-\keyword{internal}
+\keyword{external}
 
