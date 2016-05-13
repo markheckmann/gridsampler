@@ -9,6 +9,7 @@ shinyUI(
         #### Column 1 ####
         column(4,
                h3("1. Number of Attributes per Person"),
+               helpText("This is a helpful description of this column"),
                fluidRow(
                 column(6,
                   numericInput("minimum1", "Minimum", value = 4, min = 1, max = 100, step = 1, width = "100%")
@@ -29,9 +30,9 @@ shinyUI(
               )),
               h4("Probability Presets"),
               fluidRow(
-                column(12, selectInput("preset_types1", "Type of Probability",
+                column(7, offset = 0, selectInput("preset_types1", "Type of Probability",
                              choices = c("Uniform", "Normal", "Poisson", "Exponential"),
-                             selected = "Normal", selectize = F, width = "80%")),
+                             selected = "Normal", selectize = F, width = "150px")),
                 conditionalPanel("input.preset_types1 == 'Normal'",
                                  column(6, numericInput("1_norm_mean", "Mean", value = 0, width = "100%")),
                                  column(6, numericInput("1_norm_sd", "SD", value = 1, width = "100%")
@@ -48,6 +49,7 @@ shinyUI(
         #### Column 2 ####
         column(4,
                h3("2. Probability of Each Category"),
+               helpText("This is a most amusing anecdote about the most daazling pair of trousers"),
                fluidRow(
                  column(6,
                         numericInput("minimum2", "Minimum", value = 4, min = 1, step = 1, width = "100%")
@@ -68,9 +70,9 @@ shinyUI(
                 )),
                h4("Probability Presets"),
                 fluidRow(
-                 column(12, selectInput("preset_types2", "Type of Probability",
+                 column(7, offset = 0, selectInput("preset_types2", "Type of Probability",
                                         choices = c("Uniform", "Normal", "Poisson", "Exponential"),
-                                        selected = "Normal", selectize = F, width = "80%")),
+                                        selected = "Exponential", selectize = F, width = "150px")),
                  conditionalPanel("input.preset_types2 == 'Normal'",
                                   column(6, numericInput("2_norm_mean", "Mean", value = 0, width = "100%")),
                                   column(6, numericInput("2_norm_sd", "SD", value = 1, width = "100%")
@@ -101,6 +103,7 @@ shinyUI(
     ),
 
   #### About tab ####
-  tabPanel("About", icon = icon("question-circle"))
+  tabPanel("About", icon = icon("question-circle"),
+           h1("This is gridsampler. It samples grids."))
   )
 )
