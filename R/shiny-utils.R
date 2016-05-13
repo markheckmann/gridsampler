@@ -9,7 +9,7 @@
 #' gridsampler()
 #' }
 gridsampler <- function() {
-  appDir <- system.file("shiny", package = "gridsampler")
+  appDir <- paste0(system.file(package = "gridsampler"), "/shiny")
   if (appDir == "") {
     stop("Could not find example directory. Try re-installing `gridsampler`.", call. = FALSE)
   }

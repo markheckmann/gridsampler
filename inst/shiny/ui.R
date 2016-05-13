@@ -36,8 +36,8 @@ shinyUI(
                        actionButton("1_exp", "Exponential", width = "100px")
                        ),
                 column(6,
-                       fluidRow(numericInput("1_norm_mean", "Mean", value = 0),
-                                numericInput("1_norm_sd", "SD", value = 1)
+                       fluidRow(numericInput("1_norm_mean", "Mean", value = 0, width = "80%"),
+                                numericInput("1_norm_sd", "SD", value = 1, width = "80%")
                                 ),
                        numericInput("1_pois_lambda", "Lamda", value = 6),
                        numericInput("1_exp_rate", "Rate", value = 0.1)
@@ -101,8 +101,8 @@ shinyUI(
                           actionButton("2_exp", "Exponential", width = "100px")
                    ),
                    column(6,
-                          fluidRow(numericInput("2_norm_mean", "Mean", value = 0),
-                                   numericInput("2_norm_sd", "SD", value = 1)
+                          fluidRow(numericInput("2_norm_mean", "Mean", value = 0, width = "80%"),
+                                   numericInput("2_norm_sd", "SD", value = 1, width = "80%")
                           ),
                           numericInput("2_pois_lambda", "Lamda", value = 6),
                           numericInput("2_exp_rate", "Rate", value = 0.1)
