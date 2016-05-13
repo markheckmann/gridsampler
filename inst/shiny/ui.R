@@ -11,20 +11,20 @@ shinyUI(
           fluidRow(
               h2("1. Number of Attributes per Person"),
               column(6,
-                numericInput("minimum", "Minimum", value = 4, min = 1, max = 100, step = 1, width = "100%")
+                numericInput("minimum1", "Minimum", value = 4, min = 1, max = 100, step = 1, width = "100%")
               ),
               column(6,
-                numericInput("maximum", "Maximum", value = 8, min = 1, max = 100, step = 1, width = "100%")
+                numericInput("maximum1", "Maximum", value = 8, min = 1, max = 100, step = 1, width = "100%")
               )
           ),
-              plotOutput("plot1"),
+              plotOutput("plot1"), checkboxInput("plot1_fixy", "Fix y to [0, 1]", value = F),
           fluidRow(
               column(6,
                      numericInput("attribute_num", "No. of Attributes",
                                   value = 1, min = 1, max = 100, step = 1, width = "100%")
               ),
               column(6,
-                     numericInput("probability", "Probability",
+                     numericInput("probability1", "Probability",
                                   value = 0.05, min = 0.001, max = 1, step = 0.01, width = "100%")
               ),
               h3("Probability Presets"),
@@ -38,7 +38,9 @@ shinyUI(
                 column(6,
                        fluidRow(numericInput("1_norm_mean", "Mean", value = 0),
                                 numericInput("1_norm_sd", "SD", value = 1)
-                                )
+                                ),
+                       numericInput("1_pois_lambda", "Lamda", value = 6),
+                       numericInput("1_exp_rate", "Rate", value = 0.1)
                        )
               )
               # fluidRow(
@@ -71,8 +73,43 @@ shinyUI(
         ),
         #### Column 2 ####
         column(4,
-               h2("2. Probability of Each Category")
+               fluidRow(
+                 h2("2. Probability of Each Category"),
+                 column(6,
+                        numericInput("minimum2", "Minimum", value = 4, min = 1, step = 1, width = "100%")
+                 ),
+                 column(6,
+                        numericInput("maximum2", "Maximum", value = 8, min = 1, step = 1, width = "100%")
+                 )
                ),
+               plotOutput("plot2"), checkboxInput("plot2_fixy", "Fix y to [0, 1]", value = F),
+               fluidRow(
+                 column(6,
+                        numericInput("category", "Category",
+                                     value = 1, min = 1, max = 100, step = 1, width = "100%")
+                 ),
+                 column(6,
+                        numericInput("probability2", "Probability",
+                                     value = 0.11, min = 0.001, max = 1, step = 0.01, width = "100%")
+                 ),
+                 h3("Probability Presets"),
+                 fluidRow(
+                   column(6,
+                          actionButton("2_uni", "Uniform", width = "100px"),
+                          actionButton("2_norm", "Normal", width = "100px"),
+                          actionButton("2_pois", "Poisson", width = "100px"),
+                          actionButton("2_exp", "Exponential", width = "100px")
+                   ),
+                   column(6,
+                          fluidRow(numericInput("2_norm_mean", "Mean", value = 0),
+                                   numericInput("2_norm_sd", "SD", value = 1)
+                          ),
+                          numericInput("2_pois_lambda", "Lamda", value = 6),
+                          numericInput("2_exp_rate", "Rate", value = 0.1)
+                   )
+                 )
+               )
+            ),
         #### Column 3 ####
         column(4,
                h2("3. Simulate")
