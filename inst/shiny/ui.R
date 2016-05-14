@@ -6,9 +6,9 @@ shinyUI(navbarPage(title = "gridsampler", inverse = T,
       wellPanel(
       fluidPage(
         #### Column 1 ####
-        column(4,
+        column(3,
               h3("1. Number of Attributes per Person"),
-              helpText("This is a helpful description of this column"),
+              helpText("This is a helpful description of this column with adequate amounts of information"),
               fluidRow(
                 column(6, numericInput("minimum1", "Minimum",
                                        value = 4, min = 1, max = 100, step = 1, width = "100%")),
@@ -49,7 +49,7 @@ shinyUI(navbarPage(title = "gridsampler", inverse = T,
         #  ))
         ),
         #### Column 2 ####
-        column(4,
+        column(3,
                h3("2. Probability of Each Category"),
                helpText("This is an amusing anecdote about the most dazzling pair of trousers"),
                fluidRow(
@@ -86,7 +86,7 @@ shinyUI(navbarPage(title = "gridsampler", inverse = T,
         )
         ),
         #### Column 3 ####
-        column(4,
+        column(6,
                h3("3. Simulate"),
                helpText("This is a note about how things happen here"),
                fluidRow(
@@ -122,5 +122,10 @@ shinyUI(navbarPage(title = "gridsampler", inverse = T,
 
   #### About tab ####
   tabPanel("About", icon = icon("question-circle"),
-           h1("This is gridsampler. It samples grids."))
+           fluidPage(
+             wellPanel("This is just a placeholder for the actual about section"),
+             #includeHTML(system.file("doc", "index.html", package = "gridsampler")) # messes up layout
+             includeMarkdown("text/about.md")
+           )
+  )
 ))

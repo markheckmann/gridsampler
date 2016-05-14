@@ -7,9 +7,18 @@
 \title{\pkg{gridsampler} contains tools to simulate the sampling of
 multiple repertory grids.}
 \usage{
-gridsampler()
+gridsampler(display.mode = "auto",
+  launch.browser = getOption("shiny.launch.browser", interactive()))
 
-gridsampler()
+gridsampler(display.mode = "auto",
+  launch.browser = getOption("shiny.launch.browser", interactive()))
+}
+\arguments{
+\item{display.mode}{\code{auto} by default, can also be \code{showcase}.
+See \link[shiny]{runApp}.}
+
+\item{launch.browser}{Boolean, set \code{TRUE} to open the app in the browser.
+See \link[shiny]{runApp}.}
 }
 \value{
 A shiny app
