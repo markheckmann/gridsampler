@@ -7,7 +7,17 @@ shinyServer(function(input, output, session) {
  })
 
  output$plot2 <- renderPlot({
-   ggplot(data = data.frame(x = 1:10, y = 10:1), aes(x = x, y = y)) +
+   ggplot(data = data.frame(x = 1:10, y = 1:10), aes(x = x, y = y)) +
+     geom_point()
+ })
+
+ output$plot3_1 <- renderPlot({
+   ggplot(data = data.frame(x = 1:10, y = (1:10)^-1), aes(x = x, y = y)) +
+     geom_point()
+ })
+
+ output$plot3_2 <- renderPlot({
+   ggplot(data = data.frame(x = 1:10, y = (1:10)^2), aes(x = x, y = y)) +
      geom_point()
  })
 })
