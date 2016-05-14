@@ -1,7 +1,6 @@
 #### Shiny UI definition ####
 
-shinyUI(
-  navbarPage(title = "gridsampler", inverse = T,
+shinyUI(navbarPage(title = "gridsampler", inverse = T,
   #### Main tab ####
     tabPanel("Simulate", icon = icon("tasks"),
       wellPanel(
@@ -27,29 +26,30 @@ shinyUI(
               )),
               h4("Probability Presets"),
               fluidRow(
-                column(6, offset = 0, selectInput("preset_types1", "Type of Probability",
+                column(6, selectInput("preset_types1", "Type of Probability",
                              choices = c("Uniform", "Normal", "Poisson", "Exponential"),
-                             selected = "Normal", selectize = F, width = "150px")),
-                column(6, tags$br(), actionButton("preset_go1", "Apply Preset", width = "100%"))
-              ),
-              fluidRow(
-                conditionalPanel("input.preset_types1 == 'Normal'",
-                                 column(6, numericInput("1_norm_mean", "Mean", value = 0, width = "100%")),
-                                 column(6, numericInput("1_norm_sd", "SD", value = 1, width = "100%")
-                                 )),
-                conditionalPanel("input.preset_types1 == 'Poisson'",
-                                 column(6, numericInput("1_pois_lambda", "Lamda", value = 6)
-                                 )),
-                conditionalPanel("input.preset_types1 == 'Exponential'",
-                                 column(6, numericInput("1_exp_rate", "Rate", value = 0.1)
-                                 ))#,
-               # column(12, actionButton("preset_go1", "Apply Preset", width = "100%"))
+                             selected = "Normal", selectize = F),
+                       actionButton("preset_go1", "Apply Preset", width = "100%")),
+                column(6,tags$br(),
+                       conditionalPanel("input.preset_types1 == 'Normal'",
+                                        fluidRow(
+                                        column(6, numericInput("1_norm_mean", "Mean", value = 0)),
+                                        column(6, numericInput("1_norm_sd", "SD", value = 1)
+                                        ))),
+                       conditionalPanel("input.preset_types1 == 'Poisson'",
+                                        numericInput("1_pois_lambda", "Lamda", value = 6)
+                                        ),
+                       conditionalPanel("input.preset_types1 == 'Exponential'",
+                                       numericInput("1_exp_rate", "Rate", value = 0.1)
+                                        )
+                       )
               )
+        #  ))
         ),
         #### Column 2 ####
         column(4,
                h3("2. Probability of Each Category"),
-               helpText("This is a most amusing anecdote about the most daazling pair of trousers"),
+               helpText("This is a most amusing anecdote about the most dazzling pair of trousers"),
                fluidRow(
                  column(6, numericInput("minimum2", "Minimum", value = 4, min = 1, step = 1, width = "100%")),
                  column(6, numericInput("maximum2", "Maximum", value = 8, min = 1, step = 1, width = "100%"))
@@ -63,22 +63,25 @@ shinyUI(
                                        value = 0.11, min = 0.001, max = 1, step = 0.01, width = "100%"))
                 ),
                h4("Probability Presets"),
-                fluidRow(
-                 column(7, offset = 0, selectInput("preset_types2", "Type of Probability",
-                                        choices = c("Uniform", "Normal", "Poisson", "Exponential"),
-                                        selected = "Exponential", selectize = F, width = "150px")),
-                 conditionalPanel("input.preset_types2 == 'Normal'",
-                                  column(6, numericInput("2_norm_mean", "Mean", value = 0, width = "100%")),
-                                  column(6, numericInput("2_norm_sd", "SD", value = 1, width = "100%")
-                                  )),
-                 conditionalPanel("input.preset_types2 == 'Poisson'",
-                                  column(6, numericInput("2_pois_lambda", "Lamda", value = 6)
-                                  )),
-                 conditionalPanel("input.preset_types2 == 'Exponential'",
-                                  column(6, numericInput("2_exp_rate", "Rate", value = 0.1)
-                                  )),
-                 column(12, actionButton("preset_go2", "Apply Preset", width = "100%"))
+               fluidRow(
+               column(6, selectInput("preset_types2", "Type of Probability",
+                                     choices = c("Uniform", "Normal", "Poisson", "Exponential"),
+                                     selected = "Normal", selectize = F),
+                      actionButton("preset_go2", "Apply Preset", width = "100%")),
+               column(6,tags$br(),
+                      conditionalPanel("input.preset_types2 == 'Normal'",
+                                       fluidRow(
+                                         column(6, numericInput("2_norm_mean", "Mean", value = 0)),
+                                         column(6, numericInput("2_norm_sd", "SD", value = 1)
+                                         ))),
+                      conditionalPanel("input.preset_types2 == 'Poisson'",
+                                       numericInput("2_pois_lambda", "Lamda", value = 6)
+                      ),
+                      conditionalPanel("input.preset_types1 == 'Exponential'",
+                                       numericInput("2_exp_rate", "Rate", value = 0.1)
+                      )
                )
+        )
         ),
         #### Column 3 ####
         column(4,
@@ -96,7 +99,8 @@ shinyUI(
                tags$br(),
                fluidRow(
                  column(9,
-                        textInput("sample_size2", "Sample Size (N)", placeholder = "10, 20, 30")
+                        textInput("sample_size2", "Sample Size (N)", placeholder = "10, 20, 30"),
+                        numericInput("runs_per_sample", "Simulation Runs For Each Sample", value = 100, step = 1)
                  ),
                  column(3,
                         actionButton("simulate", "Simulate")
@@ -113,5 +117,4 @@ shinyUI(
   #### About tab ####
   tabPanel("About", icon = icon("question-circle"),
            h1("This is gridsampler. It samples grids."))
-  )
-)
+))
