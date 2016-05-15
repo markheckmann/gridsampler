@@ -21,7 +21,7 @@ shinyUI(navbarPage(title = "gridsampler", inverse = T,
               checkboxInput("plot1_fixy", "Fix y to [0, 1]", value = F),
               fluidRow(
                 column(6, numericInput("attribute_num", "No. of Attributes",
-                                    value = 1, min = 1, max = 100, step = 1, width = "100%")
+                                    value = 4, min = 4, max = 8, step = 1, width = "100%")
                 ),
                 column(6, numericInput("probability1", "Probability",
                                     value = 0.05, min = 0.001, max = 1, step = 0.01, width = "100%")
@@ -32,7 +32,7 @@ shinyUI(navbarPage(title = "gridsampler", inverse = T,
                              choices = c("Uniform", "Normal", "Poisson", "Exponential"),
                              selected = "Normal", selectize = F),
                        actionButton("preset_go1", "Apply Preset", width = "100%")),
-                column(6,tags$br(),
+                column(6, tags$br(),
                        conditionalPanel("input.preset_types1 == 'Normal'",
                                         fluidRow(
                                         column(6, numericInput("1_norm_mean", "Mean", value = 0)),
@@ -60,9 +60,9 @@ shinyUI(navbarPage(title = "gridsampler", inverse = T,
                checkboxInput("plot2_fixy", "Fix y to [0, 1]", value = F),
                fluidRow(
                  column(6, numericInput("category", "Category",
-                                        value = 1, min = 1, max = 100, step = 1, width = "100%")),
+                                        value = 4, min = 4, max = 8, step = 1, width = "100%")),
                  column(6, numericInput("probability2", "Probability",
-                                       value = 0.11, min = 0.001, max = 1, step = 0.01, width = "100%"))
+                                       value = 0.1, min = 0, max = 1, step = 0.01, width = "100%"))
                 ),
                h4("Probability Presets"),
                fluidRow(
@@ -70,7 +70,7 @@ shinyUI(navbarPage(title = "gridsampler", inverse = T,
                                      choices = c("Uniform", "Normal", "Poisson", "Exponential"),
                                      selected = "Exponential", selectize = F),
                       actionButton("preset_go2", "Apply Preset", width = "100%")),
-               column(6,tags$br(),
+               column(6, tags$br(),
                       conditionalPanel("input.preset_types2 == 'Normal'",
                                        fluidRow(
                                          column(6, numericInput("2_norm_mean", "Mean", value = 0)),
