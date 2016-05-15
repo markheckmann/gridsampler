@@ -68,7 +68,7 @@ shinyUI(navbarPage(title = "gridsampler", inverse = T,
                fluidRow(
                column(6, selectInput("preset_types2", "Type of Probability",
                                      choices = c("Uniform", "Normal", "Poisson", "Exponential"),
-                                     selected = "Normal", selectize = F),
+                                     selected = "Exponential", selectize = F),
                       actionButton("preset_go2", "Apply Preset", width = "100%")),
                column(6,tags$br(),
                       conditionalPanel("input.preset_types2 == 'Normal'",
@@ -79,7 +79,7 @@ shinyUI(navbarPage(title = "gridsampler", inverse = T,
                       conditionalPanel("input.preset_types2 == 'Poisson'",
                                        numericInput("2_pois_lambda", "Lamda", value = 6)
                       ),
-                      conditionalPanel("input.preset_types1 == 'Exponential'",
+                      conditionalPanel("input.preset_types2 == 'Exponential'",
                                        numericInput("2_exp_rate", "Rate", value = 0.1)
                       )
                )
