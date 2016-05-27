@@ -1,10 +1,14 @@
 #### Shiny server file ####
 
 shinyServer(function(input, output, session) {
+
   #### Logic for column 1 ####
 
   # Updating input elements
   observe({
+    validate(need(!is.na(input$minimum1), "Value must be set!"))
+    validate(need(!is.na(input$maximum1), "Value must be set!"))
+
     updateNumericInput(session, "attribute_num", min = input$minimum1, max = input$maximum1)
 
     if (input$attribute_num < input$minimum1 | input$attribute_num > input$maximum1) {
@@ -40,7 +44,7 @@ shinyServer(function(input, output, session) {
   vector_attributes_final <- reactive({
     attributes <- vector_attributes()
 
-    # isolate(attributes$y[attributes$x == input$attribute_num] <- input$probability1)
+    # attributes$y[attributes$x == input$attribute_num] <- isolate(input$probability1)
 
     return(attributes)
   })
@@ -71,6 +75,9 @@ shinyServer(function(input, output, session) {
   #### Logic for column 2 ####
   # Updating input elements
   observe({
+    validate(need(!is.na(input$minimum2), "Value must be set!"))
+    validate(need(!is.na(input$maximum2), "Value must be set!"))
+
     updateNumericInput(session, "category", min = input$minimum2, max = input$maximum2)
 
     if (input$category < input$minimum2 | input$category > input$maximum2) {
