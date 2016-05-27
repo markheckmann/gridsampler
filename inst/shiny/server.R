@@ -33,7 +33,7 @@ shinyServer(function(input, output, session) {
     } else if (input$preset_types1 == "Exponential") {
       out_y <- dexp(attributes_x, rate = input$`1_exp_rate`)
     } else if (input$preset_types1 == "Uniform") {
-      out_y <- dunif(attributes_x, min = input$minimum1, max = input$maximum1)
+      out_y <- dunif(attributes_x, min = input$minimum1 - 1, max = input$maximum1)
     }
 
     out <- data.frame(x = attributes_x, y = out_y, mark = "No")
@@ -98,7 +98,7 @@ shinyServer(function(input, output, session) {
     } else if (input$preset_types2 == "Exponential") {
       out_y <- dexp(categories_x, rate = input$`2_exp_rate`)
     } else if (input$preset_types2 == "Uniform") {
-      out_y <- dunif(categories_x, min = input$minimum2, max = input$maximum2)
+      out_y <- dunif(categories_x, min = input$minimum2 - 1, max = input$maximum2)
     }
 
     out <- data.frame(x = categories_x, y = out_y, mark = "No")
