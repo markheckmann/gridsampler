@@ -55,7 +55,7 @@ shinyServer(function(input, output, session) {
 
     p <- ggplot(data = data, aes(x = x, weight = y, fill = mark)) +
           geom_bar(color = "black") +
-          scale_fill_manual(values = c(No = "black", Yes = "red"), guide = F) +
+          scale_fill_manual(values = c(No = "black", Yes = "red2"), guide = F) +
           labs(x = "Attribute", y = "P(Attribute)") +
       theme_bw() +
       theme(plot.background = element_rect(fill = "#f5f5f5"))
@@ -105,7 +105,7 @@ shinyServer(function(input, output, session) {
 
     p <- ggplot(data = data, aes(x = x, weight = y, fill = mark)) +
           geom_bar(color = "black") +
-          scale_fill_manual(values = c(No = "black", Yes = "red"), guide = F) +
+          scale_fill_manual(values = c(No = "black", Yes = "red2"), guide = F) +
           labs(x = "Categories", y = "P(Category)") +
       theme_bw() +
       theme(plot.background = element_rect(fill = "#f5f5f5"))
