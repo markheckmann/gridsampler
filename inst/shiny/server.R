@@ -57,7 +57,8 @@ shinyServer(function(input, output, session) {
           geom_bar(color = "black") +
           scale_fill_manual(values = c(No = "black", Yes = "red"), guide = F) +
           labs(x = "Attribute", y = "P(Attribute)") +
-      theme_shiny()
+      theme_bw() +
+      theme(plot.background = element_rect(fill = "#f5f5f5"))
 
     if (input$plot1_fixy) {
       p <- p + ylim(0, 1)
@@ -106,7 +107,8 @@ shinyServer(function(input, output, session) {
           geom_bar(color = "black") +
           scale_fill_manual(values = c(No = "black", Yes = "red"), guide = F) +
           labs(x = "Categories", y = "P(Category)") +
-      theme_shiny()
+      theme_bw() +
+      theme(plot.background = element_rect(fill = "#f5f5f5"))
 
     if (input$plot2_fixy) {
       p <- p + ylim(0, 1)
