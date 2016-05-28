@@ -51,9 +51,10 @@ shinyServer(function(input, output, session) {
     p <- ggplot(data = data, aes(x = x, weight = y, fill = mark)) +
           geom_bar(color = "black") +
           scale_fill_manual(values = c(No = "black", Yes = "red2"), guide = F) +
-          labs(x = "Attribute", y = "P(Attribute)") +
-      theme_bw() +
-      theme(plot.background = element_rect(fill = "#f5f5f5"))
+          labs(x = "Attribute", y = "Probability") +
+          scale_x_continuous(breaks = seq(1, 1000, 1)) +
+          theme_bw() +
+          theme(plot.background = element_rect(fill = "#f5f5f5"))
 
     if (input$plot1_fixy) {
       p <- p + ylim(0, 1)
@@ -108,9 +109,10 @@ shinyServer(function(input, output, session) {
     p <- ggplot(data = data, aes(x = x, weight = y, fill = mark)) +
           geom_bar(color = "black") +
           scale_fill_manual(values = c(No = "black", Yes = "red2"), guide = F) +
-          labs(x = "Categories", y = "P(Category)") +
-      theme_bw() +
-      theme(plot.background = element_rect(fill = "#f5f5f5"))
+          labs(x = "Categories", y = "Probability") +
+          scale_x_continuous(breaks = seq(1, 1000, 1)) +
+          theme_bw() +
+          theme(plot.background = element_rect(fill = "#f5f5f5"))
 
     if (input$plot2_fixy) {
       p <- p + ylim(0, 1)
@@ -120,6 +122,20 @@ shinyServer(function(input, output, session) {
   })
 
   #### Logic for column 3 ####
+
+  # ## col 3 1:
+  #
+  # - 2 plots
+  # random sample `sim_1_persons`: `draw_n_person_sample`
+  # run: `expected_frequencies()``
+  #
+  # ## col 3 2
+  #
+  # - simulate:
+  #   -  in gui versteckt: `handler_btn_redraw`: ggplot
+  # -
+
+
   output$plot3_1 <- renderPlot({
    ggplot(data = data.frame(x = 1:10, y = (1:10)^-1), aes(x = x, y = y)) +
      geom_point()
