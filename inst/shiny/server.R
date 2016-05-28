@@ -15,7 +15,7 @@ shinyServer(function(input, output, session) {
       updateNumericInput(session, "attribute_num", value = input$minimum1)
     }
 
-    attributes   <- vector_attributes_final()
+    attributes   <- vector_attributes()
     current_prob <- attributes$y[attributes$x == input$attribute_num]
     updateNumericInput(session, "probability1", value = round(current_prob, 3))
   })
@@ -41,20 +41,11 @@ shinyServer(function(input, output, session) {
     return(out)
   })
 
-  vector_attributes_final <- reactive({
-    attributes <- vector_attributes()
-
-    # attributes$y[attributes$x == input$attribute_num] <- isolate(input$probability1)
-
-    return(attributes)
-  })
-
-
   # Plot
   output$plot1 <- renderPlot({
 
-    data <- vector_attributes_final()
-    #data <- attributes
+    data <- vector_attributes()
+
     data$mark[data$x == input$attribute_num] <- "Yes"
 
     p <- ggplot(data = data, aes(x = x, weight = y, fill = mark)) +
@@ -83,6 +74,10 @@ shinyServer(function(input, output, session) {
     if (input$category < input$minimum2 | input$category > input$maximum2) {
       updateNumericInput(session, "category", value = input$minimum2)
     }
+
+    categories   <- vector_category()
+    current_prob <- categories$y[categories$x == input$category]
+    updateNumericInput(session, "probability2", value = round(current_prob, 3))
   })
 
   # Creating the vector from preset
