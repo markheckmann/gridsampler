@@ -54,7 +54,8 @@ shinyServer(function(input, output, session) {
           labs(x = "Attribute", y = "Probability") +
           scale_x_continuous(breaks = seq(1, 1000, 1)) +
           theme_bw() +
-          theme(plot.background = element_rect(fill = "#f5f5f5"))
+          theme(plot.background = element_rect(fill = "#f5f5f5"),
+                panel.background = element_rect(fill = "#f5f5f5"))
 
     if (input$plot1_fixy) {
       p <- p + ylim(0, 1)
@@ -112,7 +113,8 @@ shinyServer(function(input, output, session) {
           labs(x = "Categories", y = "Probability") +
           scale_x_continuous(breaks = seq(1, 1000, 1)) +
           theme_bw() +
-          theme(plot.background = element_rect(fill = "#f5f5f5"))
+          theme(plot.background = element_rect(fill = "#f5f5f5"),
+                panel.background = element_rect(fill = "#f5f5f5"))
 
     if (input$plot2_fixy) {
       p <- p + ylim(0, 1)
