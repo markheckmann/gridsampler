@@ -7,7 +7,7 @@
 text_to_vector(txt)
 }
 \arguments{
-\item{txt}{Compatibel text input via \link[shiny]{textInput}}
+\item{txt}{Compatible text input via \link[shiny]{textInput}}
 }
 \value{
 A vector

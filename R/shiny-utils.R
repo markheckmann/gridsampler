@@ -24,7 +24,7 @@ gridsampler <- function(display.mode = "auto",
 
 #' Convert a text input to a vector
 #'
-#' @param txt Compatibel text input via \link[shiny]{textInput}
+#' @param txt Compatible text input via \link[shiny]{textInput}
 #'
 #' @return A vector
 #' @keywords internal
