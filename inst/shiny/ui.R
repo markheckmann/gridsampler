@@ -1,6 +1,6 @@
 #### Shiny UI definition ####
 
-shinyUI(navbarPage(title = "gridsampler shiny dev-0.0.3", inverse = T,
+shinyUI(navbarPage(title = "gridsampler shiny dev-0.0.4", inverse = T,
   #### Main tab ####
     tabPanel("Simulate", icon = icon("tasks"),
       wellPanel(
@@ -43,18 +43,18 @@ shinyUI(navbarPage(title = "gridsampler shiny dev-0.0.3", inverse = T,
                                         ),
                        conditionalPanel("input.preset_types1 == 'Exponential'",
                                        numericInput("1_exp_rate", "Rate", value = 0.1, step = 0.1)
-                                        )
+                                        ),
+                       conditionalPanel("input.preset_types1 == 'Manual'",
+                                        textInput("1_manual", label = "Vector of propabilities", placeholder = "0.5, 0.25, 0.25"))
                        )
               )
-        #  ))
         ),
         #### Column 2 ####
         column(3,
                h3("2. Probability of Each Category"),
                helpText("This is an amusing anecdote about the most dazzling pair of trousers"),
                fluidRow(
-                 column(6, numericInput("minimum2", "Minimum", value = 4, min = 1, step = 1, width = "100%")),
-                 column(6, numericInput("maximum2", "Maximum", value = 8, min = 1, step = 1, width = "100%"))
+                 column(12, numericInput("maximum2", "Maximum", value = 8, min = 1, step = 1, width = "100%"))
                ),
                plotOutput("plot2", height = "350px"),
                checkboxInput("plot2_fixy", "Fix y to [0, 1]", value = F),

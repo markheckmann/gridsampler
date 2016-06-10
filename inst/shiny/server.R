@@ -34,8 +34,13 @@ shinyServer(function(input, output, session) {
       out_y <- dexp(attributes_x, rate = input$`1_exp_rate`)
     } else if (input$preset_types1 == "Uniform") {
       out_y <- dunif(attributes_x, min = input$minimum1 - 1, max = input$maximum1)
+    } else if (input$preset_types1 == "Manual") {
+    #  out_y <- gridsampler:::text_to_vector(isolate(input$`1_manual`))
     }
 
+    if (is.null(out_y)) {
+      out_y <- dnorm(attributes_x, mean = input$`1_norm_mean`, sd = input$`1_norm_sd`)
+    }
     out <- data.frame(x = attributes_x, y = out_y, mark = "No")
 
     return(out)
@@ -73,7 +78,7 @@ shinyServer(function(input, output, session) {
 
     updateNumericInput(session, "category", min = input$minimum2, max = input$maximum2)
 
-    if (input$category < input$minimum2 | input$category > input$maximum2) {
+    if (input$category > input$maximum2) {
       updateNumericInput(session, "category", value = input$minimum2)
     }
 
@@ -86,7 +91,7 @@ shinyServer(function(input, output, session) {
   vector_category <- reactive({
     input$preset_go2
 
-    categories_x <- seq(input$minimum2, input$maximum2, by = 1)
+    categories_x <- seq(1, input$maximum2, by = 1)
 
     if (input$preset_types2 == "Normal") {
       out_y <- dnorm(categories_x, mean = input$`2_norm_mean`, sd = input$`2_norm_sd`)
