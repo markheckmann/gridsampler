@@ -15,7 +15,7 @@ You can install the software from [github](https://github.com/markheckmann/grids
     library(devtools)
     install_github("gridsampler/markheckmann") 
 
-Note that [GTK2](http://www.gtk.org/) has to be already installed on the system in order to install *gridsampler*.
+Note that [GTK2](http://www.gtk.org/) has to be already installed on the system in order to install *gridsampler*. You can find information on how to install the GTK on Windows and MacOS [here](https://gist.github.com/sebkopf/9405675).
 
 
 ### References
