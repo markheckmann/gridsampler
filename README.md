@@ -18,8 +18,18 @@ You can install the software from [github](https://github.com/markheckmann/grids
 Note that [GTK2](http://www.gtk.org/) has to be already installed on the system in order to install *gridsampler*. You can find information on how to install the GTK on Windows and MacOS [here](https://gist.github.com/sebkopf/9405675).
 
 
+### Citing
+
+If you use gridsampler in your publications, you can cite it as follows. 
+ 
+Heckmann, M. (2016). gridsampler: Determining sample sizes for repertory grid studies. R package version 0.4. *Zenodo*. doi:10.5281/zenodo.58014
+
+[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.58014.svg)](http://dx.doi.org/10.5281/zenodo.58014)
+
+
 ### References
 
 + Green, B. (2004). Personal construct psychology and content analysis. *Personal Construct Theory & Practice, 1*(3), 82–91.
 + Jankowicz, D. (2004). *The easy guide to repertory grids*. Chichester, England: John Wiley & Sons.
+
 
