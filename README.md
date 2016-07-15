@@ -20,6 +20,6 @@ Note that [GTK2](http://www.gtk.org/) has to be already installed on the system 
 
 ### References
 
-Green, B. (2004). Personal construct psychology and content analysis. *Personal Construct Theory & Practice, 1*(3), 82–91.
-Jankowicz, D. (2004). *The easy guide to repertory grids*. Chichester, England: John Wiley & Sons.
++ Green, B. (2004). Personal construct psychology and content analysis. *Personal Construct Theory & Practice, 1*(3), 82–91.
++ Jankowicz, D. (2004). *The easy guide to repertory grids*. Chichester, England: John Wiley & Sons.
 
