@@ -1,5 +1,4 @@
 #### Shiny server file ####
-
 shinyServer(function(input, output, session) {
 
   #### Logic for column 1 ####
@@ -15,41 +14,47 @@ shinyServer(function(input, output, session) {
       updateNumericInput(session, "attribute_num", value = input$minimum1)
     }
 
-    attributes   <- vector_attributes()
-    current_prob <- attributes$y[attributes$x == input$attribute_num]
-    updateNumericInput(session, "probability1", value = round(current_prob, 3))
+    #attributes   <- vector_attributes()
+    #current_prob <- attributes$y[attributes$x == input$attribute_num]
+    #updateNumericInput(session, "probability1", value = round(current_prob, 3))
   })
 
-  # Creating the vector from preset
-  vector_attributes <- reactive({
-    input$preset_go1
+  #### Observer to change attribute properties
+  observe({
+    # Change number of arributes
+    values$attributes_id <- seq(input$minimum1, input$maximum1, by = 1)
 
-    attributes_x <- seq(input$minimum1, input$maximum1, by = 1)
-
-    if (input$preset_types1 == "Normal") {
-      out_y <- dnorm(attributes_x, mean = input$`1_norm_mean`, sd = input$`1_norm_sd`)
-    } else if (input$preset_types1 == "Poisson") {
-      out_y <- dpois(attributes_x, lambda = input$`1_pois_lambda`)
-    } else if (input$preset_types1 == "Exponential") {
-      out_y <- dexp(attributes_x, rate = input$`1_exp_rate`)
-    } else if (input$preset_types1 == "Uniform") {
-      out_y <- dunif(attributes_x, min = input$minimum1 - 1, max = input$maximum1)
-    } else if (input$preset_types1 == "Manual") {
-    #  out_y <- gridsampler:::text_to_vector(isolate(input$`1_manual`))
+    if (input$preset_go1 == 0){
+      if (length(values$attributes_id) != length(values$attributes_prob)){
+        values$attributes_prob <- dnorm(values$attributes_id, mean = 6, sd = 1)
+      }
     }
 
-    if (is.null(out_y)) {
-      out_y <- dnorm(attributes_x, mean = input$`1_norm_mean`, sd = input$`1_norm_sd`)
-    }
-    out <- data.frame(x = attributes_x, y = out_y, mark = "No")
+  })
 
-    return(out)
+  #### Observer for presets
+  observeEvent(input$preset_go1, {
+    # Apply presets only if button is pressed
+    if (input$preset_go1 != 0){
+      cat("pressed preset_go1 \n")
+      if (input$preset_types1 == "Normal") {
+        values$attributes_prob <- dnorm(values$attributes_id, mean = input$`1_norm_mean`, sd = input$`1_norm_sd`)
+      } else if (input$preset_types1 == "Poisson") {
+        values$attributes_prob <- dpois(values$attributes_id, lambda = input$`1_pois_lambda`)
+      } else if (input$preset_types1 == "Exponential") {
+        values$attributes_prob <- dexp(values$attributes_id, rate = input$`1_exp_rate`)
+      } else if (input$preset_types1 == "Uniform") {
+        values$attributes_prob <- dunif(values$attributes_id, min = input$minimum1 - 1, max = input$maximum1)
+      }
+    }
   })
 
   # Plot
   output$plot1 <- renderPlot({
 
-    data <- vector_attributes()
+    data <- data.frame(x = values$attributes_id,
+                       y = values$attributes_prob,
+                       mark = rep("No", length(values$attributes_id)))
 
     data$mark[data$x == input$attribute_num] <- "Yes"
 
