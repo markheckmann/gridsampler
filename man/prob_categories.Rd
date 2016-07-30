@@ -14,12 +14,12 @@ prob_categories(r, m, min.prop = 1)
 \item{min.prop}{Proportion of categores to contain at least m constructs.}
 }
 \description{
-Calculate probability for getting certain proportion of categories with at 
+Calculate probability for getting certain proportion of categories with at
 least m constructs
 }
 \examples{
 r <- sim_n_persons_x_times(dexp(1:30, rate=.05), n=50, a=5:7, times=100)
-prob_categories(r, 4, min.prop=.9)   
+prob_categories(r, 4, min.prop=.9)
 
 }
 \keyword{external}
