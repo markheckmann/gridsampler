@@ -142,7 +142,7 @@ expected_frequencies <- function(r)
               scale_y_continuous("Counts", limits=c(0, mval)) +
               scale_x_continuous(name="Category") +
               scale_shape_discrete(breaks = levels(s$variable), name="Percentiles")
-  g
+  return(g)
 }
 
 
