@@ -14,12 +14,9 @@ shinyServer(function(input, output, session) {
       updateNumericInput(session, "attribute_num", value = input$minimum1)
     }
 
-    #attributes   <- vector_attributes()
-    #current_prob <- attributes$y[attributes$x == input$attribute_num]
-    #updateNumericInput(session, "probability1", value = round(current_prob, 3))
   })
 
-  #### Observer to change attribute properties
+  # Observer to change attribute properties
   observe({
     # Change number of arributes
     values$attributes_id <- seq(input$minimum1, input$maximum1, by = 1)
@@ -29,10 +26,15 @@ shinyServer(function(input, output, session) {
         values$attributes_prob <- dnorm(values$attributes_id, mean = 6, sd = 1)
       }
     }
-
   })
 
-  #### Observer for presets in column 1
+  # Observer for manual probability adjustments (col 1)
+  # TODO: Perform check so that sum of probability approximates 1
+  observeEvent(input$probability1, {
+    values$attributes_prob[values$attributes_id == input$attribute_num] <- input$probability1
+  })
+
+  # Observer for presets in column 1
   observeEvent(input$preset_go1, {
     # Apply presets only if button is pressed
     if (input$preset_go1 != 0){
@@ -76,6 +78,7 @@ shinyServer(function(input, output, session) {
   })
 
   #### Logic for column 2 ####
+
   # Updating input elements
   observe({
     validate(need(!is.na(input$maximum2), "Value must be set!"))
@@ -85,13 +88,9 @@ shinyServer(function(input, output, session) {
     if (input$category > input$maximum2) {
       updateNumericInput(session, "category", value = 1)
     }
-
-    # categories   <- vector_category()
-    # current_prob <- categories$y[categories$x == input$category]
-    # updateNumericInput(session, "probability2", value = round(current_prob, 3))
   })
 
-  #### Observer to change category properties
+  # Observer to change category properties
   observe({
     # Change number of arributes
     values$category_id <- seq(1, input$maximum2, by = 1)
@@ -101,10 +100,15 @@ shinyServer(function(input, output, session) {
         values$category_prob <- dexp(values$category_id, rate = 0.01)
       }
     }
-
   })
 
-  #### Observer for presets in column 1
+  # Observer for manual probability adjustments (col 2)
+  # TODO: Perform check so that sum of probability approximates 1
+  observeEvent(input$probability2, {
+    values$category_prob[values$category_id == input$category] <- input$probability2
+  })
+
+  # Observer for presets in column 1
   observeEvent(input$preset_go2, {
     # Apply presets only if button is pressed
     if (input$preset_types2 == "Normal") {
@@ -118,6 +122,7 @@ shinyServer(function(input, output, session) {
     }
   })
 
+  # Plot for column 2
   output$plot2 <- renderPlot({
     data <- data.frame(x = values$category_id,
                        y = values$category_prob,
