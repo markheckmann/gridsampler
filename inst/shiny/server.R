@@ -55,7 +55,7 @@ shinyServer(function(input, output, session) {
   output$plot1 <- renderPlot({
 
     data <- data.frame(x = values$attributes_id,
-                       y = values$attributes_prob,
+                       y = values$attributes_prob[values$attributes_id],
                        mark = rep("No", length(values$attributes_id)))
 
     data$mark[data$x == input$attribute_num] <- "Yes"
@@ -74,7 +74,6 @@ shinyServer(function(input, output, session) {
     }
 
     return(p)
-
   })
 
   #### Logic for column 2 ####
@@ -125,7 +124,7 @@ shinyServer(function(input, output, session) {
   # Plot for column 2
   output$plot2 <- renderPlot({
     data <- data.frame(x = values$category_id,
-                       y = values$category_prob,
+                       y = values$category_prob[values$category_id],
                        mark = rep("No", length(values$category_id)))
 
     data$mark[data$x == input$category] <- "Yes"
@@ -148,26 +147,50 @@ shinyServer(function(input, output, session) {
 
   #### Logic for column 3 ####
 
-  # ## col 3 1:
-  #
-  # - 2 plots
-  # random sample `sim_1_persons`: `draw_n_person_sample`
-  # run: `expected_frequencies()``
-  #
-  # ## col 3 2
-  #
-  # - simulate:
-  #   -  in gui versteckt: `handler_btn_redraw`: ggplot
-  # -
+  observeEvent(input$sample_random, {
+      values$sample_plot <- gridsampler::draw_n_person_sample(prob = values$category_prob,
+                                                              n = input$sample_size,
+                                                              a = values$attributes_id,
+                                                              ap = values$attributes_prob) +
+                              theme_bw() +
+                              theme(plot.background = element_rect(fill = "#f5f5f5"),
+                                    panel.background = element_rect(fill = "#f5f5f5"))
+  })
 
+  observeEvent(input$run_button, {
+    r <- sim_n_persons_x_times(prob = values$category_prob,
+                               n = input$sample_size,
+                               a = values$attributes_id,
+                               ap = values$attributes_prob,
+                               times = input$run_times)
 
+    values$sample_plot <- expected_frequencies(r) +
+                            theme_bw() +
+                            theme(plot.background  = element_rect(fill = "#f5f5f5"),
+                                  panel.background = element_rect(fill = "#f5f5f5"),
+                                  legend.background =  element_rect(fill = "#f5f5f5"))
+  })
+
+  # Handler for "random sample" button
   output$plot3_1 <- renderPlot({
-   ggplot(data = data.frame(x = 1:10, y = (1:10)^-1), aes(x = x, y = y)) +
-     geom_point()
+
+    if (input$sample_random == 0 & input$run_button == 0) {
+      # Show placeholder plot if no button was pressed yet...
+      p <- gridsampler::draw_n_person_sample(prob = values$category_prob,
+                                        n = input$sample_size,
+                                        a = values$attributes_id,
+                                        ap = values$attributes_prob) +
+        theme_bw() +
+        theme(plot.background = element_rect(fill = "#f5f5f5"),
+              panel.background = element_rect(fill = "#f5f5f5"))
+      return(p)
+    } else {
+      # ...otherwise show stored plot from above
+      values$sample_plot
+    }
   })
 
   output$plot3_2 <- renderPlot({
-   ggplot(data = data.frame(x = 1:10, y = (1:10)^2), aes(x = x, y = y)) +
-     geom_point()
+
   })
 })
