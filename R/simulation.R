@@ -260,7 +260,7 @@ draw_multiple_n_persons_x_times <- function(d)
    facet_grid(. ~ min.prop.k) +
    scale_color_discrete(name="M: Min.\ncount") +
    scale_shape_discrete(name="M: Min.\ncount")
- g
+ return(g)
 }
 
 
