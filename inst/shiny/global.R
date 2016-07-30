@@ -2,6 +2,9 @@
 library(shiny)
 library(ggplot2)
 
+text_to_vector <- function(txt){
+  eval(parse(text = paste0("c(", txt, ")")))
+}
 
 # theme_shiny <- function(base_size = 12, base_family = ""){
 #   theme_bw(base_size = base_size, base_family = base_family) +

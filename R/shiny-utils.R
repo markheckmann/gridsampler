@@ -21,17 +21,3 @@ gridsampler <- function(display.mode = "auto",
 
   shiny::runApp(appDir, display.mode = display.mode, launch.browser = launch.browser)
 }
-
-#' Convert a text input to a vector
-#'
-#' @param txt Compatible text input via \link[shiny]{textInput}
-#'
-#' @return A vector
-#' @keywords internal
-#'
-#' @examples
-#' txt <- "10, 20, 30"
-#' text_to_vector(txt)
-text_to_vector <- function(txt){
-  eval(parse(text = paste0("c(", txt, ")")))
-}
