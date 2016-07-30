@@ -32,7 +32,7 @@ shinyServer(function(input, output, session) {
 
   })
 
-  #### Observer for presets
+  #### Observer for presets in column 1
   observeEvent(input$preset_go1, {
     # Apply presets only if button is pressed
     if (input$preset_go1 != 0){
@@ -49,7 +49,7 @@ shinyServer(function(input, output, session) {
     }
   })
 
-  # Plot
+  # Plot in column 1
   output$plot1 <- renderPlot({
 
     data <- data.frame(x = values$attributes_id,
@@ -78,43 +78,51 @@ shinyServer(function(input, output, session) {
   #### Logic for column 2 ####
   # Updating input elements
   observe({
-    validate(need(!is.na(input$minimum2), "Value must be set!"))
     validate(need(!is.na(input$maximum2), "Value must be set!"))
 
-    updateNumericInput(session, "category", min = input$minimum2, max = input$maximum2)
+    updateNumericInput(session, "category", min = 1, max = input$maximum2)
 
     if (input$category > input$maximum2) {
-      updateNumericInput(session, "category", value = input$minimum2)
+      updateNumericInput(session, "category", value = 1)
     }
 
-    categories   <- vector_category()
-    current_prob <- categories$y[categories$x == input$category]
-    updateNumericInput(session, "probability2", value = round(current_prob, 3))
+    # categories   <- vector_category()
+    # current_prob <- categories$y[categories$x == input$category]
+    # updateNumericInput(session, "probability2", value = round(current_prob, 3))
   })
 
-  # Creating the vector from preset
-  vector_category <- reactive({
-    input$preset_go2
+  #### Observer to change category properties
+  observe({
+    # Change number of arributes
+    values$category_id <- seq(1, input$maximum2, by = 1)
 
-    categories_x <- seq(1, input$maximum2, by = 1)
-
-    if (input$preset_types2 == "Normal") {
-      out_y <- dnorm(categories_x, mean = input$`2_norm_mean`, sd = input$`2_norm_sd`)
-    } else if (input$preset_types2 == "Poisson") {
-      out_y <- dpois(categories_x, lambda = input$`2_pois_lambda`)
-    } else if (input$preset_types2 == "Exponential") {
-      out_y <- dexp(categories_x, rate = input$`2_exp_rate`)
-    } else if (input$preset_types2 == "Uniform") {
-      out_y <- dunif(categories_x, min = input$minimum2 - 1, max = input$maximum2)
+    if (input$preset_go2 == 0){
+      if (length(values$category_id) != length(values$category_prob)){
+        values$category_prob <- dexp(values$category_id, rate = 0.01)
+      }
     }
 
-    out <- data.frame(x = categories_x, y = out_y, mark = "No")
+  })
 
-    return(out)
+  #### Observer for presets in column 1
+  observeEvent(input$preset_go2, {
+    # Apply presets only if button is pressed
+    if (input$preset_types2 == "Normal") {
+      values$category_prob <- dnorm(values$category_id, mean = input$`2_norm_mean`, sd = input$`2_norm_sd`)
+    } else if (input$preset_types2 == "Poisson") {
+      values$category_prob <- dpois(values$category_id, lambda = input$`2_pois_lambda`)
+    } else if (input$preset_types2 == "Exponential") {
+      values$category_prob <- dexp(values$category_id, rate = input$`2_exp_rate`)
+    } else if (input$preset_types2 == "Uniform") {
+      values$category_prob <- dunif(values$category_id, min = 1 - 1, max = input$maximum2)
+    }
   })
 
   output$plot2 <- renderPlot({
-    data <- vector_category()
+    data <- data.frame(x = values$category_id,
+                       y = values$category_prob,
+                       mark = rep("No", length(values$category_id)))
+
     data$mark[data$x == input$category] <- "Yes"
 
     p <- ggplot(data = data, aes(x = x, weight = y, fill = mark)) +

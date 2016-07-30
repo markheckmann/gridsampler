@@ -13,4 +13,5 @@ library(ggplot2)
 values                 <- reactiveValues()
 values$attributes_id   <- 1:10
 values$attributes_prob <- dnorm(1:10, mean = 6, sd = 1)
-
+values$category_id     <- 1:8
+values$category_prob   <- dexp(1:8, rate = 0.01)
