@@ -98,7 +98,7 @@ shinyServer(function(input, output, session) {
 
   # Observer to change category properties
   observe({
-    # Change number of arributes
+    # Change number of attributes
     values$category_id <- seq(1, input$maximum2, by = 1)
 
     if (input$preset_go2 == 0){
