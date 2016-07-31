@@ -183,14 +183,7 @@ shinyServer(function(input, output, session) {
 
     if (input$sample_random == 0 & input$run_button == 0) {
       # Show placeholder plot if no button was pressed yet...
-      p <- gridsampler::draw_n_person_sample(prob = values$category_prob,
-                                        n = input$sample_size,
-                                        a = values$attributes_id,
-                                        ap = values$attributes_prob) +
-        theme_bw() +
-        theme(plot.background = element_rect(fill = "#f5f5f5"),
-              panel.background = element_rect(fill = "#f5f5f5"))
-      return(p)
+      p_31
     } else {
       # ...otherwise show stored plot from above
       values$sample_plot
