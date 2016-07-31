@@ -14,8 +14,6 @@ shinyUI(navbarPage(title = "gridsampler shiny dev-0.0.4", inverse = T,
                                        value = 4, min = 1, max = 100, step = 1, width = "100%")),
                 column(6, numericInput("maximum1", "Maximum",
                                        value = 8, min = 1, max = 100, step = 1, width = "100%"))
-                # column(12, sliderInput("minmax1", "Minimum & Maximum",
-                #                        min = 1, max = 100, step = 1, value = c(1, 20)))
               ),
               plotOutput("plot1", height = "350px"),
               checkboxInput("plot1_fixy", "Fix y to [0, 1]", value = F),
@@ -24,7 +22,7 @@ shinyUI(navbarPage(title = "gridsampler shiny dev-0.0.4", inverse = T,
                                     value = 4, min = 4, max = 8, step = 1, width = "100%")
                 ),
                 column(6, numericInput("probability1", "Probability",
-                                    value = 0.05, min = 0.001, max = 1, step = 0.01, width = "100%")
+                                    value = 0.05399097, min = 0.001, max = 1, step = 0.01, width = "100%")
               )),
               h4("Probability Presets"),
               fluidRow(
@@ -62,7 +60,7 @@ shinyUI(navbarPage(title = "gridsampler shiny dev-0.0.4", inverse = T,
                  column(6, numericInput("category", "Category",
                                         value = 4, min = 4, max = 8, step = 1, width = "100%")),
                  column(6, numericInput("probability2", "Probability",
-                                       value = 0.1, min = 0, max = 1, step = 0.01, width = "100%"))
+                                       value = 0.009607894, min = 0, max = 1, step = 0.001, width = "100%"))
                 ),
                h4("Probability Presets"),
                fluidRow(
@@ -101,12 +99,12 @@ shinyUI(navbarPage(title = "gridsampler shiny dev-0.0.4", inverse = T,
                plotOutput("plot3_1", height = "250px"),
                tags$br(),
                fluidRow(
-                 column(6, textInput("sample_size2", "Sample Size (N)", placeholder = "10, 20, 30")),
+                 column(6, textInput("sample_size2", "Sample Size (N)", value = "10, 20, 30, 40, 50, 60, 70, 80")),
                  column(6, numericInput("runs_per_sample", "Simulation Runs per Sample", value = 100, step = 1))
                ),
                fluidRow(
-                 column(6, textInput("mincount_m", "Minimum Count (M)", placeholder = "4, 5, 6")),
-                 column(6, textInput("proportion_k", "Proportion (K)", placeholder = "0.9, 0.95, 1"))
+                 column(6, textInput("mincount_m", "Minimum Count (M)", value = "4, 5, 6")),
+                 column(6, textInput("proportion_k", "Proportion (K)", value = "0.9, 0.95, 1"))
                ),
                fluidRow(
                       column(6, actionButton("simulate", "Simulate", width = "100%")),

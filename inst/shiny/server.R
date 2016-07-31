@@ -13,7 +13,10 @@ shinyServer(function(input, output, session) {
     if (input$attribute_num < input$minimum1 | input$attribute_num > input$maximum1) {
       updateNumericInput(session, "attribute_num", value = input$minimum1)
     }
+  })
 
+  observeEvent(input$attribute_num, {
+    updateNumericInput(session, "probability1", value = values$attributes_prob[values$attributes_id == input$attribute_num])
   })
 
   # Observer to change attribute properties
@@ -55,7 +58,7 @@ shinyServer(function(input, output, session) {
   output$plot1 <- renderPlot({
 
     data <- data.frame(x = values$attributes_id,
-                       y = values$attributes_prob[values$attributes_id],
+                       y = values$attributes_prob[seq_along(values$attributes_id)],
                        mark = rep("No", length(values$attributes_id)))
 
     data$mark[data$x == input$attribute_num] <- "Yes"
@@ -87,6 +90,10 @@ shinyServer(function(input, output, session) {
     if (input$category > input$maximum2) {
       updateNumericInput(session, "category", value = 1)
     }
+  })
+
+  observeEvent(input$category, {
+    updateNumericInput(session, "probability2", value = values$category_prob[values$category_id == input$category])
   })
 
   # Observer to change category properties
@@ -148,21 +155,21 @@ shinyServer(function(input, output, session) {
   #### Logic for column 3 ####
 
   observeEvent(input$sample_random, {
-      values$sample_plot <- gridsampler::draw_n_person_sample(prob = values$category_prob,
-                                                              n = input$sample_size,
-                                                              a = values$attributes_id,
-                                                              ap = values$attributes_prob) +
+      values$sample_plot <- gridsampler::draw_n_person_sample(prob = isolate(values$category_prob),
+                                                              n = isolate(input$sample_size),
+                                                              a = isolate(values$attributes_id),
+                                                              ap = isolate(values$attributes_prob)) +
                               theme_bw() +
                               theme(plot.background = element_rect(fill = "#f5f5f5"),
                                     panel.background = element_rect(fill = "#f5f5f5"))
   })
 
   observeEvent(input$run_button, {
-    r <- sim_n_persons_x_times(prob = values$category_prob,
-                               n = input$sample_size,
-                               a = values$attributes_id,
-                               ap = values$attributes_prob,
-                               times = input$run_times)
+    r <- sim_n_persons_x_times(prob = isolate(values$category_prob),
+                               n = isolate(input$sample_size),
+                               a = isolate(values$attributes_id),
+                               ap = isolate(values$attributes_prob),
+                               times = isolate(input$run_times))
 
     values$sample_plot <- expected_frequencies(r) +
                             theme_bw() +
@@ -171,7 +178,7 @@ shinyServer(function(input, output, session) {
                                   legend.background =  element_rect(fill = "#f5f5f5"))
   })
 
-  # Handler for "random sample" button
+  # Plot 1 of column 3
   output$plot3_1 <- renderPlot({
 
     if (input$sample_random == 0 & input$run_button == 0) {
@@ -190,7 +197,28 @@ shinyServer(function(input, output, session) {
     }
   })
 
-  output$plot3_2 <- renderPlot({
+  #### Bottom half of column 3
 
+  observeEvent(input$simulate, {
+    values$simulations <- sim_n_persons_x_times_many_n(values$category_prob,
+                                                      n = input$runs_per_sample,
+                                                      a = values$attributes_id,
+                                                      ap = values$attributes_prob,
+                                                      times = input$run_times)
+  })
+
+  output$plot3_2 <- renderPlot({
+    input$redraw
+
+    N <- text_to_vector(input$sample_size2)
+    M <- text_to_vector(input$mincount_m)
+    p <- text_to_vector(input$proportion_k)
+    d <- calc_probabilities(values$simulations, n = N, ms = M, min.props = p)
+
+    draw_multiple_n_persons_x_times(d) +
+      theme_bw() +
+      theme(plot.background = element_rect(fill = "#f5f5f5"),
+            panel.background = element_rect(fill = "#f5f5f5"),
+            legend.background =  element_rect(fill = "#f5f5f5"))
   })
 })
