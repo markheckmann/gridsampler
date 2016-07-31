@@ -201,18 +201,22 @@ shinyServer(function(input, output, session) {
 
   observeEvent(input$simulate, {
     values$simulations <- sim_n_persons_x_times_many_n(values$category_prob,
-                                                      n = input$runs_per_sample,
+                                                      n = isolate(input$runs_per_sample),
                                                       a = values$attributes_id,
                                                       ap = values$attributes_prob,
-                                                      times = input$run_times)
+                                                      times = isolate(input$run_times))
   })
 
   output$plot3_2 <- renderPlot({
     input$redraw
 
-    N <- text_to_vector(input$sample_size2)
-    M <- text_to_vector(input$mincount_m)
-    p <- text_to_vector(input$proportion_k)
+    if (input$redraw == 0){
+      return(NULL)
+    }
+
+    N <- text_to_vector(isolate(input$sample_size2))
+    M <- text_to_vector(isolate(input$mincount_m))
+    p <- text_to_vector(isolate(input$proportion_k))
     d <- calc_probabilities(values$simulations, n = N, ms = M, min.props = p)
 
     draw_multiple_n_persons_x_times(d) +
