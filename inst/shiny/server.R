@@ -59,7 +59,8 @@ shinyServer(function(input, output, session) {
 
     data <- data.frame(x = values$attributes_id,
                        y = values$attributes_prob[seq_along(values$attributes_id)],
-                       mark = rep("No", length(values$attributes_id)))
+                       mark = rep("No", length(values$attributes_id)),
+                       stringsAsFactors = F)
 
     data$mark[data$x == input$attribute_num] <- "Yes"
 
@@ -132,7 +133,8 @@ shinyServer(function(input, output, session) {
   output$plot2 <- renderPlot({
     data <- data.frame(x = values$category_id,
                        y = values$category_prob[values$category_id],
-                       mark = rep("No", length(values$category_id)))
+                       mark = rep("No", length(values$category_id)),
+                       stringsAsFactors = F)
 
     data$mark[data$x == input$category] <- "Yes"
 
