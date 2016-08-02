@@ -64,14 +64,16 @@ shinyServer(function(input, output, session) {
 
     data$mark[data$x == input$attribute_num] <- "Yes"
 
-    p <- ggplot(data = data, aes(x = x, weight = y, fill = mark)) +
-          geom_bar(color = "black") +
-          scale_fill_manual(values = c(No = "black", Yes = "red2"), guide = F) +
+    p <- ggplot(data = data, aes(x = x, y = y, color = mark)) +
+          geom_point(color = "black", size = 4) +
+          geom_point(size = 3) +
+          geom_path(aes(group = 0), color = "black") +
+          scale_color_manual(values = c(No = "black", Yes = "red2"), guide = F) +
           labs(x = "Attribute", y = "Probability") +
           scale_x_continuous(breaks = seq(1, 1000, 1)) +
           theme_bw() +
-          theme(plot.background = element_rect(fill = "#f5f5f5"),
-                panel.background = element_rect(fill = "#f5f5f5"))
+          theme(plot.background = element_rect(fill = plot_bg),
+                panel.background = element_rect(fill = panel_bg))
 
     if (input$plot1_fixy) {
       p <- p + ylim(0, 1)
@@ -138,14 +140,25 @@ shinyServer(function(input, output, session) {
 
     data$mark[data$x == input$category] <- "Yes"
 
-    p <- ggplot(data = data, aes(x = x, weight = y, fill = mark)) +
-          geom_bar(color = "black") +
-          scale_fill_manual(values = c(No = "black", Yes = "red2"), guide = F) +
+    # x axis labels depending on number of categories
+    if (input$maximum2 <= 10) {
+      x_breaks <- seq(1, 10, 1)
+    } else if (input$maximum2 > 10 & input$maximum2 <= 20) {
+      x_breaks <- seq(1, 1000, 2)
+    } else {
+      x_breaks <- seq(1, 1000, 5)
+    }
+
+    p <- ggplot(data = data, aes(x = x, y = y, color = mark)) +
+          geom_point(color = "black", size = 4) +
+          geom_point(size = 3) +
+          geom_path(aes(group = 0), color = "black") +
+          scale_color_manual(values = c(No = "black", Yes = "red2"), guide = F) +
           labs(x = "Categories", y = "Probability") +
-          scale_x_continuous(breaks = seq(1, 1000, 1)) +
+          scale_x_continuous(breaks = x_breaks) +
           theme_bw() +
-          theme(plot.background = element_rect(fill = "#f5f5f5"),
-                panel.background = element_rect(fill = "#f5f5f5"))
+          theme(plot.background = element_rect(fill = plot_bg),
+                panel.background = element_rect(fill = panel_bg))
 
     if (input$plot2_fixy) {
       p <- p + ylim(0, 1)
@@ -162,8 +175,8 @@ shinyServer(function(input, output, session) {
                                                               a = isolate(values$attributes_id),
                                                               ap = isolate(values$attributes_prob)) +
                               theme_bw() +
-                              theme(plot.background = element_rect(fill = "#f5f5f5"),
-                                    panel.background = element_rect(fill = "#f5f5f5"))
+                              theme(plot.background = element_rect(fill = plot_bg),
+                                    panel.background = element_rect(fill = panel_bg))
   })
 
   observeEvent(input$run_button, {
@@ -175,8 +188,8 @@ shinyServer(function(input, output, session) {
 
     values$sample_plot <- expected_frequencies(r) +
                             theme_bw() +
-                            theme(plot.background  = element_rect(fill = "#f5f5f5"),
-                                  panel.background = element_rect(fill = "#f5f5f5"),
+                            theme(plot.background  = element_rect(fill = plot_bg),
+                                  panel.background = element_rect(fill = panel_bg),
                                   legend.background =  element_rect(fill = "#f5f5f5"))
   })
 
@@ -198,16 +211,17 @@ shinyServer(function(input, output, session) {
                                                       n = text_to_vector(isolate(input$sample_size2)),
                                                       a = values$attributes_id,
                                                       ap = values$attributes_prob,
-                                                      times = isolate(input$run_times))
+                                                      times = isolate(input$runs_per_sample))
   })
 
   # Plot 2 of column 3
   output$plot3_2 <- renderPlot({
     input$redraw
 
-    if (input$redraw == 0){
+    if (input$redraw == 0 & is.null(values$simulations)){
       return(NULL)
     }
+
 
     N <- text_to_vector(isolate(input$sample_size2))
     M <- text_to_vector(isolate(input$mincount_m))
@@ -216,8 +230,8 @@ shinyServer(function(input, output, session) {
 
     draw_multiple_n_persons_x_times(d) +
       theme_bw() +
-      theme(plot.background = element_rect(fill = "#f5f5f5"),
-            panel.background = element_rect(fill = "#f5f5f5"),
+      theme(plot.background = element_rect(fill = plot_bg),
+            panel.background = element_rect(fill = panel_bg),
             legend.background =  element_rect(fill = "#f5f5f5"))
   })
 })

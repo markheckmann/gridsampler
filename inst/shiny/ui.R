@@ -52,13 +52,13 @@ shinyUI(navbarPage(title = "gridsampler shiny dev-1.0", inverse = T,
                h3("2. Probability of Each Category"),
                helpText("This is an amusing anecdote about the most dazzling pair of trousers"),
                fluidRow(
-                 column(12, numericInput("maximum2", "Maximum", value = 8, min = 1, step = 1, width = "100%"))
+                 column(12, numericInput("maximum2", "No. of Categories", value = 15, min = 1, step = 1, width = "100%"))
                ),
                plotOutput("plot2", height = "350px"),
                checkboxInput("plot2_fixy", "Fix y to [0, 1]", value = F),
                fluidRow(
                  column(6, numericInput("category", "Category",
-                                        value = 4, min = 4, max = 8, step = 1, width = "100%")),
+                                        value = 5, min = 1, max = 100, step = 1, width = "100%")),
                  column(6, numericInput("probability2", "Probability",
                                        value = 0.009607894, min = 0, max = 1, step = 0.001, width = "100%"))
                 ),
@@ -78,7 +78,7 @@ shinyUI(navbarPage(title = "gridsampler shiny dev-1.0", inverse = T,
                                        numericInput("2_pois_lambda", "Lamda", value = 6)
                       ),
                       conditionalPanel("input.preset_types2 == 'Exponential'",
-                                       numericInput("2_exp_rate", "Rate", value = 0.1, step = 0.1)
+                                       numericInput("2_exp_rate", "Rate", value = 0.15, step = 0.1)
                       )
                )
         )
