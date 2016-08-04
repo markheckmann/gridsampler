@@ -1,6 +1,6 @@
 #### Shiny UI definition ####
 
-shinyUI(navbarPage(title = "gridsampler shiny dev-1.0", inverse = T, theme = shinytheme("flatly"),
+shinyUI(navbarPage(title = "gridsampler shiny dev-1.1", inverse = T, theme = shinytheme("flatly"),
   #### Main tab ####
     tabPanel("Simulate", icon = icon("tasks"),
       wellPanel(
