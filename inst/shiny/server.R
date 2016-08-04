@@ -65,9 +65,9 @@ shinyServer(function(input, output, session) {
     data$mark[data$x == input$attribute_num] <- "Yes"
 
     p <- ggplot(data = data, aes(x = x, y = y, color = mark)) +
+          geom_path(aes(group = 0), color = "black") +
           geom_point(color = "black", size = 4) +
           geom_point(size = 3) +
-          geom_path(aes(group = 0), color = "black") +
           scale_color_manual(values = c(No = "black", Yes = "red2"), guide = F) +
           labs(x = "Attribute", y = "Probability") +
           scale_x_continuous(breaks = seq(1, 1000, 1)) +
@@ -150,9 +150,9 @@ shinyServer(function(input, output, session) {
     }
 
     p <- ggplot(data = data, aes(x = x, y = y, color = mark)) +
+          geom_path(aes(group = 0), color = "black") +
           geom_point(color = "black", size = 4) +
           geom_point(size = 3) +
-          geom_path(aes(group = 0), color = "black") +
           scale_color_manual(values = c(No = "black", Yes = "red2"), guide = F) +
           labs(x = "Categories", y = "Probability") +
           scale_x_continuous(breaks = x_breaks) +
