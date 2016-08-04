@@ -1,6 +1,8 @@
-#### Shiyn global variables and helpers ####
+#### Shiny global variables and helpers ####
 library(shiny)
 library(ggplot2)
+library(gridsampler)
+library(shinythemes)
 
 text_to_vector <- function(txt){
   eval(parse(text = paste0("c(", txt, ")")))

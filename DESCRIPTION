@@ -18,6 +18,7 @@ Imports:
     plyr
 Suggests:
     knitr,
-    testthat
+    testthat,
+    shinythemes
 VignetteBuilder: knitr
 RoxygenNote: 5.0.1
