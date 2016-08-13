@@ -60,7 +60,7 @@ shinyUI(navbarPage(title = "gridsampler shiny dev-1.1", inverse = T, theme = shi
                  column(6, numericInput("category", "Category",
                                         value = 5, min = 1, max = 100, step = 1, width = "100%")),
                  column(6, numericInput("probability2", "Probability",
-                                       value = 0.009607894, min = 0, max = 1, step = 0.001, width = "100%"))
+                                       value = 0.07085498, min = 0, max = 1, step = 0.001, width = "100%"))
                 ),
                h4("Probability Presets"),
                fluidRow(
@@ -78,7 +78,7 @@ shinyUI(navbarPage(title = "gridsampler shiny dev-1.1", inverse = T, theme = shi
                                        numericInput("2_pois_lambda", "Lamda", value = 6)
                       ),
                       conditionalPanel("input.preset_types2 == 'Exponential'",
-                                       numericInput("2_exp_rate", "Rate", value = 0.15, step = 0.1)
+                                       numericInput("2_exp_rate", "Rate", value = 0.15, step = 0.01)
                       )
                )
         )

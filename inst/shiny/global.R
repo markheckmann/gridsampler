@@ -21,8 +21,8 @@ panel_bg <- "#fcfcfc" # for 'panel.background'
 values                 <- reactiveValues()
 values$attributes_id   <- 1:10
 values$attributes_prob <- dnorm(1:10, mean = 6, sd = 1)
-values$category_id     <- 1:8
-values$category_prob   <- dexp(1:8, rate = 0.01)
+values$category_id     <- 1:15
+values$category_prob   <- dexp(1:15, rate = 0.15)
 values$simulations     <- NULL # Initialization for safety
 
 # Default plot for 3,1
@@ -34,4 +34,13 @@ p_31 <- gridsampler::draw_n_person_sample(prob = dexp(1:8, 0.01),
   theme_bw() +
   theme(plot.background = element_rect(fill = plot_bg),
         panel.background = element_rect(fill = panel_bg))
+
+# Placeholder plot for 3,2
+
+p_32 <- ggplot(data = data.frame(x = 1:10, y = 1:10), aes(x = x, y = y)) +
+          geom_line(color = panel_bg) +
+          geom_text(label = "No simulations run yet.", y = 5, x = 5, size = 8) +
+          theme_void() +
+          theme(plot.background = element_rect(fill = plot_bg),
+                panel.background = element_rect(fill = panel_bg))
 

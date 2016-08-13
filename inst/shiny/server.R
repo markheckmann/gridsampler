@@ -24,8 +24,8 @@ shinyServer(function(input, output, session) {
     # Change number of arributes
     values$attributes_id <- seq(input$minimum1, input$maximum1, by = 1)
 
-    if (input$preset_go1 == 0){
-      if (length(values$attributes_id) != length(values$attributes_prob)){
+    if (input$preset_go1 == 0) {
+      if (length(values$attributes_id) != length(values$attributes_prob)) {
         values$attributes_prob <- dnorm(values$attributes_id, mean = 6, sd = 1)
       }
     }
@@ -40,7 +40,7 @@ shinyServer(function(input, output, session) {
   # Observer for presets in column 1
   observeEvent(input$preset_go1, {
     # Apply presets only if button is pressed
-    if (input$preset_go1 != 0){
+    if (input$preset_go1 != 0) {
       cat("pressed preset_go1 \n")
       if (input$preset_types1 == "Normal") {
         values$attributes_prob <- dnorm(values$attributes_id, mean = input$`1_norm_mean`, sd = input$`1_norm_sd`)
@@ -64,11 +64,10 @@ shinyServer(function(input, output, session) {
 
     data$mark[data$x == input$attribute_num] <- "Yes"
 
-    p <- ggplot(data = data, aes(x = x, y = y, color = mark)) +
-          geom_path(aes(group = 0), color = "black") +
-          geom_point(color = "black", size = 4) +
-          geom_point(size = 3) +
-          scale_color_manual(values = c(No = "black", Yes = "red2"), guide = F) +
+    p <- ggplot(data = data, aes(x = x, weight = y, fill = mark)) +
+          geom_bar(width = .1) +
+          geom_text(aes(y = y, label = round(y, 2)), nudge_y = .02) +
+          scale_fill_manual(values = c(No = "black", Yes = "red2"), guide = F) +
           labs(x = "Attribute", y = "Probability") +
           scale_x_continuous(breaks = seq(1, 1000, 1)) +
           theme_bw() +
@@ -104,9 +103,9 @@ shinyServer(function(input, output, session) {
     # Change number of attributes
     values$category_id <- seq(1, input$maximum2, by = 1)
 
-    if (input$preset_go2 == 0){
-      if (length(values$category_id) != length(values$category_prob)){
-        values$category_prob <- dexp(values$category_id, rate = 0.01)
+    if (input$preset_go2 == 0) {
+      if (length(values$category_id) != length(values$category_prob)) {
+        values$category_prob <- dexp(values$category_id, rate = 0.15)
       }
     }
   })
@@ -134,7 +133,7 @@ shinyServer(function(input, output, session) {
   # Plot for column 2
   output$plot2 <- renderPlot({
     data <- data.frame(x = values$category_id,
-                       y = values$category_prob[values$category_id],
+                       y = values$category_prob,
                        mark = rep("No", length(values$category_id)),
                        stringsAsFactors = F)
 
@@ -149,11 +148,10 @@ shinyServer(function(input, output, session) {
       x_breaks <- seq(1, 1000, 5)
     }
 
-    p <- ggplot(data = data, aes(x = x, y = y, color = mark)) +
-          geom_path(aes(group = 0), color = "black") +
-          geom_point(color = "black", size = 4) +
-          geom_point(size = 3) +
-          scale_color_manual(values = c(No = "black", Yes = "red2"), guide = F) +
+    p <- ggplot(data = data, aes(x = x, weight = y, fill = mark)) +
+          geom_bar(width = .1) +
+          ggrepel::geom_text_repel(aes(y = y, label = round(y, 4))) +
+          scale_fill_manual(values = c(No = "black", Yes = "red2"), guide = F) +
           labs(x = "Categories", y = "Probability") +
           scale_x_continuous(breaks = x_breaks) +
           theme_bw() +
@@ -218,8 +216,8 @@ shinyServer(function(input, output, session) {
   output$plot3_2 <- renderPlot({
     input$redraw
 
-    if (input$redraw == 0 & is.null(values$simulations)){
-      return(NULL)
+    if (input$redraw == 0 & is.null(values$simulations)) {
+      return(p_32)
     }
 
 
