@@ -88,7 +88,7 @@ shinyUI(navbarPage(title = "gridsampler shiny dev-1.1", inverse = T, theme = shi
                h3("3. Simulate"),
                helpText("This is a note about how things happen here"),
                fluidRow(
-                 column(6, numericInput("sample_size", "Sample Size", value = "10")),
+                 column(6, numericInput("sample_size", "Sample Size", value = "100")),
                  column(6, numericInput("run_times", "Run N times", value = "10"))
                ),
                fluidRow(
