@@ -3,6 +3,12 @@ library(shiny)
 library(ggplot2)
 library(gridsampler)
 library(shinythemes)
+if (!("ggrepel" %in% installed.packages())) {
+  message("Package 'ggrepel' not installed, can't drav non-overlapping labels")
+  plot_repel <- FALSE
+} else {
+  plot_repel <- TRUE
+}
 
 text_to_vector <- function(txt){
   eval(parse(text = paste0("c(", txt, ")")))

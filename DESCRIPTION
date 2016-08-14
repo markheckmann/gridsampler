@@ -20,5 +20,6 @@ Suggests:
     knitr,
     testthat,
     shinythemes
+    ggrepel
 VignetteBuilder: knitr
 RoxygenNote: 5.0.1
