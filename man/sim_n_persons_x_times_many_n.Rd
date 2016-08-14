@@ -5,8 +5,7 @@
 \title{Simulate for different n}
 \usage{
 sim_n_persons_x_times_many_n(prob, n = seq(10, 80, by = 10), a = 7,
-  ap = rep(1/length(a), length(a)), times = 100, progress = "text",
-  shiny = FALSE)
+  ap = rep(1/length(a), length(a)), times = 100, progress = "text")
 }
 \arguments{
 \item{prob}{Probability to draw a construct from a certain category. Length
@@ -21,8 +20,6 @@ of vector determines number of categories.}
 \item{times}{Number of times to repeat each simulation.}
 
 \item{progress}{Type of progress bar shown during simulation.}
-
-\item{shiny}{Boolean. Whether the function is called with a shiny progress bar}
 }
 \value{
 A result dataframe.
