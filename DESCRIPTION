@@ -1,10 +1,10 @@
 Package: gridsampler
-Maintainer: Mark Heckmann <heckmann@uni-bremen.de>
 License: GPL-3
 Title: Simulation tool for repertory grid studies
 Type: Package
 LazyLoad: yes
-Author: Mark Heckmann
+Authors@R: c(person("Mark", "Heckmann", email = "heckmann@uni-bremen.de", role = c("aut", "cre")),
+             person("Lukas", "Burk", email = "lukas@quantenbrot.de", role = c("ctb")))
 Description: Simulation tool to facilitate determination of
     required sample size to achieve category saturation
     for studies using multiple repertory grids in conjunction with
@@ -12,18 +12,14 @@ Description: Simulation tool to facilitate determination of
 Version: 0.4
 Date: 2016-05-13
 Imports:
-    RGtk2,
-    cairoDevice,
+    shiny,
     ggplot2,
     reshape2,
     plyr
 Suggests:
-    knitr, 
-    testthat
-Collate:
-    'gridsampler-package.R'
-    'gui.R'
-    'utils.R'
-    'simulation.R'
+    knitr,
+    testthat,
+    shinythemes
+    ggrepel
 VignetteBuilder: knitr
 RoxygenNote: 5.0.1
