@@ -205,11 +205,21 @@ shinyServer(function(input, output, session) {
 
   #### Bottom half of column 3
   observeEvent(input$simulate, {
-    values$simulations <- sim_n_persons_x_times_many_n(prob = values$category_prob,
-                                                      n = text_to_vector(isolate(input$sample_size2)),
-                                                      a = values$attributes_id,
-                                                      ap = values$attributes_prob,
-                                                      times = isolate(input$runs_per_sample))
+    withProgress(message = "Running simulations…", {
+
+      # This is basically a verbatim copy of sim_n_persons_x_times_many_n
+      # I extracted it here because for reasons I don't understand it didn't work otherwise
+      r <- list()
+      n <- text_to_vector(isolate(input$sample_size2))
+      for (i in seq_along(n)) {
+        r[[i]] <- sim_n_persons_x_times(values$category_prob, n = n[i], a = values$attributes_id,
+                                        ap = values$attributes_prob, times = isolate(input$runs_per_sample))
+        incProgress(amount = 1/length(n), detail = paste("SImulation ", i))
+      }
+      r
+
+      values$simulations <- r
+    })
   })
 
   # Plot 2 of column 3
