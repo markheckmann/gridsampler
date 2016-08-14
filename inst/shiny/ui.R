@@ -1,6 +1,15 @@
 #### Shiny UI definition ####
 
-shinyUI(navbarPage(title = "gridsampler shiny dev-1.1", inverse = T, theme = shinytheme("flatly"),
+
+header <- list(tags$link(rel = "stylesheet", type = "text/css", href = "style.css"))
+
+
+
+shinyUI(navbarPage(title = "gridsampler shiny dev-1.1", 
+                   inverse = T, 
+                   theme = shinytheme("flatly"),
+                   header = header,
+                   
   #### Main tab ####
     tabPanel("Simulate", icon = icon("tasks"),
       wellPanel(
@@ -47,8 +56,9 @@ shinyUI(navbarPage(title = "gridsampler shiny dev-1.1", inverse = T, theme = shi
                        )
               )
         ),
+        
         #### Column 2 ####
-        column(3,
+        column(4,
                h3("2. Probability of Each Category"),
                helpText("This is an amusing anecdote about the most dazzling pair of trousers"),
                fluidRow(
@@ -83,8 +93,9 @@ shinyUI(navbarPage(title = "gridsampler shiny dev-1.1", inverse = T, theme = shi
                )
         )
         ),
-        #### Column 3 ####
-        column(6,
+       
+         #### Column 3 ####
+        column(5,
                h3("3. Simulate"),
                helpText("This is a note about how things happen here"),
                fluidRow(

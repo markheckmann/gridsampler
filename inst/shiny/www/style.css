@@ -1,0 +1,25 @@
+/* make heading smaller */
+h3 {
+  font-size: 13pt
+}
+
+
+.form-control {
+    height: 25px;
+    font-size: 10pt;
+    padding: 1px 12px;
+}
+
+
+/*  vertical dividers betweeen panels */
+
+.well > .container-fluid > div:nth-of-type(2) { 
+    border-left: 1px solid #666;
+    height: 100%;
+}
+
+
+.well > .container-fluid > div:nth-of-type(3) { 
+    border-left: 1px solid #666;
+}
+
