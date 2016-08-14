@@ -19,7 +19,7 @@ Imports:
 Suggests:
     knitr,
     testthat,
-    shinythemes
+    shinythemes,
     ggrepel
 VignetteBuilder: knitr
 RoxygenNote: 5.0.1
