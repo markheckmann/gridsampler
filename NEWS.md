@@ -3,6 +3,7 @@
 ## 0.4 (opened May 2016)
 
 * document internal functions (TODO)
+* tour explaining GUI elements added
 
 ## 0.3
 

@@ -1,14 +1,31 @@
 #### Shiny UI definition ####
 
 
-header <- list(tags$link(rel = "stylesheet", type = "text/css", href = "style.css"))
+#------ Intro Tour using boostrap-tour library (http://bootstraptour.com/)  ------#
+
+# Add a tour to GUI to explain the panels and basis steps.
+# The tour is defined in www/tour.js
+#
+header <- list(tags$script(src="bootstrap-tour-0.10.3/js/bootstrap-tour.min.js"),
+               tags$link(rel = "stylesheet", type = "text/css", href = "style.css"),
+               tags$script("var a = $('#ourNavbar  a[data-value=\"Tour\"]');
+                                    a.attr('data-toggle', 'noclass');
+                                    a.click(function() {
+                                      tour.restart();
+                                      console.log('Tour started');
+                                    });") )
+
+footer <- tags$script(src="tour.js")  # add tour
+
+#------ End Intro Tour components  ------#
 
 
-
-shinyUI(navbarPage(title = "gridsampler shiny dev-1.1", 
+shinyUI(navbarPage(title = "gridsampler shiny dev-1.2", 
+                   id = "ourNavbar",
                    inverse = T, 
                    theme = shinytheme("flatly"),
                    header = header,
+                   footer = footer,
                    
   #### Main tab ####
     tabPanel("Simulate", icon = icon("tasks"),
@@ -141,5 +158,7 @@ shinyUI(navbarPage(title = "gridsampler shiny dev-1.1",
         )
       )
     )
+  ), 
+  tabPanel("Tour", icon = icon("question-circle")  # trigger intro tour
   )
 ))
