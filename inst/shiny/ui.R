@@ -55,10 +55,11 @@ shinyUI(navbarPage(title = "gridsampler shiny 0.1",
                                     min = 0.001, max = 1, step = 0.01, width = "100%")
               )),
               # Preset section of column 1
+              wellPanel(
               h4("Probability Presets"),
               fluidRow(
                 # Selection of probability types in column 1
-                column(6, selectInput("preset_types1", "Type of Probability",
+                column(6, selectInput("preset_types1", "Probability Type",
                              choices = c("Uniform", "Normal", "Poisson", "Exponential"),
                              selected = "Normal", selectize = F),
                        # Action button in column 1
@@ -77,6 +78,7 @@ shinyUI(navbarPage(title = "gridsampler shiny 0.1",
                                        numericInput("1_exp_rate", "Rate", value = default_attributes_exp_rate, step = 0.1)
                                         )
                        )
+              )
               )
         ),
 
@@ -98,10 +100,11 @@ shinyUI(navbarPage(title = "gridsampler shiny 0.1",
                                        value = default_category_probs[5], min = 0, max = 1, step = 0.001, width = "100%"))
                 ),
                # Preset section of column 2
+               wellPanel(
                h4("Probability Presets"),
                fluidRow(
                # Selection of probability types in column 2
-               column(6, selectInput("preset_types2", "Type of Probability",
+               column(6, selectInput("preset_types2", "Probability Type",
                                      choices = c("Uniform", "Exponential", "Linear"),
                                      selected = "Exponential", selectize = F),
                       # Action button in column 2
@@ -118,7 +121,8 @@ shinyUI(navbarPage(title = "gridsampler shiny 0.1",
                                        numericInput("2_lin_min", "Minimum", value = default_category_lin_min, step = 0.01)
                       )
                )
-        )
+               )
+               )
         ),
 
          #### Column 3 ####
@@ -127,8 +131,8 @@ shinyUI(navbarPage(title = "gridsampler shiny 0.1",
                # Description text above column 3, currently a placeholder
                helpText("This is a note about how things happen here"),
                fluidRow(
-                 column(6, numericInput("sample_size", "Sample Size", value = "100")),
-                 column(6, numericInput("run_times", "Run N times", value = "10"))
+                 column(6, numericInput("sample_size", "Sample Size (N)", value = "100")),
+                 column(6, numericInput("run_times", "Simulation Runs (R)", value = "10"))
                ),
                fluidRow(
                  column(6, actionButton("sample_random", "Random Sample", width = "100%")),
@@ -139,10 +143,10 @@ shinyUI(navbarPage(title = "gridsampler shiny 0.1",
                tags$hr(),
                fluidRow(
                  column(6, textInput("sample_size2", "Sample Size (N)", value = "10, 20, 30, 40, 50, 60, 70, 80")),
-                 column(6, numericInput("runs_per_sample", "Simulation Runs per Sample", value = 100, step = 1))
+                 column(6, textInput("mincount_m", "Minimum Count (M)", value = "4, 5, 6"))
                ),
                fluidRow(
-                 column(6, textInput("mincount_m", "Minimum Count (M)", value = "4, 5, 6")),
+                 column(6, numericInput("runs_per_sample", "Simulation Runs (R)", value = 100, step = 1)),
                  column(6, textInput("proportion_k", "Proportion (K)", value = "0.9, 0.95, 1"))
                ),
                fluidRow(
