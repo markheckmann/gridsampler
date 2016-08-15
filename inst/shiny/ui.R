@@ -110,9 +110,6 @@ shinyUI(navbarPage(title = gridsampler_version,
                       ),
                column(6,
                       # Show preset arguments depending on distribution selection
-                      conditionalPanel("input.preset_types2 == 'Poisson'",
-                                       numericInput("2_pois_lambda", "Lamda", value = default_category_lambda)
-                      ),
                       conditionalPanel("input.preset_types2 == 'Exponential'",
                                        numericInput("2_exp_rate", "Rate",
                                                     value = default_category_exp_rate, step = 0.01)
