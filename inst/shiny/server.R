@@ -119,7 +119,8 @@ shinyServer(function(input, output, session) {
     values$category_id <- seq_len(input$maximum2)
 
     if (input$preset_go2 == 0) {
-      if (length(values$category_id) != length(values$category_prob)) {
+      #if (length(values$category_id) != length(values$category_prob)) {
+      if (input$maximum2 != length(values$category_prob)) {
         values$category_prob <- dexp(values$category_id, rate = default_category_exp_rate)
       }
     }
