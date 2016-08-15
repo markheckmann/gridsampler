@@ -8,6 +8,7 @@ shinyServer(function(input, output, session) {
     validate(need(!is.na(input$minimum1), "Value must be set!"))
     validate(need(!is.na(input$maximum1), "Value must be set!"))
 
+    # Confine manual selection to limits set before
     updateNumericInput(session, "attribute_num", min = input$minimum1, max = input$maximum1)
 
     # Set attribute selection input to a value guaranteed in range of set limits (minimum1, maximum1)
@@ -21,9 +22,10 @@ shinyServer(function(input, output, session) {
     }
   })
 
+  # Make sure the probability in column 1 is the current value stored in the reactiveValues object
   observeEvent(input$attribute_num, {
-    # Make sure the probability in column 1 is the current value stored in the reactiveValues object
-    updateNumericInput(session, "probability1", value = values$attributes_prob[values$attributes_id == input$attribute_num])
+    updateNumericInput(session, "probability1",
+                       value = values$attributes_prob[values$attributes_id == input$attribute_num])
   })
 
   # Observer to change attribute properties
@@ -98,13 +100,15 @@ shinyServer(function(input, output, session) {
   observe({
     validate(need(!is.na(input$maximum2), "Value must be set!"))
 
+    # Confine manual selection to limits set before
     updateNumericInput(session, "category", min = 1, max = input$maximum2)
 
     if (input$category > input$maximum2) {
-      updateNumericInput(session, "category", value = 1)
+      updateNumericInput(session, "category", value = input$category - 1)
     }
   })
 
+  # Make sure the probability in column 2 is the current value stored in the reactiveValues object
   observeEvent(input$category, {
     updateNumericInput(session, "probability2", value = values$category_prob[values$category_id == input$category])
   })
@@ -112,7 +116,7 @@ shinyServer(function(input, output, session) {
   # Observer to change category properties
   observe({
     # Change number of attributes
-    values$category_id <- seq(1, input$maximum2, by = 1)
+    values$category_id <- seq_len(input$maximum2)
 
     if (input$preset_go2 == 0) {
       if (length(values$category_id) != length(values$category_prob)) {
@@ -143,12 +147,12 @@ shinyServer(function(input, output, session) {
 
   # Plot for column 2
   output$plot2 <- renderPlot({
-    data <- data.frame(x = values$category_id,
-                       y = values$category_prob,
+    data2 <- data.frame(x = values$category_id,
+                       y = values$category_prob[seq_along(values$category_id)],
                        mark = rep("No", length(values$category_id)),
                        stringsAsFactors = F)
 
-    data$mark[data$x == input$category] <- "Yes"
+    data2$mark[data2$x == input$category] <- "Yes"
 
     # x axis labels depending on number of categories, should be tweaked for real-life use cases
     if (input$maximum2 <= 10) {
@@ -159,14 +163,14 @@ shinyServer(function(input, output, session) {
       x_breaks <- seq(1, 1000, 5)
     }
 
-    p <- ggplot(data = data, aes(x = x, weight = y, fill = mark)) +
+    p <- ggplot(data = data2, aes(x = x, weight = y, fill = mark)) +
           geom_bar(width = .1) +
           geom_text(aes(y = y, label = prettify_probs(y, 3)), nudge_y = .005, angle = 40) +
           scale_fill_manual(values = c(No = "black", Yes = "red2"), guide = F) +
           labs(x = "Categories", y = "Probability") +
           scale_x_continuous(breaks = x_breaks) +
-          expand_limits(y = max(data$y + 0.01),
-                        x = max(data$x + 0.9)) +
+          expand_limits(y = max(data2$y + 0.01),
+                        x = max(data2$x + 0.9)) +
           theme_bw() +
           theme(plot.background = element_rect(fill = plot_bg),
                 panel.background = element_rect(fill = panel_bg))
