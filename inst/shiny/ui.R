@@ -31,7 +31,8 @@ shinyUI(navbarPage(title = "gridsampler shiny 0.1",
       fluidPage(
         #### Column 1 ####
         column(3,
-              h3("1. Number of Attributes per Person"),
+              h3("1. Number of Attributes"),
+              helpText("Description of column 1"),
               fluidRow(
                 column(6, numericInput("minimum1", "Minimum",
                                        value = default_attributes_min,
@@ -85,6 +86,7 @@ shinyUI(navbarPage(title = "gridsampler shiny 0.1",
         #### Column 2 ####
         column(4,
                h3("2. Probability of Each Category"),
+               helpText("Description of column 2"),
                fluidRow(
                  column(12, numericInput("maximum2", "No. of Categories",
                                          value = default_category_count, min = 1, step = 1, width = "100%"))
@@ -131,6 +133,7 @@ shinyUI(navbarPage(title = "gridsampler shiny 0.1",
          #### Column 3 ####
          column(5,
                h3("3. Simulate"),
+               helpText("Description of column 3"),
                fluidRow(
                  column(6, numericInput("sample_size", "Sample Size (N)", value = "100")),
                  column(6, numericInput("run_times", "Simulation Runs (R)", value = "10"))
