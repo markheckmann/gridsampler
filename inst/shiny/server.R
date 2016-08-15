@@ -154,7 +154,7 @@ shinyServer(function(input, output, session) {
     p <- ggplot(data = data, aes(x = x, weight = y, fill = mark)) +
           geom_bar(width = .1)
           if (plot_repel) {
-            p <- p + ggrepel::geom_text_repel(aes(y = y, label = prettify_probs(y, 3)), nudge_y = .001)
+            p <- p + ggrepel::geom_text_repel(aes(y = y, label = prettify_probs(y, 3)), nudge_y = .005)
           } else {
             p <- p + geom_text(aes(y = y, label = prettify_probs(y, 3)), nudge_y = .001)
           }
