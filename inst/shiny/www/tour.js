@@ -22,7 +22,7 @@ var tour = new Tour({
   {
     element: "#maximum1",
     title: "Range of attributes",
-    content: "Allows to define the minimum and maximum number of elicited attributes per subject.",
+    content: "Allows to define the minimum and maximum number of elicited attributes per subject.<br> <br> <i>Note that maximum cannot be higher than the number of categories in panel 2.</i>",
   },
   {
     element: "#plot1",
