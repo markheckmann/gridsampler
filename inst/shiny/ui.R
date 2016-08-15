@@ -18,7 +18,7 @@ footer <- tags$script(src = "tour.js")  # add tour
 
 #### End Intro Tour components, begin shinyUI  ####
 
-shinyUI(navbarPage(title = "gridsampler shiny 0.1",
+shinyUI(navbarPage(title = gridsampler_version,
                    id = "ourNavbar",
                    inverse = T,
                    theme = shinytheme("flatly"),

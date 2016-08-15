@@ -4,6 +4,9 @@ library(ggplot2)
 library(gridsampler)
 library(shinythemes)
 
+# Current gridsampler version (displayed in header)
+gridsampler_version <- paste0("Gridsampler v", packageVersion("gridsampler"))
+
 #### Convenience functions ####
 # Convert textInput to a vector for inputs in column 3
 text_to_vector <- function(txt){
