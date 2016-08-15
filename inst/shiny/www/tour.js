@@ -110,14 +110,14 @@ var tour = new Tour({
   },
   {
     element: ".well > .container-fluid > div:nth-of-type(3) > div:nth-of-type(4) > div:nth-of-type(2)",
-    title: "Number of runs",
-    content: "Number of samples for each <i>N</i> to be drawn.",
+    title: "Minimum number of counts per category",
+    content: "Define the minimal number of counts per category that are visualized. This allows you to steer the level of saturation for the categories.",
     placement: "left"
   },
   {
     element: ".well > .container-fluid > div:nth-of-type(3) > div:nth-of-type(5) > div:nth-of-type(1)",
-    title: "Minimum number of counts per category",
-    content: "Define the minimal number of counts per category that are visualized. This allows you to steer the level of saturation for the categories.",
+    title: "Number of runs",
+    content: "Number of samples for each <i>N</i> to be drawn.",
     placement: "left"
   },
   {
