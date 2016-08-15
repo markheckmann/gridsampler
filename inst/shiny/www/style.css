@@ -10,16 +10,53 @@ h3 {
     padding: 1px 12px;
 }
 
+#plot3_1 {
+  border-bottom: 1px solid #666;
+  padding-bottom: 10px;
+}
 
+/*
+.btn{
+  height: 30px;
+}
+
+*/
 /*  vertical dividers betweeen panels */
+
+.well {
+    padding: 10px;
+}
+
+.well > .container-fluid > div:nth-of-type(1) { 
+    padding-left: 10px;
+    padding-right: 20px;
+}
 
 .well > .container-fluid > div:nth-of-type(2) { 
     border-left: 1px solid #666;
     height: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 
 .well > .container-fluid > div:nth-of-type(3) { 
     border-left: 1px solid #666;
+    padding-left: 20px;
+    padding-right: 10px;
 }
+
+hr{
+  background-color:#000000;
+  height:1px;
+}
+
+
+/*
+.well > .container-fluid > div:nth-of-type(3) > div:nth-of-type(4) { 
+    border-top: 1px solid #666;
+    padding-top: 20px;
+    margin-top: 20px;
+}
+*/
 
