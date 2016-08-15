@@ -75,11 +75,13 @@ shinyServer(function(input, output, session) {
   # Plot in column 1
   output$plot1 <- renderPlot({
 
+    # Create data.frame from values for use with ggplot2
     data <- data.frame(x = values$attributes_id,
                        y = values$attributes_prob[seq_along(values$attributes_id)],
                        mark = rep("No", length(values$attributes_id)),
                        stringsAsFactors = F)
 
+    # Mark the currently selected element
     data$mark[data$x == input$attribute_num] <- "Yes"
 
     p <- ggplot(data = data, aes(x = x, weight = y, fill = mark)) +
@@ -92,6 +94,7 @@ shinyServer(function(input, output, session) {
           theme(plot.background = element_rect(fill = plot_bg),
                 panel.background = element_rect(fill = panel_bg))
 
+    # Vertical adjustment if selected
     if (input$plot1_fixy) {
       p <- p + ylim(0, 1)
     }
@@ -132,7 +135,6 @@ shinyServer(function(input, output, session) {
   })
 
   # Observer for manual probability adjustments (col 2)
-  # TODO: Perform check so that sum of probability approximates 1
   observeEvent(input$probability2, {
     values$category_prob[values$category_id == input$category] <- input$probability2
   })
@@ -153,11 +155,14 @@ shinyServer(function(input, output, session) {
 
   # Plot for column 2
   output$plot2 <- renderPlot({
+
+    # Inititate data.frame from reactive values
     data2 <- data.frame(x = values$category_id,
                        y = values$category_prob[seq_along(values$category_id)],
                        mark = rep("No", length(values$category_id)),
                        stringsAsFactors = F)
 
+    # Mark selected element
     data2$mark[data2$x == input$category] <- "Yes"
 
     # x axis labels depending on number of categories, should be tweaked for real-life use cases
@@ -181,6 +186,7 @@ shinyServer(function(input, output, session) {
           theme(plot.background = element_rect(fill = plot_bg),
                 panel.background = element_rect(fill = panel_bg))
 
+    # Adjust y scale if selected
     if (input$plot2_fixy) {
       p <- p + ylim(0, 1)
     }
@@ -201,6 +207,7 @@ shinyServer(function(input, output, session) {
                                     panel.background = element_rect(fill = panel_bg))
   })
 
+  # Run samples of run_button is pressed
   observeEvent(input$run_button, {
     r <- sim_n_persons_x_times(prob = isolate(values$category_prob),
                                n = isolate(input$sample_size),
@@ -208,6 +215,7 @@ shinyServer(function(input, output, session) {
                                ap = isolate(values$attributes_prob),
                                times = isolate(input$run_times))
 
+    # Create plot from samples
     values$sample_plot <- expected_frequencies(r) +
                             theme_bw() +
                             theme(plot.background  = element_rect(fill = plot_bg),
@@ -229,6 +237,8 @@ shinyServer(function(input, output, session) {
 
   #### Bottom half of column 3 ####
   observeEvent(input$simulate, {
+
+    # Initiate progress bar
     withProgress(message = "Running simulations…", {
 
       # This is basically a verbatim copy of sim_n_persons_x_times_many_n
@@ -238,6 +248,7 @@ shinyServer(function(input, output, session) {
       for (i in seq_along(n)) {
         r[[i]] <- sim_n_persons_x_times(values$category_prob, n = n[i], a = values$attributes_id,
                                         ap = values$attributes_prob, times = isolate(input$runs_per_sample))
+        # Increment progress bar
         incProgress(amount = 1/length(n), detail = paste("Simulation ", i))
       }
       r
