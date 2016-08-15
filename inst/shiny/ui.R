@@ -146,16 +146,18 @@ shinyUI(navbarPage(title = "gridsampler shiny 0.1",
                plotOutput("plot3_1", height = "250px"),
                tags$hr(),
                fluidRow(
-                 column(6, textInput("sample_size2", "Sample Size (N)", value = "10, 20, 30, 40, 50, 60, 70, 80")),
-                 column(6, textInput("mincount_m", "Minimum Count (M)", value = "4, 5, 6"))
-               ),
-               fluidRow(
-                 column(6, numericInput("runs_per_sample", "Simulation Runs (R)", value = 100, step = 1)),
-                 column(6, textInput("proportion_k", "Proportion (K)", value = "0.9, 0.95, 1"))
-               ),
-               fluidRow(
-                      column(6, actionButton("simulate", "Simulate", width = "100%")),
-                      column(6, actionButton("redraw", "Redraw", width = "100%"))
+                 column(6,
+                 wellPanel(
+                   fluidRow(column(12, textInput("sample_size2", "Sample Size (N)", value = "10, 20, 30, 40, 50, 60, 70, 80"))),
+                   fluidRow(column(12, textInput("mincount_m", "Minimum Count (M)", value = "4, 5, 6"))),
+                   fluidRow(column(12, actionButton("simulate", "Simulate", width = "100%"))
+                 ))),
+                 column(6,
+                 wellPanel(
+                   fluidRow(column(12, numericInput("runs_per_sample", "Simulation Runs (R)", value = 100, step = 1))),
+                   fluidRow(column(12, textInput("proportion_k", "Proportion (K)", value = "0.9, 0.95, 1"))),
+                   fluidRow(column(12, actionButton("redraw", "Redraw", width = "100%"))
+                 )))
                ),
                tags$br(),
                # Only show plot if the simulate button has been pressed, show text otherwise
