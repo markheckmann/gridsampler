@@ -10,6 +10,7 @@ shinyServer(function(input, output, session) {
 
     updateNumericInput(session, "attribute_num", min = input$minimum1, max = input$maximum1)
 
+    # Set attribute selection input to a value guaranteed in range of set limits (minimum1, maximum1)
     if (input$attribute_num < input$minimum1 | input$attribute_num > input$maximum1) {
       updateNumericInput(session, "attribute_num", value = input$minimum1)
     }

@@ -44,6 +44,7 @@ shinyUI(navbarPage(title = "gridsampler shiny 0.1",
               ),
               plotOutput("plot1", height = "350px"),
               checkboxInput("plot1_fixy", "Fix y to [0, 1]", value = F),
+              # Manual item probability adjustment
               fluidRow(
                 column(6, numericInput("attribute_num", "No. of Attributes",
                                     value = default_attributes_min,
@@ -53,11 +54,14 @@ shinyUI(navbarPage(title = "gridsampler shiny 0.1",
                                     value = default_attributes_probs[1],
                                     min = 0.001, max = 1, step = 0.01, width = "100%")
               )),
+              # Preset section of column 1
               h4("Probability Presets"),
               fluidRow(
+                # Selection of probability types in column 1
                 column(6, selectInput("preset_types1", "Type of Probability",
                              choices = c("Uniform", "Normal", "Poisson", "Exponential"),
                              selected = "Normal", selectize = F),
+                       # Action button in column 1
                        actionButton("preset_go1", "Apply Preset", width = "100%")),
                 column(6, tags$br(),
                        # Show preset arguments depending on distribution selection
@@ -93,11 +97,14 @@ shinyUI(navbarPage(title = "gridsampler shiny 0.1",
                  column(6, numericInput("probability2", "Probability",
                                        value = default_category_probs[5], min = 0, max = 1, step = 0.001, width = "100%"))
                 ),
+               # Preset section of column 2
                h4("Probability Presets"),
                fluidRow(
+               # Selection of probability types in column 2
                column(6, selectInput("preset_types2", "Type of Probability",
                                      choices = c("Uniform", "Normal", "Poisson", "Exponential"),
                                      selected = "Exponential", selectize = F),
+                      # Action button in column 2
                       actionButton("preset_go2", "Apply Preset", width = "100%")),
                column(6, tags$br(),
                       # Show preset arguments depending on distribution selection
