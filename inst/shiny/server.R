@@ -8,6 +8,11 @@ shinyServer(function(input, output, session) {
     validate(need(!is.na(input$minimum1), "Value must be set!"))
     validate(need(!is.na(input$maximum1), "Value must be set!"))
 
+    # Make sure maximum is not smaller than minumum
+    if (input$maximum1 <= input$minimum1) {
+      updateNumericInput(session, "maximum1", value = input$maximum1 + 1, max = input$maximum1 + 1)
+    }
+
     # Confine manual selection to limits set before
     updateNumericInput(session, "attribute_num", min = input$minimum1, max = input$maximum1)
 
