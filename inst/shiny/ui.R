@@ -49,8 +49,8 @@ shinyUI(navbarPage(title = "gridsampler shiny 0.1",
                                     min = default_attributes_min, max = default_attributes_max, step = 1, width = "100%")
                 ),
                 column(6, numericInput("probability1", "Probability",
-                                    value = default_attributes_probs[1],
-                                    min = 0.001, max = 1, step = 0.01, width = "100%")
+                                    value = round(default_attributes_probs[1], 3),
+                                    min = 0.001, max = 1, step = 0.001, width = "100%")
               )),
               # Preset section of column 1
               wellPanel(
@@ -95,7 +95,7 @@ shinyUI(navbarPage(title = "gridsampler shiny 0.1",
                  column(6, numericInput("category", "Category",
                                         value = 5, min = 1, max = 100, step = 1, width = "100%")),
                  column(6, numericInput("probability2", "Probability",
-                                       value = default_category_probs[5], min = 0, max = 1, step = 0.001, width = "100%"))
+                                       value = round(default_category_probs[5], 3), min = 0, max = 1, step = 0.001, width = "100%"))
                 ),
                # Preset section of column 2
                wellPanel(

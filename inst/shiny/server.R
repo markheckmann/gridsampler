@@ -30,7 +30,7 @@ shinyServer(function(input, output, session) {
   # Make sure the probability in column 1 is the current value stored in the reactiveValues object
   observeEvent(input$attribute_num, {
     updateNumericInput(session, "probability1",
-                       value = values$attributes_prob[values$attributes_id == input$attribute_num])
+                       value = round(values$attributes_prob[values$attributes_id == input$attribute_num], 3))
   })
 
   # Observer to change attribute properties
@@ -42,9 +42,9 @@ shinyServer(function(input, output, session) {
     # Makes sure that the plot shows the correct number of attributes
     if (input$preset_go1 == 0) {
       if (length(values$attributes_id) != length(values$attributes_prob)) {
-        values$attributes_prob <- dnorm(values$attributes_id,
+        values$attributes_prob <- round(dnorm(values$attributes_id,
                                         mean = default_attributes_norm_mean,
-                                        sd = default_attributes_norm_sd)
+                                        sd = default_attributes_norm_sd), 3)
       }
     }
   })
@@ -52,7 +52,7 @@ shinyServer(function(input, output, session) {
   # Observer for manual probability adjustments (col 1)
   # TODO: Perform check so that sum of probability approximates 1
   observeEvent(input$probability1, {
-    values$attributes_prob[values$attributes_id == input$attribute_num] <- input$probability1
+    values$attributes_prob[values$attributes_id == input$attribute_num] <- round(input$probability1, 3)
   })
 
   # Observer for presets in column 1
@@ -129,14 +129,14 @@ shinyServer(function(input, output, session) {
     if (input$preset_go2 == 0) {
       #if (length(values$category_id) != length(values$category_prob)) {
       if (input$maximum2 != length(values$category_prob)) {
-        values$category_prob <- dexp(values$category_id, rate = default_category_exp_rate)
+        values$category_prob <- round(dexp(values$category_id, rate = default_category_exp_rate), 3)
       }
     }
   })
 
   # Observer for manual probability adjustments (col 2)
   observeEvent(input$probability2, {
-    values$category_prob[values$category_id == input$category] <- input$probability2
+    values$category_prob[values$category_id == input$category] <- round(input$probability2, 3)
   })
 
   # Observer for presets in column 1
