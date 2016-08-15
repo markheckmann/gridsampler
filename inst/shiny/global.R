@@ -51,13 +51,3 @@ p_31 <- gridsampler::draw_n_person_sample(prob = dexp(1:15, 0.15),
   theme_bw() +
   theme(plot.background = element_rect(fill = plot_bg),
         panel.background = element_rect(fill = panel_bg))
-
-# Placeholder plot for 3,2
-
-p_32 <- ggplot(data = data.frame(x = 1:10, y = 1:10), aes(x = x, y = y)) +
-          geom_line(color = panel_bg) +
-          geom_text(label = "No simulations run yet.", y = 5, x = 5, size = 8) +
-          theme_void() +
-          theme(plot.background = element_rect(fill = plot_bg),
-                panel.background = element_rect(fill = panel_bg))
-

@@ -20,13 +20,13 @@ footer <- tags$script(src="tour.js")  # add tour
 #------ End Intro Tour components  ------#
 
 
-shinyUI(navbarPage(title = "gridsampler shiny dev-1.2", 
+shinyUI(navbarPage(title = "gridsampler shiny dev-1.2",
                    id = "ourNavbar",
-                   inverse = T, 
+                   inverse = T,
                    theme = shinytheme("flatly"),
                    header = header,
                    footer = footer,
-                   
+
   #### Main tab ####
     tabPanel("Simulate", icon = icon("tasks"),
       wellPanel(
@@ -73,7 +73,7 @@ shinyUI(navbarPage(title = "gridsampler shiny dev-1.2",
                        )
               )
         ),
-        
+
         #### Column 2 ####
         column(4,
                h3("2. Probability of Each Category"),
@@ -110,7 +110,7 @@ shinyUI(navbarPage(title = "gridsampler shiny dev-1.2",
                )
         )
         ),
-       
+
          #### Column 3 ####
         column(5,
                h3("3. Simulate"),
@@ -139,7 +139,10 @@ shinyUI(navbarPage(title = "gridsampler shiny dev-1.2",
                       column(6, actionButton("redraw", "Redraw", width = "100%"))
                ),
                tags$br(),
-               plotOutput("plot3_2", height = "250px"),
+               conditionalPanel("input.simulate == 0", tags$span(class = "help-block", "No simulations run yet!",
+                                                                 tags$br(),
+                                                                 "A plot will appear here after you press “simulate“.")),
+               conditionalPanel("input.simulate > 0", plotOutput("plot3_2", height = "250px")),
                tags$br()
         )
         #### End of column 3 ####
@@ -158,7 +161,7 @@ shinyUI(navbarPage(title = "gridsampler shiny dev-1.2",
         )
       )
     )
-  ), 
+  ),
   tabPanel("Tour", icon = icon("question-circle")  # trigger intro tour
   )
 ))

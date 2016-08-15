@@ -231,7 +231,7 @@ shinyServer(function(input, output, session) {
     input$redraw
 
     if (input$redraw == 0 & is.null(values$simulations)) {
-      return(p_32)
+      return(NULL)
     }
 
 
