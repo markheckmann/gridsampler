@@ -32,6 +32,7 @@ shinyUI(navbarPage(title = "gridsampler shiny dev-1.2",
         #### Column 1 ####
         column(3,
               h3("1. Number of Attributes per Person"),
+              # Description text above column 1, currently a placeholder
               helpText("This is a helpful description of this column with adequate amounts of information"),
               fluidRow(
                 column(6, numericInput("minimum1", "Minimum",
@@ -46,7 +47,8 @@ shinyUI(navbarPage(title = "gridsampler shiny dev-1.2",
                                     value = 4, min = 4, max = 8, step = 1, width = "100%")
                 ),
                 column(6, numericInput("probability1", "Probability",
-                                    value = 0.05399097, min = 0.001, max = 1, step = 0.01, width = "100%")
+                                    value = default_attributes_probs[1],
+                                    min = 0.001, max = 1, step = 0.01, width = "100%")
               )),
               h4("Probability Presets"),
               fluidRow(
@@ -66,9 +68,7 @@ shinyUI(navbarPage(title = "gridsampler shiny dev-1.2",
                                         ),
                        conditionalPanel("input.preset_types1 == 'Exponential'",
                                        numericInput("1_exp_rate", "Rate", value = 0.1, step = 0.1)
-                                        ),
-                       conditionalPanel("input.preset_types1 == 'Manual'",
-                                        textInput("1_manual", label = "Vector of propabilities", placeholder = "0.5, 0.25, 0.25"))
+                                        )
                        )
               )
         ),
@@ -76,9 +76,11 @@ shinyUI(navbarPage(title = "gridsampler shiny dev-1.2",
         #### Column 2 ####
         column(4,
                h3("2. Probability of Each Category"),
+               # Description text above column 2, currently a placeholder
                helpText("This is an amusing anecdote about the most dazzling pair of trousers"),
                fluidRow(
-                 column(12, numericInput("maximum2", "No. of Categories", value = 15, min = 1, step = 1, width = "100%"))
+                 column(12, numericInput("maximum2", "No. of Categories",
+                                         value = default_category_count, min = 1, step = 1, width = "100%"))
                ),
                plotOutput("plot2", height = "350px"),
                checkboxInput("plot2_fixy", "Fix y to [0, 1]", value = F),
@@ -86,7 +88,7 @@ shinyUI(navbarPage(title = "gridsampler shiny dev-1.2",
                  column(6, numericInput("category", "Category",
                                         value = 5, min = 1, max = 100, step = 1, width = "100%")),
                  column(6, numericInput("probability2", "Probability",
-                                       value = 0.07085498, min = 0, max = 1, step = 0.001, width = "100%"))
+                                       value = default_category_probs[5], min = 0, max = 1, step = 0.001, width = "100%"))
                 ),
                h4("Probability Presets"),
                fluidRow(
@@ -114,6 +116,7 @@ shinyUI(navbarPage(title = "gridsampler shiny dev-1.2",
          #### Column 3 ####
          column(5,
                h3("3. Simulate"),
+               # Description text above column 3, currently a placeholder
                helpText("This is a note about how things happen here"),
                fluidRow(
                  column(6, numericInput("sample_size", "Sample Size", value = "100")),

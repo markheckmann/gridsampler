@@ -26,6 +26,7 @@ shinyServer(function(input, output, session) {
     values$attributes_id <- seq(input$minimum1, input$maximum1, by = 1)
 
     # If button isn't pressed yet, insert default values
+    # Makes sure that the plot shows the correct number of attributes
     if (input$preset_go1 == 0) {
       if (length(values$attributes_id) != length(values$attributes_prob)) {
         values$attributes_prob <- dnorm(values$attributes_id, mean = 6, sd = 1)
