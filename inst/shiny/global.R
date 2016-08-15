@@ -10,16 +10,27 @@ if (!("ggrepel" %in% installed.packages())) {
   plot_repel <- TRUE
 }
 
+#### Convenience functions ####
+# Convert textInput to a vector for inputs in column 3
 text_to_vector <- function(txt){
   eval(parse(text = paste0("c(", txt, ")")))
 }
+
+# Prettier display of probabilities inside plots
+prettify_probs <- function(x, round = 3) {
+  decimals <- round(x, round)
+  decimals <- substring(as.character(decimals), first = 2)
+  return(decimals)
+}
+
+
 
 # theme_shiny <- function(base_size = 12, base_family = ""){
 #   theme_bw(base_size = base_size, base_family = base_family) +
 #     theme(plot.background = element_rect(fill = "#f5f5f5"))
 # }
 
-# Plot presets
+#### Plot presets ####
 plot_bg  <- "#fafafa" # for 'plot.background'
 panel_bg <- "#fcfcfc" # for 'panel.background'
 

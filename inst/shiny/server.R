@@ -66,7 +66,7 @@ shinyServer(function(input, output, session) {
 
     p <- ggplot(data = data, aes(x = x, weight = y, fill = mark)) +
           geom_bar(width = .1) +
-          geom_text(aes(y = y, label = round(y, 2)), nudge_y = .02) +
+          geom_text(aes(y = y, label = prettify_probs(y, 3)), nudge_y = .02) +
           scale_fill_manual(values = c(No = "black", Yes = "red2"), guide = F) +
           labs(x = "Attribute", y = "Probability") +
           scale_x_continuous(breaks = seq(1, 1000, 1)) +
@@ -151,9 +151,9 @@ shinyServer(function(input, output, session) {
     p <- ggplot(data = data, aes(x = x, weight = y, fill = mark)) +
           geom_bar(width = .1)
           if (plot_repel) {
-            p <- p + ggrepel::geom_text_repel(aes(y = y, label = round(y, 4)))
+            p <- p + ggrepel::geom_text_repel(aes(y = y, label = prettify_probs(y, 4)))
           } else {
-            p <- p + geom_text(aes(y = y, label = round(y, 4)))
+            p <- p + geom_text(aes(y = y, label = prettify_probs(y, 3)))
           }
           p <- p + scale_fill_manual(values = c(No = "black", Yes = "red2"), guide = F) +
           labs(x = "Categories", y = "Probability") +
