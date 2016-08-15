@@ -8,21 +8,21 @@ console.log("tour JS loaded");
 // Instance the tour
 var tour = new Tour({
   steps: [
-    
+
   /*---------- Panel 1 ----------*/
   {
     element: ".well > .container-fluid > div:nth-of-type(1) > h3",
     title: "<b>1. Number of Attributes per Person</b>",
     content: "In this panel, you can define the number of attributes that are elicited per subject. The number is a random variable, following the probability distribution shown in the graphics below.",
     placement: "bottom",
-    onShow: function (tour) { 
+    onShow: function (tour) {
         $("#ourNavbar a[data-value='Simulate']").tab('show');
     }
   },
   {
     element: "#maximum1",
     title: "Range of attributes",
-    content: "Allows to define the minimal and maximal number of elicited attributes per subject.",
+    content: "Allows to define the minimum and maximum number of elicited attributes per subject.",
   },
   {
     element: "#plot1",
@@ -39,19 +39,19 @@ var tour = new Tour({
     title: "Apply probability presets",
     content: "You can insert several types of predefined probability distributions for the random variable <i>number of elicited constructs</i>. A common scenario is a normal-like distribution, with some subjects mentioning more and some less constructs than the average."
   },
-  
+
  /*---------- Panel 2 ----------*/
-  
+
   {
     element: ".well > .container-fluid > div:nth-of-type(2) > h3",
     title: "<b>2. Probability of each category</b>",
-    content: "Each construct can be assigned to a category. Constructs from some categories are elicited more frequent that from others. A probability distribution for the categories can be assigned. The assumed distribution can be defined and variations in the assumption can be explored.",
+    content: "Each construct can be assigned to a category. Constructs from some categories are elicited more frequently that from others. A probability distribution for the categories can be assigned. The assumed distribution can be defined and variations in the assumption can be explored.",
     placement: "bottom"
   },
   {
     element: "#maximum2",
     title: "Number of categories",
-    content: "Defines the number of categories, the constructs stem from. This value usually depends on the field of investigation."
+    content: "Defines the number of categories the constructs stem from. This value usually depends on the field of investigation."
   },
   {
     element: "#plot2",
@@ -66,9 +66,9 @@ var tour = new Tour({
   {
     element: ".well > .container-fluid > div:nth-of-type(2) > div:nth-of-type(5)",
     title: "Apply probability presets",
-    content: "You can insert several types of predefined probability distributions for the probility distribution of the categories. As the order of the categories is arbitrary, it makes sense to order the probabilities is ascending order. Several presets for descending orders are defined.  "
+    content: "You can insert several types of predefined probability distributions for the probility distribution of the categories. As the order of the categories is arbitrary, it makes sense to order the probabilities in ascending order. Several presets for descending orders are defined.  "
   },
-  
+
   /*---------- Panel 3 ----------*/
 
   {
@@ -83,7 +83,7 @@ var tour = new Tour({
     content: "Panel 3 has an upper and a lower part. In the upper part, a single sample with <i>N</i> subjects is simulated one or many times. In the lower part, the simulation from the upper part is repeated many times across different sample sizes.",
     placement: "bottom"
   },
-  
+
   /*---------- Panel 3 upper ----------*/
 
   {
@@ -99,9 +99,9 @@ var tour = new Tour({
     content: "Many random samples of size <i>N</i> are drawn. The quantiles of the number of constructs obtained in each category are visualized.",
     placement: "left"
   },
-  
+
   /*---------- Panel 3 lower ----------*/
-  
+
   {
     element: ".well > .container-fluid > div:nth-of-type(3) > div:nth-of-type(4) > div:nth-of-type(1)",
     title: "Sample sizes <i>N</i> to simulate",
@@ -123,7 +123,7 @@ var tour = new Tour({
   {
     element: ".well > .container-fluid > div:nth-of-type(3) > div:nth-of-type(5) > div:nth-of-type(2)",
     title: "Proportions",
-    content: "Some categories will contain the minimal number of categories, others will not. Here you can prompt, for which proportions of categories that fulfill the minial count (M) you get a visualization of the according probabilities.",
+    content: "Some categories will contain the minimal number of categories, others will not. Here you can prompt for which proportions of categories that fulfill the minial count (M) you get a visualization of the according probabilities.",
     placement: "left"
   },
     {
@@ -132,9 +132,9 @@ var tour = new Tour({
     content: "This visualization shows the core results of the simulation. Each panel contains the results for a certain proportion K. The x-axis represents the sample size N. The y-axis shows the probability of getting a proportion of K categories with at least M constructs in it, given the sample size N.",
     placement: "left"
   },
-  
+
   /*---------- About Tab ----------*/
-  
+
   {
     element: "#ourNavbar a[data-value='About']",
     title: "More information",
