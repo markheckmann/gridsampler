@@ -142,14 +142,16 @@ shinyServer(function(input, output, session) {
   # Observer for presets in column 1
   observeEvent(input$preset_go2, {
     # Apply presets only if button is pressed
-    if (input$preset_types2 == "Normal") {
-      values$category_prob <- dnorm(values$category_id, mean = input$`2_norm_mean`, sd = input$`2_norm_sd`)
-    } else if (input$preset_types2 == "Poisson") {
-      values$category_prob <- dpois(values$category_id, lambda = input$`2_pois_lambda`)
+    if (input$preset_types2 == "Quadratic") {
+      values$category_prob <- input$`2_quad_factor` * (values$category_id - input$`2_quad_min`)^2
+      # Scale back so that sum is = 1, however this makes the 'factor' arg dysfunctional
+      values$category_prob <- values$category_prob / sum(values$category_prob)
     } else if (input$preset_types2 == "Exponential") {
       values$category_prob <- dexp(values$category_id, rate = input$`2_exp_rate`)
     } else if (input$preset_types2 == "Uniform") {
       values$category_prob <- dunif(values$category_id, min = 1 - 1, max = input$maximum2)
+    } else if (input$preset_types2 == "Linear") {
+      values$category_prob <- p_linear(k = length(values$category_id), p_k = default_category_lin_min)
     }
   })
 

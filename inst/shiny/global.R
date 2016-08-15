@@ -17,6 +17,13 @@ prettify_probs <- function(x, round = 3) {
   return(decimals)
 }
 
+# Linear probability function
+p_linear <- function(k, p_k = 0) {
+  slope <- (2 - 2*k*p_k) / (k*(1-k))
+  intercept <- (p_k*(1+k)-2) / (1-k)
+  intercept + 1:k*slope
+}
+
 # This should have been a global ggplot2 theme object for all plots
 # theme_shiny <- function(base_size = 12, base_family = ""){
 #   theme_bw(base_size = base_size, base_family = base_family) +
@@ -33,12 +40,10 @@ default_attributes_exp_rate  <- 0.1
 default_attributes_probs     <- dnorm(default_attributes_min:default_attributes_max,
                                       mean = default_attributes_norm_mean,
                                       sd = default_attributes_norm_sd)
-default_category_count     <- 15
-default_category_exp_rate  <- 0.15
-default_category_lambda    <- 6
-default_category_norm_mean <- 5
-default_category_norm_sd   <- 1
-default_category_probs     <- dexp(seq_len(default_category_count), rate = default_category_exp_rate)
+default_category_count       <- 15
+default_category_exp_rate    <- 0.15
+default_category_lin_min     <- 0
+default_category_probs       <- dexp(seq_len(default_category_count), rate = default_category_exp_rate)
 
 # Creating the reactive values object to store attributes, probs etc
 values                 <- reactiveValues()
