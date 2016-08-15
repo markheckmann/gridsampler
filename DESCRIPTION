@@ -19,7 +19,6 @@ Imports:
 Suggests:
     knitr,
     testthat,
-    shinythemes,
-    ggrepel
+    shinythemes
 VignetteBuilder: knitr
 RoxygenNote: 5.0.1
