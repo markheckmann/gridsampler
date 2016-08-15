@@ -154,13 +154,9 @@ shinyServer(function(input, output, session) {
     }
 
     p <- ggplot(data = data, aes(x = x, weight = y, fill = mark)) +
-          geom_bar(width = .1)
-          if (plot_repel) {
-            p <- p + ggrepel::geom_text_repel(aes(y = y, label = prettify_probs(y, 3)), nudge_y = .005)
-          } else {
-            p <- p + geom_text(aes(y = y, label = prettify_probs(y, 3)), nudge_y = .001)
-          }
-          p <- p + scale_fill_manual(values = c(No = "black", Yes = "red2"), guide = F) +
+          geom_bar(width = .1) +
+          geom_text(aes(y = y, label = prettify_probs(y, 3)), nudge_y = .005, angle = 40) +
+          scale_fill_manual(values = c(No = "black", Yes = "red2"), guide = F) +
           labs(x = "Categories", y = "Probability") +
           scale_x_continuous(breaks = x_breaks) +
           expand_limits(y = max(data$y + 0.01),

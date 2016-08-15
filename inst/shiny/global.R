@@ -3,13 +3,6 @@ library(shiny)
 library(ggplot2)
 library(gridsampler)
 library(shinythemes)
-# Only load ggrepel if it's available to avoid hard dependency for minor tweak
-if (!("ggrepel" %in% installed.packages())) {
-  message("Package 'ggrepel' not installed, can't drav non-overlapping labels")
-  plot_repel <- FALSE
-} else {
-  plot_repel <- TRUE
-}
 
 #### Convenience functions ####
 # Convert textInput to a vector for inputs in column 3
