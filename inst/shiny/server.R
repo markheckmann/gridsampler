@@ -142,6 +142,8 @@ shinyServer(function(input, output, session) {
     # Apply presets only if button is pressed
     if (input$preset_types2 == "Quadratic") {
       values$category_prob <- input$`2_quad_factor` * (values$category_id - input$`2_quad_min`)^2
+      # Scale back so that sum is = 1, however this makes the 'factor' arg dysfunctional
+      values$category_prob <- values$category_prob / sum(values$category_prob)
     } else if (input$preset_types2 == "Exponential") {
       values$category_prob <- dexp(values$category_id, rate = input$`2_exp_rate`)
     } else if (input$preset_types2 == "Uniform") {
