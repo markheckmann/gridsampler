@@ -37,6 +37,7 @@ default_category_count       <- 15
 default_category_exp_rate    <- 0.15
 default_category_quad_factor <- 1
 default_category_quad_min    <- 0
+default_category_lin_min     <- 0.1
 default_category_probs       <- dexp(seq_len(default_category_count), rate = default_category_exp_rate)
 
 # Creating the reactive values object to store attributes, probs etc
