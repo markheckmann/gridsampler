@@ -25,8 +25,8 @@ prettify_probs <- function(x, round = 3) {
 
 # Linear probability function
 p_linear <- function(k, p_k = 0) {
-  slope <- (2 - 2*k*p_k) / (k*(1-k))
-  intercept <- (p_k*(1+k)-2) / (1-k)
+  slope <- (2 - 2 * k * p_k) / (k * (1 - k))
+  intercept <- (p_k * (1 + k) - 2) / (1 - k)
   ret <- intercept + 1:k*slope
   return(ret)
 }
