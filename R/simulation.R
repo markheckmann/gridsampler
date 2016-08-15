@@ -71,6 +71,7 @@ sim_n_persons <- function(prob, n, a=10, ap=rep(1/length(a), length(a)))
 #' Produce graphic for a single sample of n persons
 #' @inheritParams sim_n_persons
 #' @export
+#' @import ggplot2
 #' @keywords external
 #' @examples
 #' draw_n_person_sample(dexp(1:30, rate=.05), n=100, a=10)
@@ -119,6 +120,7 @@ sim_n_persons_x_times <- function(prob, n, a, ap=rep(1/length(a),
 #' @return Draws a ggplot
 #' @keywords external
 #' @export
+#' @import ggplot2
 #' @examples
 #' r <- sim_n_persons_x_times(dexp(1:30, rate=.05), n=50, a=5:7, ap=1:3, 100)
 #' expected_frequencies(r)
@@ -235,6 +237,7 @@ calc_probabilities <- function(r, n, ms, min.props=c(.9, .95, .99))
 #' @param d A dataframe as returned by \code{\link{calc_probabilities}}.
 #' @export
 #' @keywords external
+#' @import ggplot2
 #' @examples
 #' ## simulate
 #' prob <-  dexp(1:30, .05)      # probabilities for categories
@@ -262,9 +265,3 @@ draw_multiple_n_persons_x_times <- function(d)
    scale_shape_discrete(name="M: Min.\ncount")
  return(g)
 }
-
-
-
-
-
-
