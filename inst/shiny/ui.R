@@ -141,6 +141,7 @@ shinyUI(navbarPage(title = "gridsampler shiny 0.1",
                ),
                tags$br(),
                plotOutput("plot3_1", height = "250px"),
+               tags$hr(),
                tags$br(),
                fluidRow(
                  column(6, textInput("sample_size2", "Sample Size (N)", value = "10, 20, 30, 40, 50, 60, 70, 80")),
