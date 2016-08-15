@@ -44,7 +44,7 @@ values$simulations     <- NULL # Initialization for safety
 
 # Default plot for 3,1
 
-p_31 <- gridsampler::draw_n_person_sample(prob = dexp(1:8, 0.01),
+p_31 <- gridsampler::draw_n_person_sample(prob = dexp(1:15, 0.15),
                                        n = 10,
                                        a = 4:8,
                                        ap = dnorm(4:8, 6, 1)) +
