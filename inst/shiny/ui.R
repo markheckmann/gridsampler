@@ -120,6 +120,13 @@ shinyUI(navbarPage(title = "gridsampler shiny 0.1",
                                                                 value = default_category_quad_factor, min = 0.01)),
                                          column(6, numericInput("2_quad_min", "Minimum",
                                                                 value = default_category_quad_min, min = 0, step = 0.1)
+                                         ))),
+                      conditionalPanel("input.preset_types2 == 'Linear'",
+                                       fluidRow(
+                                         column(6, numericInput("2_lin_a", "A",
+                                                                value = 0, min = 0)),
+                                         column(6, numericInput("2_lin_b", "B",
+                                                                value = 0, min = 0)
                                          )))
                )
         )

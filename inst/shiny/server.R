@@ -146,6 +146,8 @@ shinyServer(function(input, output, session) {
       values$category_prob <- dexp(values$category_id, rate = input$`2_exp_rate`)
     } else if (input$preset_types2 == "Uniform") {
       values$category_prob <- dunif(values$category_id, min = 1 - 1, max = input$maximum2)
+    } else if (input$preset_types2 == "Linear") {
+      values$category_prob <- dunif(values$category_id, min = 1 - 1, max = input$maximum2)
     }
   })
 
