@@ -42,8 +42,18 @@ h3 {
     padding-right: 10px;
 }
 
+.col-sm-3 .well {
+  border: solid 1px rgb(149, 165, 166);
+}
+
+.col-sm-4 .well {
+  border: solid 1px rgb(149, 165, 166);
+}
+
+
+
 hr{
-  background-color:#000000;
+  background-color: rgb(149, 165, 166);
   height:1px;
 }
 
