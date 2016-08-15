@@ -112,10 +112,12 @@ shinyUI(navbarPage(title = "gridsampler shiny 0.1",
                                        numericInput("2_pois_lambda", "Lamda", value = default_category_lambda)
                       ),
                       conditionalPanel("input.preset_types2 == 'Exponential'",
-                                       numericInput("2_exp_rate", "Rate", value = default_category_exp_rate, step = 0.01)
+                                       numericInput("2_exp_rate", "Rate",
+                                                    value = default_category_exp_rate, step = 0.01)
                       ),
                       conditionalPanel("input.preset_types2 == 'Linear'",
-                                       numericInput("2_lin_min", "Minimum", value = default_category_lin_min, step = 0.01)
+                                       numericInput("2_lin_min", "Minimum",
+                                                    value = default_category_lin_min, min = 0.000001, step = 0.01)
                       )
                )
                ),

@@ -21,7 +21,8 @@ prettify_probs <- function(x, round = 3) {
 p_linear <- function(k, p_k = 0) {
   slope <- (2 - 2*k*p_k) / (k*(1-k))
   intercept <- (p_k*(1+k)-2) / (1-k)
-  intercept + 1:k*slope
+  ret <- intercept + 1:k*slope
+  return(ret)
 }
 
 # This should have been a global ggplot2 theme object for all plots
@@ -42,7 +43,7 @@ default_attributes_probs     <- dnorm(default_attributes_min:default_attributes_
                                       sd = default_attributes_norm_sd)
 default_category_count       <- 15
 default_category_exp_rate    <- 0.15
-default_category_lin_min     <- 0
+default_category_lin_min     <- 0.000001
 default_category_probs       <- dexp(seq_len(default_category_count), rate = default_category_exp_rate)
 
 # Creating the reactive values object to store attributes, probs etc
