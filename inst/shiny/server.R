@@ -13,6 +13,11 @@ shinyServer(function(input, output, session) {
     if (input$attribute_num < input$minimum1 | input$attribute_num > input$maximum1) {
       updateNumericInput(session, "attribute_num", value = input$minimum1)
     }
+
+    # Prevent bug #12 https://github.com/markheckmann/gridsampler/issues/12
+    if (length(input$minimum1:input$maximum1) > input$maximum2) {
+      updateNumericInput(session, "maximum1", value = input$maximum1 - 1)
+    }
   })
 
   observeEvent(input$attribute_num, {
