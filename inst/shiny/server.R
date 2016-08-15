@@ -197,7 +197,7 @@ shinyServer(function(input, output, session) {
                             theme_bw() +
                             theme(plot.background  = element_rect(fill = plot_bg),
                                   panel.background = element_rect(fill = panel_bg),
-                                  legend.background =  element_rect(fill = "#f5f5f5"))
+                                  legend.background =  element_rect(fill = legend_bg))
   })
 
   # Plot 1 of column 3
@@ -223,7 +223,7 @@ shinyServer(function(input, output, session) {
       for (i in seq_along(n)) {
         r[[i]] <- sim_n_persons_x_times(values$category_prob, n = n[i], a = values$attributes_id,
                                         ap = values$attributes_prob, times = isolate(input$runs_per_sample))
-        incProgress(amount = 1/length(n), detail = paste("SImulation ", i))
+        incProgress(amount = 1/length(n), detail = paste("Simulation ", i))
       }
       r
 
@@ -251,6 +251,6 @@ shinyServer(function(input, output, session) {
       theme_bw() +
       theme(plot.background = element_rect(fill = plot_bg),
             panel.background = element_rect(fill = panel_bg),
-            legend.background =  element_rect(fill = "#f5f5f5"))
+            legend.background =  element_rect(fill = legend_bg))
   })
 })

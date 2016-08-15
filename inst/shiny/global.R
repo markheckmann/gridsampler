@@ -31,8 +31,9 @@ prettify_probs <- function(x, round = 3) {
 # }
 
 #### Plot presets ####
-plot_bg  <- "#fafafa" # for 'plot.background'
-panel_bg <- "#fcfcfc" # for 'panel.background'
+plot_bg   <- "#fafafa" # for 'plot.background'
+panel_bg  <- "#fcfcfc" # for 'panel.background'
+legend_bg <- plot_bg  # for 'legend.background'
 
 # Creating the reactive values object to store attributes, probs etc
 values                 <- reactiveValues()
