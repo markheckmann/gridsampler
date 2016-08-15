@@ -102,25 +102,20 @@ shinyUI(navbarPage(title = "gridsampler shiny 0.1",
                fluidRow(
                # Selection of probability types in column 2
                column(6, selectInput("preset_types2", "Type of Probability",
-                                     choices = c("Uniform", "Normal", "Poisson", "Exponential"),
+                                     choices = c("Uniform", "Exponential", "Linear"),
                                      selected = "Exponential", selectize = F),
                       # Action button in column 2
                       actionButton("preset_go2", "Apply Preset", width = "100%")),
                column(6, tags$br(),
                       # Show preset arguments depending on distribution selection
-                      conditionalPanel("input.preset_types2 == 'Normal'",
-                                       fluidRow(
-                                         column(6, numericInput("2_norm_mean", "Mean",
-                                                                value = default_category_norm_mean)),
-                                         column(6, numericInput("2_norm_sd", "SD",
-                                                                value = default_category_norm_sd,
-                                                                min = 0.01, step = 0.1)
-                                         ))),
                       conditionalPanel("input.preset_types2 == 'Poisson'",
                                        numericInput("2_pois_lambda", "Lamda", value = default_category_lambda)
                       ),
                       conditionalPanel("input.preset_types2 == 'Exponential'",
                                        numericInput("2_exp_rate", "Rate", value = default_category_exp_rate, step = 0.01)
+                      ),
+                      conditionalPanel("input.preset_types2 == 'Linear'",
+                                       numericInput("2_lin_min", "Minimum", value = default_category_lin_min, step = 0.01)
                       )
                )
         )
