@@ -149,7 +149,7 @@ shinyServer(function(input, output, session) {
     } else if (input$preset_types2 == "Uniform") {
       values$category_prob <- dunif(values$category_id, min = 1 - 1, max = input$maximum2)
     } else if (input$preset_types2 == "Linear") {
-      values$category_prob <- dunif(values$category_id, min = 1 - 1, max = input$maximum2)
+      values$category_prob <- p_linear(k = length(values$category_id), p_k = default_category_lin_min)
     }
   })
 

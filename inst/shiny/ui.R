@@ -102,7 +102,7 @@ shinyUI(navbarPage(title = "gridsampler shiny 0.1",
                fluidRow(
                # Selection of probability types in column 2
                column(6, selectInput("preset_types2", "Type of Probability",
-                                     choices = c("Uniform", "Exponential", "Quadratic", "Linear"),
+                                     choices = c("Uniform", "Exponential", "Linear"),
                                      selected = "Exponential", selectize = F),
                       # Action button in column 2
                       actionButton("preset_go2", "Apply Preset", width = "100%")),
