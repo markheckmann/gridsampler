@@ -7,11 +7,13 @@ library(shinythemes)
 #### Convenience functions ####
 # Convert textInput to a vector for inputs in column 3
 text_to_vector <- function(txt){
-  #eval(parse(text = paste0("c(", txt, ")")))
+  # Extract substrings separated by ,
   txt <- strsplit(txt, ",")[[1]]
+  # Replace whitespaces probably introduced in previous step
   txt <- sub(pattern = " ", replacement = "", x = txt)
+  # Coercion to numeric converts text to NA
   txt <- as.numeric(txt)
-  # Remove NAs introduced by superfluous ,
+  # Remove NAs introduced by superfluous , or wrong input
   txt <- txt[!is.na(txt)]
   return(txt)
 }
