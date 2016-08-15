@@ -218,14 +218,14 @@ shinyServer(function(input, output, session) {
     # Verbatim copy of sim_n_persons_x_times to incorporate progress bar
     # Runs the samples used in further steps
     times <- isolate(input$run_times)
-    r <- plyr::ldply(seq_len(times), function(x, prob, n, a, ap){
+    r <- plyr::ldply(seq_len(times), function(x){
                                 incProgress(session = session, amount = 1/times, message = "Drawing samples...")
-                                samples <- sim_n_persons(prob, n, a, ap)
+                                samples <- sim_n_persons(prob = isolate(values$category_prob),
+                                                         n = isolate(input$sample_size),
+                                                         a = isolate(values$attributes_id),
+                                                         ap = isolate(values$attributes_prob))
                                 return(samples)
-                                }, prob = isolate(values$category_prob),
-                                   n = isolate(input$sample_size),
-                                   a = isolate(values$attributes_id),
-                                   ap = isolate(values$attributes_prob))
+                                })
 
     })
 
