@@ -29,7 +29,9 @@ shinyServer(function(input, output, session) {
     # Makes sure that the plot shows the correct number of attributes
     if (input$preset_go1 == 0) {
       if (length(values$attributes_id) != length(values$attributes_prob)) {
-        values$attributes_prob <- dnorm(values$attributes_id, mean = 6, sd = 1)
+        values$attributes_prob <- dnorm(values$attributes_id,
+                                        mean = default_attributes_norm_mean,
+                                        sd = default_attributes_norm_sd)
       }
     }
   })
@@ -108,7 +110,7 @@ shinyServer(function(input, output, session) {
 
     if (input$preset_go2 == 0) {
       if (length(values$category_id) != length(values$category_prob)) {
-        values$category_prob <- dexp(values$category_id, rate = 0.15)
+        values$category_prob <- dexp(values$category_id, rate = default_category_exp_rate)
       }
     }
   })
@@ -213,7 +215,7 @@ shinyServer(function(input, output, session) {
     }
   })
 
-  #### Bottom half of column 3
+  #### Bottom half of column 3 ####
   observeEvent(input$simulate, {
     withProgress(message = "Running simulations…", {
 

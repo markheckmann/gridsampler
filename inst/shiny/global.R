@@ -30,18 +30,30 @@ prettify_probs <- function(x, round = 3) {
 #     theme(plot.background = element_rect(fill = "#f5f5f5"))
 # }
 
-##### Initializing vectors ####
+##### Initializing vectors and default prob arguments ####
 default_attributes_min <- 4
 default_attributes_max <- 8
-default_attributes_probs <- dnorm(default_attributes_min:default_attributes_max, mean = 6, sd = 1)
-default_category_count <- 15
-default_category_probs <- dexp(1:default_category_count, rate = 0.15)
+default_attributes_norm_mean <- 6
+default_attributes_norm_sd   <- 1
+default_attributes_lambda    <- 6
+default_attributes_exp_rate  <- 0.1
+default_attributes_probs     <- dnorm(default_attributes_min:default_attributes_max,
+                                      mean = default_attributes_norm_mean,
+                                      sd = default_attributes_norm_sd)
+default_category_count     <- 15
+default_category_exp_rate  <- 0.15
+default_category_lambda    <- 6
+default_category_norm_mean <- 5
+default_category_norm_sd   <- 1
+default_category_probs     <- dexp(seq_len(default_category_count), rate = default_category_exp_rate)
 
 # Creating the reactive values object to store attributes, probs etc
 values                 <- reactiveValues()
 values$attributes_id   <- default_attributes_min:default_attributes_max
-values$attributes_prob <- dnorm(default_attributes_min:default_attributes_max, mean = 6, sd = 1)
-values$category_id     <- 1:default_category_count
+values$attributes_prob <- dnorm(default_attributes_min:default_attributes_max,
+                                mean = default_attributes_norm_mean,
+                                sd = default_attributes_norm_sd)
+values$category_id     <- seq_len(default_category_count)
 values$category_prob   <- default_category_probs
 values$simulations     <- NULL # Initialization for safety
 
@@ -53,8 +65,8 @@ legend_bg <- plot_bg   # for 'legend.background'
 # Default plot for 3,1
 p_31 <- gridsampler::draw_n_person_sample(prob = default_category_probs,
                                           n = 10,
-                                          a = 4:8,
-                                          ap = dnorm(4:8, 6, 1)) +
+                                          a = default_attributes_min:default_attributes_max,
+                                          ap = default_attributes_probs) +
   theme_bw() +
   theme(plot.background  = element_rect(fill = plot_bg),
         panel.background = element_rect(fill = panel_bg))

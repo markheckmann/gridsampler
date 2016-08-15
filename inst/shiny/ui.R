@@ -36,15 +36,18 @@ shinyUI(navbarPage(title = "gridsampler shiny 0.1",
               helpText("This is a helpful description of this column with adequate amounts of information"),
               fluidRow(
                 column(6, numericInput("minimum1", "Minimum",
-                                       value = 4, min = 1, max = 100, step = 1, width = "100%")),
+                                       value = default_attributes_min,
+                                       min = 1, max = 100, step = 1, width = "100%")),
                 column(6, numericInput("maximum1", "Maximum",
-                                       value = 8, min = 1, max = 100, step = 1, width = "100%"))
+                                       value = default_attributes_max
+                                       , min = 1, max = 100, step = 1, width = "100%"))
               ),
               plotOutput("plot1", height = "350px"),
               checkboxInput("plot1_fixy", "Fix y to [0, 1]", value = F),
               fluidRow(
                 column(6, numericInput("attribute_num", "No. of Attributes",
-                                    value = 4, min = 4, max = 8, step = 1, width = "100%")
+                                    value = default_attributes_min,
+                                    min = default_attributes_min, max = default_attributes_max, step = 1, width = "100%")
                 ),
                 column(6, numericInput("probability1", "Probability",
                                     value = default_attributes_probs[1],
@@ -60,14 +63,14 @@ shinyUI(navbarPage(title = "gridsampler shiny 0.1",
                        # Show preset arguments depending on distribution selection
                        conditionalPanel("input.preset_types1 == 'Normal'",
                                         fluidRow(
-                                        column(6, numericInput("1_norm_mean", "Mean", value = 6)),
-                                        column(6, numericInput("1_norm_sd", "SD", value = 1, min = 0.01, step = 0.1)
+                                        column(6, numericInput("1_norm_mean", "Mean", value = default_attributes_norm_mean)),
+                                        column(6, numericInput("1_norm_sd", "SD", value = default_attributes_norm_sd, min = 0.01, step = 0.1)
                                         ))),
                        conditionalPanel("input.preset_types1 == 'Poisson'",
-                                        numericInput("1_pois_lambda", "Lamda", value = 6)
+                                        numericInput("1_pois_lambda", "Lamda", value = default_attributes_lambda)
                                         ),
                        conditionalPanel("input.preset_types1 == 'Exponential'",
-                                       numericInput("1_exp_rate", "Rate", value = 0.1, step = 0.1)
+                                       numericInput("1_exp_rate", "Rate", value = default_attributes_exp_rate, step = 0.1)
                                         )
                        )
               )
@@ -100,14 +103,17 @@ shinyUI(navbarPage(title = "gridsampler shiny 0.1",
                       # Show preset arguments depending on distribution selection
                       conditionalPanel("input.preset_types2 == 'Normal'",
                                        fluidRow(
-                                         column(6, numericInput("2_norm_mean", "Mean", value = 5)),
-                                         column(6, numericInput("2_norm_sd", "SD", value = 1, min = 0.01, step = 0.1)
+                                         column(6, numericInput("2_norm_mean", "Mean",
+                                                                value = default_category_norm_mean)),
+                                         column(6, numericInput("2_norm_sd", "SD",
+                                                                value = default_category_norm_sd,
+                                                                min = 0.01, step = 0.1)
                                          ))),
                       conditionalPanel("input.preset_types2 == 'Poisson'",
-                                       numericInput("2_pois_lambda", "Lamda", value = 6)
+                                       numericInput("2_pois_lambda", "Lamda", value = default_category_lambda)
                       ),
                       conditionalPanel("input.preset_types2 == 'Exponential'",
-                                       numericInput("2_exp_rate", "Rate", value = 0.15, step = 0.01)
+                                       numericInput("2_exp_rate", "Rate", value = default_category_exp_rate, step = 0.01)
                       )
                )
         )
