@@ -9,7 +9,7 @@ shinyServer(function(input, output, session) {
     validate(need(!is.na(input$maximum1), "Value must be set!"))
 
     # Make sure maximum is not smaller than minumum
-    if (input$maximum1 <= input$minimum1) {
+    if (input$maximum1 < input$minimum1) {
       updateNumericInput(session, "maximum1", value = input$maximum1 + 1, max = input$maximum1 + 1)
     }
 
@@ -36,7 +36,7 @@ shinyServer(function(input, output, session) {
   # Observer to change attribute properties
   observe({
     # Change number of arributes
-    values$attributes_id <- seq(input$minimum1, input$maximum1, by = 1)
+    values$attributes_id <- seq(input$minimum1, input$maximum1)
 
     # If button isn't pressed yet, insert default values
     # Makes sure that the plot shows the correct number of attributes
