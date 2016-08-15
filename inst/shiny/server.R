@@ -105,7 +105,10 @@ shinyServer(function(input, output, session) {
 
   # Updating input elements
   observe({
-    validate(need(!is.na(input$maximum2), "Value must be set!"))
+    validate(need(!is.null(input$maximum2), "Value must be set!"))
+    if (is.null(input$maximum2) | is.na(input$maximum2) | input$maximum2 == "") {
+      updateNumericInput(session, "maximum2", value = 15)
+    }
 
     # Confine manual selection to limits set before
     updateNumericInput(session, "category", min = 1, max = input$maximum2)
