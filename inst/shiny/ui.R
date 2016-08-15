@@ -1,12 +1,11 @@
 #### Shiny UI definition ####
 
-
-#------ Intro Tour using boostrap-tour library (http://bootstraptour.com/)  ------#
+#### Intro Tour using boostrap-tour library (http://bootstraptour.com/)  ####
 
 # Add a tour to GUI to explain the panels and basis steps.
 # The tour is defined in www/tour.js
-#
-header <- list(tags$script(src="bootstrap-tour-0.10.3/js/bootstrap-tour.min.js"),
+
+header <- list(tags$script(src = "bootstrap-tour-0.10.3/js/bootstrap-tour.min.js"),
                tags$link(rel = "stylesheet", type = "text/css", href = "style.css"),
                tags$script("var a = $('#ourNavbar  a[data-value=\"Tour\"]');
                                     a.attr('data-toggle', 'noclass');
@@ -15,10 +14,9 @@ header <- list(tags$script(src="bootstrap-tour-0.10.3/js/bootstrap-tour.min.js")
                                       console.log('Tour started');
                                     });") )
 
-footer <- tags$script(src="tour.js")  # add tour
+footer <- tags$script(src = "tour.js")  # add tour
 
-#------ End Intro Tour components  ------#
-
+#### End Intro Tour components, begin shinyUI  ####
 
 shinyUI(navbarPage(title = "gridsampler shiny dev-1.2",
                    id = "ourNavbar",
@@ -57,6 +55,7 @@ shinyUI(navbarPage(title = "gridsampler shiny dev-1.2",
                              selected = "Normal", selectize = F),
                        actionButton("preset_go1", "Apply Preset", width = "100%")),
                 column(6, tags$br(),
+                       # Show preset arguments depending on distribution selection
                        conditionalPanel("input.preset_types1 == 'Normal'",
                                         fluidRow(
                                         column(6, numericInput("1_norm_mean", "Mean", value = 6)),
@@ -96,6 +95,7 @@ shinyUI(navbarPage(title = "gridsampler shiny dev-1.2",
                                      selected = "Exponential", selectize = F),
                       actionButton("preset_go2", "Apply Preset", width = "100%")),
                column(6, tags$br(),
+                      # Show preset arguments depending on distribution selection
                       conditionalPanel("input.preset_types2 == 'Normal'",
                                        fluidRow(
                                          column(6, numericInput("2_norm_mean", "Mean", value = 5)),
@@ -112,7 +112,7 @@ shinyUI(navbarPage(title = "gridsampler shiny dev-1.2",
         ),
 
          #### Column 3 ####
-        column(5,
+         column(5,
                h3("3. Simulate"),
                helpText("This is a note about how things happen here"),
                fluidRow(
@@ -139,12 +139,13 @@ shinyUI(navbarPage(title = "gridsampler shiny dev-1.2",
                       column(6, actionButton("redraw", "Redraw", width = "100%"))
                ),
                tags$br(),
+               # Only show plot if the simulate button has been pressed, show text otherwise
                conditionalPanel("input.simulate == 0", tags$span(class = "help-block", "No simulations run yet!",
                                                                  tags$br(),
                                                                  "A plot will appear here after you press “simulate“.")),
                conditionalPanel("input.simulate > 0", plotOutput("plot3_2", height = "250px")),
                tags$br()
-        )
+         )
         #### End of column 3 ####
       ))
     ),

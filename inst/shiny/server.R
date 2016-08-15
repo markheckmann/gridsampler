@@ -16,6 +16,7 @@ shinyServer(function(input, output, session) {
   })
 
   observeEvent(input$attribute_num, {
+    # Make sure the probability in column 1 is the current value stored in the reactiveValues object
     updateNumericInput(session, "probability1", value = values$attributes_prob[values$attributes_id == input$attribute_num])
   })
 
@@ -24,6 +25,7 @@ shinyServer(function(input, output, session) {
     # Change number of arributes
     values$attributes_id <- seq(input$minimum1, input$maximum1, by = 1)
 
+    # If button isn't pressed yet, insert default values
     if (input$preset_go1 == 0) {
       if (length(values$attributes_id) != length(values$attributes_prob)) {
         values$attributes_prob <- dnorm(values$attributes_id, mean = 6, sd = 1)
@@ -139,7 +141,7 @@ shinyServer(function(input, output, session) {
 
     data$mark[data$x == input$category] <- "Yes"
 
-    # x axis labels depending on number of categories
+    # x axis labels depending on number of categories, should be tweaked for real-life use cases
     if (input$maximum2 <= 10) {
       x_breaks <- seq(1, 10, 1)
     } else if (input$maximum2 > 10 & input$maximum2 <= 20) {
@@ -171,6 +173,7 @@ shinyServer(function(input, output, session) {
 
   #### Logic for column 3 ####
 
+  # Executes chunk if sample_random button is pushed, stores values in "values" reactiveValues object
   observeEvent(input$sample_random, {
       values$sample_plot <- gridsampler::draw_n_person_sample(prob = isolate(values$category_prob),
                                                               n = isolate(input$sample_size),
@@ -228,13 +231,15 @@ shinyServer(function(input, output, session) {
 
   # Plot 2 of column 3
   output$plot3_2 <- renderPlot({
+    # Depend upon redraw button, executes this chunk everytime button is pressed
     input$redraw
 
+    # Don't even attempt to draw a plot if the "simulate" button wasn't pushed
     if (input$redraw == 0 & is.null(values$simulations)) {
       return(NULL)
     }
 
-
+    # See ?draw_multiple_n_persons_x_times
     N <- text_to_vector(isolate(input$sample_size2))
     M <- text_to_vector(isolate(input$mincount_m))
     p <- text_to_vector(isolate(input$proportion_k))

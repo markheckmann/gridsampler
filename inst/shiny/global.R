@@ -3,6 +3,7 @@ library(shiny)
 library(ggplot2)
 library(gridsampler)
 library(shinythemes)
+# Only load ggrepel if it's available to avoid hard dependency for minor tweak
 if (!("ggrepel" %in% installed.packages())) {
   message("Package 'ggrepel' not installed, can't drav non-overlapping labels")
   plot_repel <- FALSE
@@ -23,8 +24,7 @@ prettify_probs <- function(x, round = 3) {
   return(decimals)
 }
 
-
-
+# This should have been a global ggplot2 theme object for all plots
 # theme_shiny <- function(base_size = 12, base_family = ""){
 #   theme_bw(base_size = base_size, base_family = base_family) +
 #     theme(plot.background = element_rect(fill = "#f5f5f5"))
@@ -43,7 +43,6 @@ values$category_prob   <- dexp(1:15, rate = 0.15)
 values$simulations     <- NULL # Initialization for safety
 
 # Default plot for 3,1
-
 p_31 <- gridsampler::draw_n_person_sample(prob = dexp(1:15, 0.15),
                                        n = 10,
                                        a = 4:8,
