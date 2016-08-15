@@ -161,7 +161,7 @@ shinyUI(navbarPage(title = gridsampler_version,
                conditionalPanel("input.simulate == 0", tags$span(class = "help-block", "No simulations run yet!",
                                                                  tags$br(),
                                                                  "A plot will appear here after you press “simulate“.")),
-               conditionalPanel("input.simulate > 0", plotOutput("plot3_2", height = "250px")),
+               conditionalPanel("input.simulate > 0", plotOutput("plot3_2", height = "300px")),
                tags$br()
          )
         #### End of column 3 ####
