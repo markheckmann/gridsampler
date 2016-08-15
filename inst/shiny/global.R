@@ -7,7 +7,13 @@ library(shinythemes)
 #### Convenience functions ####
 # Convert textInput to a vector for inputs in column 3
 text_to_vector <- function(txt){
-  eval(parse(text = paste0("c(", txt, ")")))
+  #eval(parse(text = paste0("c(", txt, ")")))
+  txt <- strsplit(txt, ",")[[1]]
+  txt <- sub(pattern = " ", replacement = "", x = txt)
+  txt <- as.numeric(txt)
+  # Remove NAs introduced by superfluous ,
+  txt <- txt[!is.na(txt)]
+  return(txt)
 }
 
 # Prettier display of probabilities inside plots
