@@ -50,7 +50,6 @@ shinyServer(function(input, output, session) {
   })
 
   # Observer for manual probability adjustments (col 1)
-  # TODO: Perform check so that sum of probability approximates 1
   observeEvent(input$probability1, {
     values$attributes_prob[values$attributes_id == input$attribute_num] <- round(input$probability1, 3)
   })
@@ -126,8 +125,8 @@ shinyServer(function(input, output, session) {
     # Change number of attributes
     values$category_id <- seq_len(input$maximum2)
 
+    # Make sure enough probability values are supplied in default state
     if (input$preset_go2 == 0) {
-      #if (length(values$category_id) != length(values$category_prob)) {
       if (input$maximum2 != length(values$category_prob)) {
         values$category_prob <- round(dexp(values$category_id, rate = default_category_exp_rate), 3)
       }
