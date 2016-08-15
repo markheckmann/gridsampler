@@ -211,11 +211,23 @@ shinyServer(function(input, output, session) {
 
   # Run samples of run_button is pressed
   observeEvent(input$run_button, {
-    r <- sim_n_persons_x_times(prob = isolate(values$category_prob),
-                               n = isolate(input$sample_size),
-                               a = isolate(values$attributes_id),
-                               ap = isolate(values$attributes_prob),
-                               times = isolate(input$run_times))
+
+    # Initiate progress bar
+    withProgress(value = 0, message = "Running samples...", {
+
+    # Verbatim copy of sim_n_persons_x_times to incorporate progress bar
+    # Runs the samples used in further steps
+    times <- isolate(input$run_times)
+    r <- plyr::ldply(1L:times, function(x, prob, n, a, ap){
+                                incProgress(session = session, amount = 1/times, message = "Drawing samples...")
+                                samples <- sim_n_persons(prob, n, a, ap)
+                                return(samples)
+                                }, prob = isolate(values$category_prob),
+                                   n = isolate(input$sample_size),
+                                   a = isolate(values$attributes_id),
+                                   ap = isolate(values$attributes_prob))
+
+    })
 
     # Create plot from samples
     values$sample_plot <- expected_frequencies(r) +
