@@ -4,8 +4,6 @@
 #
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-
 #' Simulate a single grid
 #'
 #' @param prob Probability to draw a construct from a certain category.
@@ -40,7 +38,6 @@ sim_one_person <- function(prob, a=10)
   res
 }
 
-
 #' Simulate n persons
 #'
 #' Function is a simple replicate wrapper around \code{sim_one_person}
@@ -67,7 +64,6 @@ sim_n_persons <- function(prob, n, a=10, ap=rep(1/length(a), length(a)))
   apply(sim, 1, sum)
 }
 
-
 #' Produce graphic for a single sample of n persons
 #' @inheritParams sim_n_persons
 #' @export
@@ -89,8 +85,6 @@ draw_n_person_sample <- function(prob, n, a=10, ap=rep(1/length(a), length(a)))
   return(g)
 }
 
-
-
 #' Complete simulation
 #'
 #' @param prob Probability to draw a construct from a certain category. Length
@@ -109,6 +103,9 @@ draw_n_person_sample <- function(prob, n, a=10, ap=rep(1/length(a), length(a)))
 sim_n_persons_x_times <- function(prob, n, a, ap=rep(1/length(a),
                                   length(a)), times=100, progress="text")
 {
+  if (!interactive()) {
+    progress <- "none"
+  }
   plyr::ldply(1L:times, function(x, prob, n, a, ap){
           sim_n_persons(prob, n, a, ap)
         }, prob=prob, n=n, a=a, ap=ap, .progress=progress)
@@ -116,11 +113,13 @@ sim_n_persons_x_times <- function(prob, n, a, ap=rep(1/length(a),
 
 
 #' Produce ggplot of percentiles for simulated frequencies
-#' @param A dataframe. The result returned from \code{\link{sim_n_persons_x_times}}.
+#'
+#' @param r A dataframe. The result returned from \code{\link{sim_n_persons_x_times}}.
 #' @return Draws a ggplot
 #' @keywords external
 #' @export
 #' @import ggplot2
+#' @importFrom stats quantile
 #' @examples
 #' r <- sim_n_persons_x_times(dexp(1:30, rate=.05), n=50, a=5:7, ap=1:3, 100)
 #' expected_frequencies(r)
@@ -147,8 +146,6 @@ expected_frequencies <- function(r)
   return(g)
 }
 
-
-
 #' Probability for certain degree of saturation
 #'
 #' Calculate probability for getting certain proportion of categories with at
@@ -171,8 +168,6 @@ prob_categories <- function(r, m, min.prop=1)
   sum(s) / nrow(r)
 }
 
-
-
 #' Simulate for different n
 #'
 #' Creates simulation results for different n. Runs
@@ -183,20 +178,23 @@ prob_categories <- function(r, m, min.prop=1)
 #' @export
 #' @keywords external
 #' @examples
+#' \dontrun{
 #' r <- sim_n_persons_x_times_many_n(dexp(1:30, .05), a=7, times=100)
 #' r <- sim_n_persons_x_times_many_n(dexp(1:30, .05), a=5:7, ap=1:3, times=100, prog="tk")
-#'
+#' }
 sim_n_persons_x_times_many_n <- function(prob, n=seq(10, 80, by=10), a=7,
                                ap=rep(1/length(a), length(a)), times=100,
                                progress="text")
 {
+  if (!interactive()) {
+    progress <- "none"
+  }
   r <- list()
   for (i in seq_along(n))
     r[[i]] <- sim_n_persons_x_times(prob, n=n[i], a=a, ap=ap, times=times,
                                     progress=progress)
   r
 }
-
 
 #' Probability for certain degree of saturation
 #'
@@ -205,8 +203,8 @@ sim_n_persons_x_times_many_n <- function(prob, n=seq(10, 80, by=10), a=7,
 #'
 #' @param r A dataframe. The result returned from \code{\link{sim_n_persons_x_times_many_n}}.
 #' @param n Vector of n for which to calculate probabilities.
-#' @param m minimal number of constructs in each category
-#' @param min.prop Proportion of categores to contain at least m constructs.
+#' @param ms minimal number of constructs in each category
+#' @param min.props Proportion of categores to contain at least m constructs.
 #' @export
 #' @keywords external
 #' @examples
@@ -229,8 +227,6 @@ calc_probabilities <- function(r, n, ms, min.props=c(.9, .95, .99))
   dd <- as.data.frame(do.call(rbind, res))
   dd
 }
-
-
 
 #' Draw and redraw results of simulation
 #'

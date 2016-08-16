@@ -1,6 +1,6 @@
 Package: gridsampler
 License: GPL-3
-Title: Simulation tool for repertory grid studies
+Title: Simulation Tool for Repertory Grid Studies
 Type: Package
 LazyLoad: yes
 Authors@R: c(person("Mark", "Heckmann", email = "heckmann@uni-bremen.de", role = c("aut", "cre")),
