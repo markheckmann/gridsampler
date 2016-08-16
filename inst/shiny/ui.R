@@ -41,7 +41,7 @@ shinyUI(navbarPage(title = gridsampler_version,
                                        value = default_attributes_max
                                        , min = 1, max = 100, step = 1, width = "100%"))
               ),
-              plotOutput("plot1", height = "350px"),
+              plotOutput("plot1", height = "300px"),
               checkboxInput("plot1_fixy", "Fix y to [0, 1]", value = F),
               # Manual item probability adjustment
               fluidRow(
@@ -78,7 +78,7 @@ shinyUI(navbarPage(title = gridsampler_version,
                 ),
                 fluidRow(
                   # Action button in column 1
-                  column(12, actionButton("preset_go1", "Apply Preset", width = "80%"))
+                  column(12, actionButton("preset_go1", "Apply Preset", width = "100%"))
                 )
               ) # wellPanel ends here
         ),
@@ -91,7 +91,7 @@ shinyUI(navbarPage(title = gridsampler_version,
                  column(12, numericInput("maximum2", "No. of Categories",
                                          value = default_category_count, min = 1, step = 1, width = "100%"))
                ),
-               plotOutput("plot2", height = "350px"),
+               plotOutput("plot2", height = "300px"),
                checkboxInput("plot2_fixy", "Fix y to [0, 1]", value = F),
                fluidRow(
                  column(6, numericInput("category", "Category",
@@ -122,7 +122,7 @@ shinyUI(navbarPage(title = gridsampler_version,
                  ),
                  fluidRow(
                    # Action button in column 2
-                   column(12, actionButton("preset_go2", "Apply Preset", width = "80%"))
+                   column(12, actionButton("preset_go2", "Apply Preset", width = "100%"))
                  )
                ) # wellPanel ends here
         ),
