@@ -4,8 +4,6 @@
 #
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-
 #' Simulate a single grid
 #'
 #' @param prob Probability to draw a construct from a certain category.
@@ -40,7 +38,6 @@ sim_one_person <- function(prob, a=10)
   res
 }
 
-
 #' Simulate n persons
 #'
 #' Function is a simple replicate wrapper around \code{sim_one_person}
@@ -67,7 +64,6 @@ sim_n_persons <- function(prob, n, a=10, ap=rep(1/length(a), length(a)))
   apply(sim, 1, sum)
 }
 
-
 #' Produce graphic for a single sample of n persons
 #' @inheritParams sim_n_persons
 #' @export
@@ -88,8 +84,6 @@ draw_n_person_sample <- function(prob, n, a=10, ap=rep(1/length(a), length(a)))
               scale_y_continuous(name="Counts", limits = c(0, max(res)))
   return(g)
 }
-
-
 
 #' Complete simulation
 #'
@@ -152,8 +146,6 @@ expected_frequencies <- function(r)
   return(g)
 }
 
-
-
 #' Probability for certain degree of saturation
 #'
 #' Calculate probability for getting certain proportion of categories with at
@@ -175,8 +167,6 @@ prob_categories <- function(r, m, min.prop=1)
   }, min.prop=min.prop)
   sum(s) / nrow(r)
 }
-
-
 
 #' Simulate for different n
 #'
@@ -205,7 +195,6 @@ sim_n_persons_x_times_many_n <- function(prob, n=seq(10, 80, by=10), a=7,
                                     progress=progress)
   r
 }
-
 
 #' Probability for certain degree of saturation
 #'

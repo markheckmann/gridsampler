@@ -247,7 +247,7 @@ shinyServer(function(input, output, session) {
                                                          a = isolate(values$attributes_id),
                                                          ap = isolate(values$attributes_prob))
                                 return(samples)
-                                })
+                                }, .progress = "none")
 
     })
 
