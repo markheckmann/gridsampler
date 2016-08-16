@@ -38,6 +38,14 @@ shinyServer(function(input, output, session) {
         updateNumericInput(session, "maximum1", value = input$maximum1 - 1)
       }
     }
+
+    # Prevent minimum for linear probability distribution to be set to 0, wich would trigger a crash
+    # during simulation attempts
+    if (!is.na(input$`2_lin_min`)) {
+      if (input$`2_lin_min` == 0) {
+        updateNumericInput(session, "2_lin_min", value = 0.001)
+      }
+    }
   })
 
   # Make sure the probability in column 1 is the current value stored in the reactiveValues object
@@ -169,7 +177,7 @@ shinyServer(function(input, output, session) {
     } else if (input$preset_types2 == "Uniform") {
       values$category_prob <- dunif(values$category_id, min = 1 - 1, max = input$maximum2)
     } else if (input$preset_types2 == "Linear") {
-      values$category_prob <- p_linear(k = length(values$category_id), p_k = default_category_lin_min)
+      values$category_prob <- p_linear(k = length(values$category_id), p_k = input$`2_lin_min`)
     }
   })
 
@@ -227,7 +235,7 @@ shinyServer(function(input, output, session) {
                                                               a = isolate(values$attributes_id),
                                                               ap = isolate(values$attributes_prob)) +
                               theme_bw() +
-                              theme(plot.background = element_rect(fill = plot_bg),
+                              theme(plot.background  = element_rect(fill = plot_bg),
                                     panel.background = element_rect(fill = panel_bg))
   })
 
@@ -254,8 +262,8 @@ shinyServer(function(input, output, session) {
     # Create plot from samples
     values$sample_plot <- expected_frequencies(r) +
                             theme_bw() +
-                            theme(plot.background  = element_rect(fill = plot_bg),
-                                  panel.background = element_rect(fill = panel_bg),
+                            theme(plot.background   = element_rect(fill = plot_bg),
+                                  panel.background  = element_rect(fill = panel_bg),
                                   legend.background =  element_rect(fill = legend_bg))
   })
 
