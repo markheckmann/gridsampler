@@ -58,7 +58,6 @@ shinyServer(function(input, output, session) {
   observeEvent(input$preset_go1, {
     # Apply presets only if button is pressed
     if (input$preset_go1 != 0) {
-      cat("pressed preset_go1 \n")
       if (input$preset_types1 == "Normal") {
         values$attributes_prob <- dnorm(values$attributes_id, mean = input$`1_norm_mean`, sd = input$`1_norm_sd`)
       } else if (input$preset_types1 == "Poisson") {
