@@ -55,31 +55,31 @@ shinyUI(navbarPage(title = gridsampler_version,
               )),
               # Preset section of column 1
               wellPanel(
-              h4("Probability Presets"),
-              fluidRow(
-                # Selection of probability types in column 1
-                column(6, selectInput("preset_types1", "Type",
-                             choices = c("Uniform", "Normal", "Poisson", "Exponential"),
-                             selected = "Normal", selectize = F)
-                       ),
-                column(6,
-                       # Show preset arguments depending on distribution selection
-                       conditionalPanel("input.preset_types1 == 'Normal'",
-                                        numericInput("1_norm_mean", "Mean", value = default_attributes_norm_mean),
-                                        numericInput("1_norm_sd", "SD", value = default_attributes_norm_sd, min = 0.01, step = 0.1)
-                                        ),
-                       conditionalPanel("input.preset_types1 == 'Poisson'",
-                                        numericInput("1_pois_lambda", "Lamda", value = default_attributes_lambda)
-                                        ),
-                       conditionalPanel("input.preset_types1 == 'Exponential'",
-                                        numericInput("1_exp_rate", "Rate", value = default_attributes_exp_rate, step = 0.1)
-                                        )
-                       )
-              ),
-              fluidRow(
-                # Action button in column 1
-                column(12, actionButton("preset_go1", "Apply Preset", width = "80%"))
-              )
+                h4("Probability Presets"),
+                fluidRow(
+                  # Selection of probability types in column 1
+                  column(6, selectInput("preset_types1", "Type",
+                               choices = c("Uniform", "Normal", "Poisson", "Exponential"),
+                               selected = "Normal", selectize = F)
+                         ),
+                  column(6,
+                         # Show preset arguments depending on distribution selection
+                         conditionalPanel("input.preset_types1 == 'Normal'",
+                                          numericInput("1_norm_mean", "Mean", value = default_attributes_norm_mean),
+                                          numericInput("1_norm_sd", "SD", value = default_attributes_norm_sd, min = 0.01, step = 0.1)
+                                          ),
+                         conditionalPanel("input.preset_types1 == 'Poisson'",
+                                          numericInput("1_pois_lambda", "Lamda", value = default_attributes_lambda)
+                                          ),
+                         conditionalPanel("input.preset_types1 == 'Exponential'",
+                                          numericInput("1_exp_rate", "Rate", value = default_attributes_exp_rate, step = 0.1)
+                                          )
+                         )
+                ),
+                fluidRow(
+                  # Action button in column 1
+                  column(12, actionButton("preset_go1", "Apply Preset", width = "80%"))
+                )
               ) # wellPanel ends here
         ),
 
@@ -101,29 +101,29 @@ shinyUI(navbarPage(title = gridsampler_version,
                 ),
                # Preset section of column 2
                wellPanel(
-               h4("Probability Presets"),
-               fluidRow(
-               # Selection of probability types in column 2
-               column(6, selectInput("preset_types2", "Type",
-                                     choices = c("Uniform", "Exponential", "Linear"),
-                                     selected = "Exponential", selectize = F)
-                      ),
-               column(6,
-                      # Show preset arguments depending on distribution selection
-                      conditionalPanel("input.preset_types2 == 'Exponential'",
-                                       numericInput("2_exp_rate", "Rate",
-                                                    value = default_category_exp_rate, step = 0.01)
-                      ),
-                      conditionalPanel("input.preset_types2 == 'Linear'",
-                                       numericInput("2_lin_min", "Minimum",
-                                                    value = default_category_lin_min, min = 0.000001, step = 0.01)
-                      )
-               )
-               ),
-               fluidRow(
-                 # Action button in column 2
-                 column(12, actionButton("preset_go2", "Apply Preset", width = "80%"))
-               )
+                 h4("Probability Presets"),
+                 fluidRow(
+                 # Selection of probability types in column 2
+                 column(6, selectInput("preset_types2", "Type",
+                                       choices = c("Uniform", "Exponential", "Linear"),
+                                       selected = "Exponential", selectize = F)
+                        ),
+                 column(6,
+                        # Show preset arguments depending on distribution selection
+                        conditionalPanel("input.preset_types2 == 'Exponential'",
+                                         numericInput("2_exp_rate", "Rate",
+                                                      value = default_category_exp_rate, step = 0.01)
+                        ),
+                        conditionalPanel("input.preset_types2 == 'Linear'",
+                                         numericInput("2_lin_min", "Minimum",
+                                                      value = default_category_lin_min, min = 0.000001, step = 0.01)
+                        )
+                 )
+                 ),
+                 fluidRow(
+                   # Action button in column 2
+                   column(12, actionButton("preset_go2", "Apply Preset", width = "80%"))
+                 )
                ) # wellPanel ends here
         ),
 
