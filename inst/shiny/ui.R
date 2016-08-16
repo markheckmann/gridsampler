@@ -85,7 +85,7 @@ shinyUI(navbarPage(title = gridsampler_version,
 
         #### Column 2 ####
         column(3,
-               h3("2. Probability of Each Category"),
+               h3("2. Probability of Categories"),
                helpText("Description of column 2"),
                fluidRow(
                  column(12, numericInput("maximum2", "No. of Categories",
