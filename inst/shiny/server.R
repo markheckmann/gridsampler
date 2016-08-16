@@ -3,27 +3,40 @@ shinyServer(function(input, output, session) {
 
   #### Logic for column 1 ####
 
+  # Input validation
+  observeEvent(input$minimum1, priority = 1, {
+    validate(need(!is.na(input$minimum1), "Value must be set!"))
+    if (is.na(input$minimum1)) {
+      updateNumericInput(session, "minimum1", value = 1)
+    }
+  })
+
   # Updating input elements
   observe({
-    validate(need(!is.na(input$minimum1), "Value must be set!"))
     validate(need(!is.na(input$maximum1), "Value must be set!"))
 
     # Make sure maximum is not smaller than minumum
-    if (input$maximum1 < input$minimum1) {
-      updateNumericInput(session, "maximum1", value = input$maximum1 + 1, max = input$maximum1 + 1)
+    if (!is.na(input$minimum1) & !is.na(input$maximum1)) {
+      if (input$maximum1 < input$minimum1) {
+        updateNumericInput(session, "maximum1", value = input$maximum1 + 1, max = input$maximum1 + 1)
+      }
     }
 
     # Confine manual selection to limits set before
     updateNumericInput(session, "attribute_num", min = input$minimum1, max = input$maximum1)
 
     # Set attribute selection input to a value guaranteed in range of set limits (minimum1, maximum1)
-    if (input$attribute_num < input$minimum1 | input$attribute_num > input$maximum1) {
-      updateNumericInput(session, "attribute_num", value = input$minimum1)
+    if (!is.na(input$minimum1) & !is.na(input$maximum1)) {
+      if (input$attribute_num < input$minimum1 | input$attribute_num > input$maximum1) {
+        updateNumericInput(session, "attribute_num", value = input$minimum1)
+      }
     }
 
     # Prevent bug #12 https://github.com/markheckmann/gridsampler/issues/12
-    if (length(input$minimum1:input$maximum1) > input$maximum2) {
-      updateNumericInput(session, "maximum1", value = input$maximum1 - 1)
+    if (!is.na(input$maximum2)) {
+      if (length(seq_robust(input$minimum1, input$maximum1)) > input$maximum2) {
+        updateNumericInput(session, "maximum1", value = input$maximum1 - 1)
+      }
     }
   })
 
@@ -36,7 +49,7 @@ shinyServer(function(input, output, session) {
   # Observer to change attribute properties
   observe({
     # Change number of arributes
-    values$attributes_id <- seq(input$minimum1, input$maximum1)
+    values$attributes_id <- seq_robust(input$minimum1, input$maximum1)
 
     # If button isn't pressed yet, insert default values
     # Makes sure that the plot shows the correct number of attributes
@@ -104,16 +117,18 @@ shinyServer(function(input, output, session) {
 
   # Updating input elements
   observe({
-    validate(need(!is.null(input$maximum2), "Value must be set!"))
-    if (is.null(input$maximum2) | is.na(input$maximum2) | input$maximum2 == "") {
+    validate(need(!is.na(input$maximum2), "Value must be set!"))
+    if (is.na(input$maximum2)) {
       updateNumericInput(session, "maximum2", value = 15)
     }
 
     # Confine manual selection to limits set before
     updateNumericInput(session, "category", min = 1, max = input$maximum2)
 
-    if (input$category > input$maximum2) {
-      updateNumericInput(session, "category", value = input$category - 1)
+    if (!is.na(input$maximum2)) {
+      if (input$category > input$maximum2) {
+        updateNumericInput(session, "category", value = input$category - 1)
+      }
     }
   })
 
@@ -125,12 +140,14 @@ shinyServer(function(input, output, session) {
   # Observer to change category properties
   observe({
     # Change number of attributes
-    values$category_id <- seq_len(input$maximum2)
+    values$category_id <- seq_len_robust(input$maximum2)
 
     # Make sure enough probability values are supplied in default state
     if (input$preset_go2 == 0) {
-      if (input$maximum2 != length(values$category_prob)) {
-        values$category_prob <- round(dexp(values$category_id, rate = default_category_exp_rate), 3)
+      if (!is.na(input$maximum2)) {
+        if (input$maximum2 != length(values$category_prob)) {
+          values$category_prob <- round(dexp(values$category_id, rate = default_category_exp_rate), 3)
+        }
       }
     }
   })
@@ -169,12 +186,16 @@ shinyServer(function(input, output, session) {
     data2$mark[data2$x == input$category] <- "Yes"
 
     # x axis labels depending on number of categories, should be tweaked for real-life use cases
-    if (input$maximum2 <= 10) {
-      x_breaks <- seq(1, 10, 1)
-    } else if (input$maximum2 > 10 & input$maximum2 <= 20) {
-      x_breaks <- seq(1, 1000, 2)
+    if (!is.na(input$maximum2)) {
+      if (input$maximum2 <= 10) {
+        x_breaks <- seq(1, 10, 1)
+      } else if (input$maximum2 > 10 & input$maximum2 <= 20) {
+        x_breaks <- seq(1, 1000, 2)
+      } else {
+        x_breaks <- seq(1, 1000, 5)
+      }
     } else {
-      x_breaks <- seq(1, 1000, 5)
+      x_breaks <- seq(1, 10, 1)
     }
 
     p <- ggplot(data = data2, aes(x = x, weight = y, fill = mark)) +
@@ -219,7 +240,7 @@ shinyServer(function(input, output, session) {
     # Verbatim copy of sim_n_persons_x_times to incorporate progress bar
     # Runs the samples used in further steps
     times <- isolate(input$run_times)
-    r <- plyr::ldply(seq_len(times), function(x){
+    r <- plyr::ldply(seq_len_robust(times), function(x){
                                 incProgress(session = session, amount = 1/times, message = "Drawing samples...")
                                 samples <- sim_n_persons(prob = isolate(values$category_prob),
                                                          n = isolate(input$sample_size),

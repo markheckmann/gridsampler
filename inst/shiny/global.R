@@ -44,6 +44,27 @@ p_linear <- function(k, p_k = 0) {
   return(ret)
 }
 
+# seq that handles NAs
+seq_robust <- function(from = 1, to = 10, by = 1, ...) {
+  if (is.na(from)) {
+    from <- 1
+  }
+  if (is.na(to)) {
+    to <- 10
+  }
+  s <- seq(from, to, by, ...)
+  return(s)
+}
+
+# seq_len that handles NA
+seq_len_robust <- function(length.out = 10) {
+  if (is.na(length.out)) {
+   length.out <- 10
+  }
+  s <- seq_len(length.out)
+  return(s)
+}
+
 # This should have been a global ggplot2 theme object for all plots
 # theme_shiny <- function(base_size = 12, base_family = ""){
 #   theme_bw(base_size = base_size, base_family = base_family) +
