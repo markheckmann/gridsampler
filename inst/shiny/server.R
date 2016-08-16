@@ -292,6 +292,10 @@ shinyServer(function(input, output, session) {
       theme_bw() +
       theme(plot.background = element_rect(fill = plot_bg),
             panel.background = element_rect(fill = panel_bg),
-            legend.background =  element_rect(fill = legend_bg))
+            legend.background =  element_rect(fill = legend_bg),
+            legend.key = element_rect(fill = legend_bg),
+            strip.background = element_rect(fill = plot_bg),
+            strip.text = element_text(size = rel(1.2)),
+            legend.text = element_text(size = rel(1.1)))
   })
 })
