@@ -38,9 +38,9 @@ prettify_probs <- function(x, round = 3) {
 
 # Linear probability function
 p_linear <- function(k, p_k = 0) {
-  slope <- (2 - 2 * k * p_k) / (k * (1 - k))
+  slope     <- (2 - 2 * k * p_k) / (k * (1 - k))
   intercept <- (p_k * (1 + k) - 2) / (1 - k)
-  ret <- intercept + 1:k*slope
+  ret       <- intercept + 1:k * slope
   return(ret)
 }
 
@@ -65,12 +65,6 @@ seq_len_robust <- function(length.out = 10) {
   return(s)
 }
 
-# This should have been a global ggplot2 theme object for all plots
-# theme_shiny <- function(base_size = 12, base_family = ""){
-#   theme_bw(base_size = base_size, base_family = base_family) +
-#     theme(plot.background = element_rect(fill = "#f5f5f5"))
-# }
-
 ##### Initializing vectors and default prob arguments ####
 default_attributes_min <- 4
 default_attributes_max <- 8
@@ -88,10 +82,10 @@ default_category_probs       <- round(dexp(seq_len(default_category_count), rate
 
 # Creating the reactive values object to store attributes, probs etc
 values                 <- reactiveValues()
-values$attributes_id   <- default_attributes_min:default_attributes_max
-values$attributes_prob <- dnorm(default_attributes_min:default_attributes_max,
-                                mean = default_attributes_norm_mean,
-                                sd = default_attributes_norm_sd)
+values$attributes_id   <- seq(default_attributes_min, default_attributes_max)
+values$attributes_prob <- round(dnorm(default_attributes_min:default_attributes_max,
+                                      mean = default_attributes_norm_mean,
+                                      sd = default_attributes_norm_sd), 3)
 values$category_id     <- seq_len(default_category_count)
 values$category_prob   <- default_category_probs
 values$simulations     <- NULL # Initialization for safety
@@ -104,7 +98,7 @@ legend_bg <- plot_bg   # for 'legend.background'
 # Default plot for 3,1
 p_31 <- gridsampler::draw_n_person_sample(prob = default_category_probs,
                                           n = 10,
-                                          a = default_attributes_min:default_attributes_max,
+                                          a = seq(default_attributes_min, default_attributes_max),
                                           ap = default_attributes_probs) +
   theme_bw() +
   theme(plot.background  = element_rect(fill = plot_bg),
