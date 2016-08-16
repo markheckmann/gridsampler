@@ -15,10 +15,10 @@ Imports:
     shiny,
     ggplot2,
     reshape2,
-    plyr
+    plyr,
+    shinythemes
 Suggests:
     knitr,
-    testthat,
-    shinythemes
+    testthat
 VignetteBuilder: knitr
 RoxygenNote: 5.0.1

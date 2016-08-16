@@ -8,6 +8,7 @@
 #' @return A shiny app
 #' @export
 #' @import shiny
+#' @import shinythemes
 #' @examples
 #' \dontrun{
 #' gridsampler()
