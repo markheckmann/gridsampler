@@ -66,7 +66,7 @@ shinyUI(navbarPage(title = gridsampler_version,
                          # Show preset arguments depending on distribution selection
                          conditionalPanel("input.preset_types1 == 'Normal'",
                                           numericInput("1_norm_mean", "Mean", value = default_attributes_norm_mean),
-                                          numericInput("1_norm_sd", "SD", value = default_attributes_norm_sd, min = 0.01, step = 0.1)
+                                          numericInput("1_norm_sd", "SD", value = default_attributes_norm_sd, min = 0.01, step = 0.01)
                                           ),
                          conditionalPanel("input.preset_types1 == 'Poisson'",
                                           numericInput("1_pois_lambda", "Lamda", value = default_attributes_lambda)
@@ -95,9 +95,9 @@ shinyUI(navbarPage(title = gridsampler_version,
                checkboxInput("plot2_fixy", "Fix y to [0, 1]", value = F),
                fluidRow(
                  column(6, numericInput("category", "Category",
-                                        value = 5, min = 1, max = 100, step = 1, width = "100%")),
+                                        value = 1, min = 1, max = 500, step = 1, width = "100%")),
                  column(6, numericInput("probability2", "Probability",
-                                       value = round(default_category_probs[5], 3), min = 0, max = 1, step = 0.001, width = "100%"))
+                                       value = round(default_category_probs[1], 3), min = 0, max = 1, step = 0.001, width = "100%"))
                 ),
                # Preset section of column 2
                wellPanel(
@@ -116,7 +116,7 @@ shinyUI(navbarPage(title = gridsampler_version,
                         ),
                         conditionalPanel("input.preset_types2 == 'Linear'",
                                          numericInput("2_lin_min", "Minimum",
-                                                      value = default_category_lin_min, min = 0.000001, step = 0.01)
+                                                      value = default_category_lin_min, min = 0.001, step = 0.001)
                         )
                  )
                  ),

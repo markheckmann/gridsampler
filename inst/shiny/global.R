@@ -62,7 +62,7 @@ default_attributes_probs     <- round(dnorm(default_attributes_min:default_attri
                                       sd = default_attributes_norm_sd), 3)
 default_category_count       <- 15
 default_category_exp_rate    <- 0.15
-default_category_lin_min     <- 0.000001
+default_category_lin_min     <- 0.001
 default_category_probs       <- round(dexp(seq_len(default_category_count), rate = default_category_exp_rate), 3)
 
 # Creating the reactive values object to store attributes, probs etc
