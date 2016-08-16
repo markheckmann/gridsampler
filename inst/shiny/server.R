@@ -110,7 +110,7 @@ shinyServer(function(input, output, session) {
           labs(x = "Attribute", y = "Probability") +
           scale_x_continuous(breaks = seq(1, 1000, 1)) +
           theme_bw() +
-          theme(plot.background = element_rect(fill = plot_bg),
+          theme(plot.background  = element_rect(fill = plot_bg),
                 panel.background = element_rect(fill = panel_bg))
 
     # Vertical adjustment if selected
@@ -165,7 +165,7 @@ shinyServer(function(input, output, session) {
     values$category_prob[values$category_id == input$category] <- round(input$probability2, 3)
   })
 
-  # Observer for presets in column 1
+  # Observer for presets in column 2
   observeEvent(input$preset_go2, {
     # Apply presets only if button is pressed
     if (input$preset_types2 == "Quadratic") {
@@ -215,7 +215,7 @@ shinyServer(function(input, output, session) {
           expand_limits(y = max(data2$y + 0.01),
                         x = max(data2$x + 0.9)) +
           theme_bw() +
-          theme(plot.background = element_rect(fill = plot_bg),
+          theme(plot.background  = element_rect(fill = plot_bg),
                 panel.background = element_rect(fill = panel_bg))
 
     # Adjust y scale if selected
@@ -227,6 +227,23 @@ shinyServer(function(input, output, session) {
   })
 
   #### Logic for column 3 ####
+
+  # Input validation, crude but effective way to avoid null inputs during simulation
+  observe({
+    if (is.na(input$sample_size)) {
+      updateNumericInput(session, "sample_size", value = 100)
+    }
+    if (input$sample_size2 == "") {
+      updateTextInput(session, "sample_size2", value = "10, 20, 30, 40, 50, 60, 70, 80")
+    }
+    if (is.na(input$run_times)) {
+      updateNumericInput(session, "run_times", value = 10)
+    }
+    if (is.na(input$runs_per_sample)) {
+      updateNumericInput(session, "runs_per_sample", value = 10)
+    }
+  })
+
 
   # Executes chunk if sample_random button is pushed, stores values in "values" reactiveValues object
   observeEvent(input$sample_random, {
