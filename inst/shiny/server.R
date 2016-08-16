@@ -244,8 +244,7 @@ shinyServer(function(input, output, session) {
     }
   })
 
-
-  # Executes chunk if sample_random button is pushed, stores values in "values" reactiveValues object
+  # Executes chunk if sample_random button is pushed, stores samples in "values" reactiveValues object
   observeEvent(input$sample_random, {
       values$sample_plot <- gridsampler::draw_n_person_sample(prob = isolate(values$category_prob),
                                                               n = isolate(input$sample_size),
@@ -266,7 +265,8 @@ shinyServer(function(input, output, session) {
     # Runs the samples used in further steps
     times <- isolate(input$run_times)
     r <- plyr::ldply(seq_len_robust(times), function(x){
-                                incProgress(session = session, amount = 1/times, message = "Drawing samples...")
+                                incProgress(session = session, amount = 1/times,
+                                            message = paste0("Running sample ", x, "/", times))
                                 samples <- sim_n_persons(prob = isolate(values$category_prob),
                                                          n = isolate(input$sample_size),
                                                          a = isolate(values$attributes_id),
@@ -310,7 +310,7 @@ shinyServer(function(input, output, session) {
         r[[i]] <- sim_n_persons_x_times(values$category_prob, n = n[i], a = values$attributes_id,
                                         ap = values$attributes_prob, times = isolate(input$runs_per_sample))
         # Increment progress bar
-        incProgress(amount = 1/length(n), detail = paste("Simulation ", i))
+        incProgress(amount = 1/length(n), detail = paste0("Simulation ", i, "/", length(n)))
       }
 
       values$simulations <- r
