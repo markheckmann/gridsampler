@@ -121,6 +121,7 @@ sim_n_persons_x_times <- function(prob, n, a, ap=rep(1/length(a),
 #' @keywords external
 #' @export
 #' @import ggplot2
+#' @importFrom stats quantile
 #' @examples
 #' r <- sim_n_persons_x_times(dexp(1:30, rate=.05), n=50, a=5:7, ap=1:3, 100)
 #' expected_frequencies(r)
