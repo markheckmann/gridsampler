@@ -53,6 +53,7 @@ h4 {
 
 .col-sm-3 .well {
   border: solid 1px rgb(149, 165, 166);
+  margin-bottom: 0px;
 }
 
 .col-sm-4 .well {
