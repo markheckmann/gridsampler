@@ -173,10 +173,7 @@ shinyUI(navbarPage(title = gridsampler_version,
     fluidPage(
       fluidRow(
         column(10, offset = 1,
-          wellPanel("This is just a placeholder for the final about section"),
-          #includeHTML(system.file("doc", "index.html", package = "gridsampler")) # messes up layout
           includeHTML("text/index.html")
-          #includeMarkdown("text/about.md")
         )
       )
     )
