@@ -119,7 +119,8 @@ sim_n_persons_x_times <- function(prob, n, a, ap=rep(1/length(a),
 
 
 #' Produce ggplot of percentiles for simulated frequencies
-#' @param A dataframe. The result returned from \code{\link{sim_n_persons_x_times}}.
+#'
+#' @param r A dataframe. The result returned from \code{\link{sim_n_persons_x_times}}.
 #' @return Draws a ggplot
 #' @keywords external
 #' @export
@@ -213,8 +214,8 @@ sim_n_persons_x_times_many_n <- function(prob, n=seq(10, 80, by=10), a=7,
 #'
 #' @param r A dataframe. The result returned from \code{\link{sim_n_persons_x_times_many_n}}.
 #' @param n Vector of n for which to calculate probabilities.
-#' @param m minimal number of constructs in each category
-#' @param min.prop Proportion of categores to contain at least m constructs.
+#' @param ms minimal number of constructs in each category
+#' @param min.props Proportion of categores to contain at least m constructs.
 #' @export
 #' @keywords external
 #' @examples
@@ -237,8 +238,6 @@ calc_probabilities <- function(r, n, ms, min.props=c(.9, .95, .99))
   dd <- as.data.frame(do.call(rbind, res))
   dd
 }
-
-
 
 #' Draw and redraw results of simulation
 #'

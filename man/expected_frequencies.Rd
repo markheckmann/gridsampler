@@ -7,7 +7,7 @@
 expected_frequencies(r)
 }
 \arguments{
-\item{A}{dataframe. The result returned from \code{\link{sim_n_persons_x_times}}.}
+\item{r}{A dataframe. The result returned from \code{\link{sim_n_persons_x_times}}.}
 }
 \value{
 Draws a ggplot
