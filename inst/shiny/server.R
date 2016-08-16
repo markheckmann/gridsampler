@@ -261,19 +261,18 @@ shinyServer(function(input, output, session) {
     # Initiate progress bar
     withProgress(value = 0, message = "Running samples...", {
 
-    # Verbatim copy of sim_n_persons_x_times to incorporate progress bar
-    # Runs the samples used in further steps
-    times <- isolate(input$run_times)
-    r <- plyr::ldply(seq_len_robust(times), function(x){
-                                incProgress(session = session, amount = 1/times,
-                                            message = paste0("Running sample ", x, "/", times))
-                                samples <- sim_n_persons(prob = isolate(values$category_prob),
-                                                         n = isolate(input$sample_size),
-                                                         a = isolate(values$attributes_id),
-                                                         ap = isolate(values$attributes_prob))
-                                return(samples)
-                                }, .progress = "none")
-
+      # Verbatim copy of sim_n_persons_x_times to incorporate progress bar
+      # Runs the samples used in further steps
+      times <- isolate(input$run_times)
+      r <- plyr::ldply(seq_len_robust(times), function(x){
+                                  setProgress(session = session, value = x/times,
+                                              message = paste0("Running sample ", x, "/", times))
+                                  samples <- sim_n_persons(prob = isolate(values$category_prob),
+                                                           n = isolate(input$sample_size),
+                                                           a = isolate(values$attributes_id),
+                                                           ap = isolate(values$attributes_prob))
+                                  return(samples)
+                                  }, .progress = "none")
     })
 
     # Create plot from samples
@@ -281,7 +280,7 @@ shinyServer(function(input, output, session) {
                             theme_bw() +
                             theme(plot.background   = element_rect(fill = plot_bg),
                                   panel.background  = element_rect(fill = panel_bg),
-                                  legend.background =  element_rect(fill = legend_bg))
+                                  legend.background = element_rect(fill = legend_bg))
   })
 
   # Plot 1 of column 3
