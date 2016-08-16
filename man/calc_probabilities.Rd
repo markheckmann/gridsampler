@@ -11,9 +11,9 @@ calc_probabilities(r, n, ms, min.props = c(0.9, 0.95, 0.99))
 
 \item{n}{Vector of n for which to calculate probabilities.}
 
-\item{m}{minimal number of constructs in each category}
+\item{ms}{minimal number of constructs in each category}
 
-\item{min.prop}{Proportion of categores to contain at least m constructs.}
+\item{min.props}{Proportion of categores to contain at least m constructs.}
 }
 \description{
 Calculate probability for getting certain proportion of categories with at

@@ -29,9 +29,10 @@ Creates simulation results for different n. Runs
 \code{\link{sim_n_persons_x_times}} for different n.
 }
 \examples{
+\dontrun{
 r <- sim_n_persons_x_times_many_n(dexp(1:30, .05), a=7, times=100)
 r <- sim_n_persons_x_times_many_n(dexp(1:30, .05), a=5:7, ap=1:3, times=100, prog="tk")
-
+}
 }
 \keyword{external}
 
