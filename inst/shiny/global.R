@@ -47,10 +47,10 @@ p_linear <- function(k, p_k = 0) {
 # seq that handles NAs
 seq_robust <- function(from = 1, to = 10, by = 1, ...) {
   if (is.na(from)) {
-    from <- 1
+    from <- 4
   }
   if (is.na(to)) {
-    to <- 10
+    to <- 8
   }
   s <- seq(from, to, by, ...)
   return(s)
@@ -59,7 +59,7 @@ seq_robust <- function(from = 1, to = 10, by = 1, ...) {
 # seq_len that handles NA
 seq_len_robust <- function(length.out = 10) {
   if (is.na(length.out)) {
-   length.out <- 10
+   length.out <- 15
   }
   s <- seq_len(length.out)
   return(s)
