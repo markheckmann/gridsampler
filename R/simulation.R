@@ -109,6 +109,9 @@ draw_n_person_sample <- function(prob, n, a=10, ap=rep(1/length(a), length(a)))
 sim_n_persons_x_times <- function(prob, n, a, ap=rep(1/length(a),
                                   length(a)), times=100, progress="text")
 {
+  if (!interactive()) {
+    progress <- "none"
+  }
   plyr::ldply(1L:times, function(x, prob, n, a, ap){
           sim_n_persons(prob, n, a, ap)
         }, prob=prob, n=n, a=a, ap=ap, .progress=progress)
@@ -184,13 +187,17 @@ prob_categories <- function(r, m, min.prop=1)
 #' @export
 #' @keywords external
 #' @examples
+#' \dontrun{
 #' r <- sim_n_persons_x_times_many_n(dexp(1:30, .05), a=7, times=100)
 #' r <- sim_n_persons_x_times_many_n(dexp(1:30, .05), a=5:7, ap=1:3, times=100, prog="tk")
-#'
+#' }
 sim_n_persons_x_times_many_n <- function(prob, n=seq(10, 80, by=10), a=7,
                                ap=rep(1/length(a), length(a)), times=100,
                                progress="text")
 {
+  if (!interactive()) {
+    progress <- "none"
+  }
   r <- list()
   for (i in seq_along(n))
     r[[i]] <- sim_n_persons_x_times(prob, n=n[i], a=a, ap=ap, times=times,
