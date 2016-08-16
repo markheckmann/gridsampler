@@ -72,7 +72,7 @@ shinyUI(navbarPage(title = gridsampler_version,
                                           numericInput("1_pois_lambda", "Lamda", value = default_attributes_lambda)
                                           ),
                          conditionalPanel("input.preset_types1 == 'Exponential'",
-                                          numericInput("1_exp_rate", "Rate", value = default_attributes_exp_rate, step = 0.1)
+                                          numericInput("1_exp_rate", "Rate", value = default_attributes_exp_rate, step = 0.01)
                                           )
                          )
                 ),
