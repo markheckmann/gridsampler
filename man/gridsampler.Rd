@@ -17,9 +17,6 @@ See \link[shiny]{runApp}.}
 \item{launch.browser}{Boolean, set \code{TRUE} to open the app in the browser.
 See \link[shiny]{runApp}.}
 }
-\value{
-A shiny app
-}
 \description{
 \pkg{gridsampler} contains tools to simulate the sampling of
 multiple repertory grids.

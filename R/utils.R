@@ -5,7 +5,6 @@
 #' See \link[shiny]{runApp}.
 #' @param launch.browser Boolean, set \code{TRUE} to open the app in the browser.
 #' See \link[shiny]{runApp}.
-#' @return A shiny app
 #' @export
 #' @import shiny
 #' @import shinythemes
