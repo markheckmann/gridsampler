@@ -293,9 +293,12 @@ shinyServer(function(input, output, session) {
         # Increment progress bar
         incProgress(amount = 1/length(n), detail = paste0("Simulation ", i, "/", length(n)))
         # Do simulation
-        r[[i]] <- sim_n_persons_x_times(values$category_prob, n = n[i], a = values$attributes_id,
-                                        ap = values$attributes_prob,
-                                        times = isolate(input$runs_per_sample), progress = "none")
+        r[[i]] <- sim_n_persons_x_times(prob  = values$category_prob,
+                                        n     = n[i],
+                                        a     = values$attributes_id,
+                                        ap    = values$attributes_prob,
+                                        times = isolate(input$runs_per_sample),
+                                        progress = "none")
       }
 
       values$simulations <- r
@@ -327,12 +330,12 @@ shinyServer(function(input, output, session) {
 
     draw_multiple_n_persons_x_times(d) +
       theme_bw() +
-      theme(plot.background = element_rect(fill = plot_bg),
-            panel.background = element_rect(fill = panel_bg),
+      theme(plot.background   = element_rect(fill = plot_bg),
+            panel.background  = element_rect(fill = panel_bg),
             legend.background =  element_rect(fill = legend_bg),
-            legend.key = element_rect(fill = legend_bg),
-            strip.background = ggplot2::element_blank(),
-            strip.text = element_text(size = rel(1.2)),
-            legend.text = element_text(size = rel(1.1)))
+            legend.key        = element_rect(fill = legend_bg),
+            strip.background  = element_blank(),
+            strip.text        = element_text(size = rel(1.2)),
+            legend.text       = element_text(size = rel(1.1)))
   })
 })
