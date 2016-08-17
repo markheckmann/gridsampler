@@ -4,7 +4,7 @@ Title: Simulation Tool for Repertory Grid Studies
 Type: Package
 LazyLoad: yes
 Authors@R: c(person("Mark", "Heckmann", email = "heckmann@uni-bremen.de", role = c("aut", "cre")),
-             person("Lukas", "Burk", email = "lukas@quantenbrot.de", role = c("ctb")))
+             person("Lukas", "Burk", email = "lukas@quantenbrot.de", role = c("aut")))
 Description: Simulation tool to facilitate determination of
     required sample size to achieve category saturation
     for studies using multiple repertory grids in conjunction with
