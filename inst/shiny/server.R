@@ -230,6 +230,9 @@ shinyServer(function(input, output, session) {
 
   # Executes chunk if sample_random button is pushed, stores samples in "values" reactiveValues object
   observeEvent(input$sample_random, {
+      n <- isolate(input$sample_size)
+      validate(need(is.numeric(n) & length(n) > 0, message = "Value (N) must be set!"))
+
       values$sample_plot <- gridsampler::draw_n_person_sample(prob = isolate(values$category_prob),
                                                               n = isolate(input$sample_size),
                                                               a = isolate(values$attributes_id),
@@ -242,12 +245,15 @@ shinyServer(function(input, output, session) {
   # Run samples if run_button is pressed
   observeEvent(input$run_button, {
 
+
     # Initiate progress bar
     withProgress(value = 0, message = "Running samples...", {
 
       # Verbatim copy of sim_n_persons_x_times to incorporate progress bar
       # Runs the samples used in further steps
       times <- isolate(input$run_times)
+      validate(need(is.numeric(times) & length(times) > 0, message = "Value (R) must be set!"))
+
       r <- plyr::ldply(seq_len_robust(times), function(x){
                                   setProgress(session = session, value = x/times,
                                               message = paste0("Running sample ", x, "/", times))
