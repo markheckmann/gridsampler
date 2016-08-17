@@ -228,22 +228,6 @@ shinyServer(function(input, output, session) {
 
   #### Logic for column 3 ####
 
-  # Input validation, crude but effective way to avoid null inputs during simulation
-  observe({
-    if (is.na(input$sample_size)) {
-      updateNumericInput(session, "sample_size", value = 100)
-    }
-    if (input$sample_size2 == "") {
-      updateTextInput(session, "sample_size2", value = "10, 20, 30, 40, 50, 60, 70, 80")
-    }
-    if (is.na(input$run_times)) {
-      updateNumericInput(session, "run_times", value = 10)
-    }
-    if (is.na(input$runs_per_sample)) {
-      updateNumericInput(session, "runs_per_sample", value = 10)
-    }
-  })
-
   # Executes chunk if sample_random button is pushed, stores samples in "values" reactiveValues object
   observeEvent(input$sample_random, {
       values$sample_plot <- gridsampler::draw_n_person_sample(prob = isolate(values$category_prob),
@@ -332,6 +316,13 @@ shinyServer(function(input, output, session) {
     N <- text_to_vector(isolate(input$sample_size2))
     M <- text_to_vector(isolate(input$mincount_m))
     p <- text_to_vector(isolate(input$proportion_k))
+
+    # Input validation
+    validate(need(is.numeric(N) & length(N) > 0, message = "Value (N) must be set!"))
+    validate(need(is.numeric(M) & length(M) > 0, message = "Value (M) must be set!"))
+    validate(need(is.numeric(p) & length(p) > 0, message = "Value (K) must be set!"))
+
+    # Calculating probabilities & drawing plot
     d <- calc_probabilities(r = values$simulations, n = N, ms = M, min.props = p)
 
     draw_multiple_n_persons_x_times(d) +
