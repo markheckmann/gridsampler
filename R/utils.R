@@ -25,7 +25,7 @@ gridsampler <- function(display.mode = "auto",
 
 #' Adjusted sampling function
 #'
-#' @inheritParams sample
+#' @inheritParams stats::sample
 #' @keywords internal
 
 sample_new <- function(x, size, replace = FALSE, prob = NULL)
