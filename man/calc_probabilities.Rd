@@ -21,9 +21,9 @@ least m constructs
 }
 \examples{
 prob <-  dexp(1:30, .05)
-n <- seq(10, 80, by=20)
-r <- sim_n_persons_x_times_many_n(prob, n, a=7, times=100)
-dd <- calc_probabilities(r, n, ms=1:5, min.props=c(0.9, .95, 1))
+n <- seq(10, 80, by = 20)
+r <- sim_n_persons_x_times_many_n(prob, n, a = 7, times = 100)
+dd <- calc_probabilities(r, n, ms=1:5, min.props = c(0.9, .95, 1))
 head(dd)
 
 }

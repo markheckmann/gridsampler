@@ -18,8 +18,8 @@ Calculate probability for getting certain proportion of categories with at
 least m constructs
 }
 \examples{
-r <- sim_n_persons_x_times(dexp(1:30, rate=.05), n=50, a=5:7, times=100)
-prob_categories(r, 4, min.prop=.9)
+r <- sim_n_persons_x_times(dexp(1:30, rate = .05), n = 50, a = 5:7, times = 100, progress = "none")
+prob_categories(r, 4, min.prop = .9)
 
 }
 \seealso{
