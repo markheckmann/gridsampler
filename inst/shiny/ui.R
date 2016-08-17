@@ -160,7 +160,7 @@ shinyUI(navbarPage(title = gridsampler_version,
                # Only show plot if the simulate button has been pressed, show text otherwise
                conditionalPanel("input.simulate == 0", tags$span(class = "help-block", "No simulations run yet!",
                                                                  tags$br(),
-                                                                 "A plot will appear here after you press “simulate“.")),
+                                                                 "A plot will appear here after you press “Simulate“.")),
                conditionalPanel("input.simulate > 0", plotOutput("plot3_2", height = "300px")),
                tags$br()
          )

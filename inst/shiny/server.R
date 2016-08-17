@@ -255,7 +255,7 @@ shinyServer(function(input, output, session) {
                                     panel.background = element_rect(fill = panel_bg))
   })
 
-  # Run samples of run_button is pressed
+  # Run samples if run_button is pressed
   observeEvent(input$run_button, {
 
     # Initiate progress bar
@@ -306,10 +306,11 @@ shinyServer(function(input, output, session) {
       r <- list()
       n <- text_to_vector(isolate(input$sample_size2))
       for (i in seq_along(n)) {
-        r[[i]] <- sim_n_persons_x_times(values$category_prob, n = n[i], a = values$attributes_id,
-                                        ap = values$attributes_prob, times = isolate(input$runs_per_sample))
         # Increment progress bar
         incProgress(amount = 1/length(n), detail = paste0("Simulation ", i, "/", length(n)))
+        # Do simulation
+        r[[i]] <- sim_n_persons_x_times(values$category_prob, n = n[i], a = values$attributes_id,
+                                        ap = values$attributes_prob, times = isolate(input$runs_per_sample))
       }
 
       values$simulations <- r
