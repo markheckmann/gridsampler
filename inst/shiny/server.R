@@ -310,7 +310,8 @@ shinyServer(function(input, output, session) {
         incProgress(amount = 1/length(n), detail = paste0("Simulation ", i, "/", length(n)))
         # Do simulation
         r[[i]] <- sim_n_persons_x_times(values$category_prob, n = n[i], a = values$attributes_id,
-                                        ap = values$attributes_prob, times = isolate(input$runs_per_sample))
+                                        ap = values$attributes_prob,
+                                        times = isolate(input$runs_per_sample), progress = "none")
       }
 
       values$simulations <- r
