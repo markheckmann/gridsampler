@@ -339,7 +339,7 @@ shinyServer(function(input, output, session) {
             panel.background = element_rect(fill = panel_bg),
             legend.background =  element_rect(fill = legend_bg),
             legend.key = element_rect(fill = legend_bg),
-            strip.background = element_rect(fill = plot_bg),
+            strip.background = ggplot2::element_blank(),
             strip.text = element_text(size = rel(1.2)),
             legend.text = element_text(size = rel(1.1)))
   })
