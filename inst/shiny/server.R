@@ -245,7 +245,6 @@ shinyServer(function(input, output, session) {
   # Run samples if run_button is pressed
   observeEvent(input$run_button, {
 
-
     # Initiate progress bar
     withProgress(value = 0, message = "Running samples...", {
 
