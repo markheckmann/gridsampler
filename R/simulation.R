@@ -250,14 +250,14 @@ draw_multiple_n_persons_x_times <- function(d)
 {
  # dd <- calc_probabilities(r=res, n=n, ms=ms, min.props=min.props)
  d$m <- as.factor(d$m)
- d$min.prop.k <- paste0("K=", d$min.prop)
+ d$min.prop.k <- paste0("K = ", d$min.prop)
  g <- ggplot(d, aes_string(x="n", y="prob", group="m", shape="m", color="m")) +
    geom_line() +
    geom_point() +
    scale_y_continuous("Probability", limits=c(0,1)) +
-   scale_x_continuous("Sample size N") +
+   scale_x_continuous("Sample Size (N)") +
    facet_grid(. ~ min.prop.k) +
-   scale_color_discrete(name="M: Min.\ncount") +
-   scale_shape_discrete(name="M: Min.\ncount")
+   scale_color_discrete(name="M: Min.\nCount") +
+   scale_shape_discrete(name="M: Min.\nCount")
  return(g)
 }
