@@ -4,8 +4,14 @@ library(ggplot2)
 library(gridsampler)
 library(shinythemes)
 
+#### UI variables defined here for convenience ####
 # Current gridsampler version (displayed in header)
 gridsampler_version <- paste0("gridsampler v", packageVersion("gridsampler"))
+
+# Column descriptions
+desc_col1 <- helpText("Description of column 1")
+desc_col2 <- helpText("Description of column 2")
+desc_col3 <- helpText("Description of column 3")
 
 #### Convenience functions ####
 # Convert textInput to a vector for inputs in column 3

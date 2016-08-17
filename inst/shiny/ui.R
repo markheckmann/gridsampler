@@ -32,7 +32,7 @@ shinyUI(navbarPage(title = gridsampler_version,
         #### Column 1 ####
         column(3,
               h3("1. Number of Attributes"),
-              helpText("Description of column 1"),
+              desc_col1,
               fluidRow(
                 column(6, numericInput("minimum1", "Minimum",
                                        value = default_attributes_min,
@@ -86,7 +86,7 @@ shinyUI(navbarPage(title = gridsampler_version,
         #### Column 2 ####
         column(3,
                h3("2. Probability of Categories"),
-               helpText("Description of column 2"),
+               desc_col2,
                fluidRow(
                  column(12, numericInput("maximum2", "No. of Categories",
                                          value = default_category_count, min = 1, step = 1, width = "100%"))
@@ -130,7 +130,7 @@ shinyUI(navbarPage(title = gridsampler_version,
          #### Column 3 ####
          column(6,
                h3("3. Simulate"),
-               helpText("Description of column 3"),
+               desc_col3,
                fluidRow(
                  column(6, numericInput("sample_size", "Sample Size (N)", value = "100")),
                  column(6, numericInput("run_times", "Simulation Runs (R)", value = "10"))
