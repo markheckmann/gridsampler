@@ -24,5 +24,7 @@ p <- c(0.9, .95, 1)           # proportion of categories for which minimal m hol
 d <- calc_probabilities(r, n=N, ms=M, min.props=p)
 draw_multiple_n_persons_x_times(d)
 }
-\keyword{external}
+\seealso{
+Other Plotting: \code{\link{draw_n_person_sample}}
+}
 

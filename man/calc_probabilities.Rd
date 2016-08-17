@@ -27,5 +27,8 @@ dd <- calc_probabilities(r, n, ms=1:5, min.props=c(0.9, .95, 1))
 head(dd)
 
 }
-\keyword{external}
+\seealso{
+Other Utilities: \code{\link{expected_frequencies}},
+  \code{\link{prob_categories}}
+}
 

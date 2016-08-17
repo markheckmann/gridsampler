@@ -9,14 +9,13 @@
 #' @param prob Probability to draw a construct from a certain category.
 #' @param a Number of constructs to be sampled.
 #' @export
-#' @keywords external
-#'
+#' @family Simulations
 #' @examples
 #' # draw from exponential distribution
-#' p <- dexp(1:20, rate=.1)
-#' sim_one_person(p, a=10)
+#' p <- dexp(1:20, rate = .1)
+#' sim_one_person(p, a = 10)
 #'
-sim_one_person <- function(prob, a=10)
+sim_one_person <- function(prob, a = 10)
 {
   if (a > sum(prob > 0))
     stop("The number of attributes 'a' must not exceed ",
@@ -48,7 +47,7 @@ sim_one_person <- function(prob, a=10)
 #' @param ap Attribute probabilities, i.e. for each number of attributes given
 #'   in \code{a}.
 #' @export
-#' @keywords external
+#' @family Simulations
 #' @examples
 #' sim_n_persons(dexp(1:30, .05), n=2, a=10)
 #' sim_n_persons(dexp(1:30, .05), n=2, a=c(1, 30))
@@ -68,7 +67,7 @@ sim_n_persons <- function(prob, n, a=10, ap=rep(1/length(a), length(a)))
 #' @inheritParams sim_n_persons
 #' @export
 #' @import ggplot2
-#' @keywords external
+#' @family Plotting
 #' @examples
 #' draw_n_person_sample(dexp(1:30, rate=.05), n=100, a=10)
 #' draw_n_person_sample(dexp(1:30, rate=.05), n=100, a=1:5, ap=5:1)
@@ -95,7 +94,7 @@ draw_n_person_sample <- function(prob, n, a=10, ap=rep(1/length(a), length(a)))
 #' @param times Number of times to repeat each simulation.
 #' @param progress Type of progress bar shown during simulation.
 #' @export
-#' @keywords external
+#' @family Simulations
 #' @examples
 #' sim_n_persons_x_times(dexp(1:30, .05), n=2, a=c(1,30), ap=1:2, times=100)
 #' sim_n_persons_x_times(dexp(1:30, .05), n=2, a=c(1,30), ti=200, progress="tk" )
@@ -111,15 +110,14 @@ sim_n_persons_x_times <- function(prob, n, a, ap=rep(1/length(a),
         }, prob=prob, n=n, a=a, ap=ap, .progress=progress)
 }
 
-
 #' Produce ggplot of percentiles for simulated frequencies
 #'
 #' @param r A dataframe. The result returned from \code{\link{sim_n_persons_x_times}}.
 #' @return Draws a ggplot
-#' @keywords external
 #' @export
 #' @import ggplot2
 #' @importFrom stats quantile
+#' @family Utilities
 #' @examples
 #' r <- sim_n_persons_x_times(dexp(1:30, rate=.05), n=50, a=5:7, ap=1:3, 100)
 #' expected_frequencies(r)
@@ -155,7 +153,7 @@ expected_frequencies <- function(r)
 #' @param m minimal number of constructs in each category
 #' @param min.prop Proportion of categores to contain at least m constructs.
 #' @export
-#' @keywords external
+#' @family Utilities
 #' @examples
 #' r <- sim_n_persons_x_times(dexp(1:30, rate=.05), n=50, a=5:7, times=100)
 #' prob_categories(r, 4, min.prop=.9)
@@ -176,7 +174,7 @@ prob_categories <- function(r, m, min.prop=1)
 #' @inheritParams sim_n_persons_x_times
 #' @return A result dataframe.
 #' @export
-#' @keywords external
+#' @family Simulations
 #' @examples
 #' \dontrun{
 #' r <- sim_n_persons_x_times_many_n(dexp(1:30, .05), a=7, times=100)
@@ -206,7 +204,7 @@ sim_n_persons_x_times_many_n <- function(prob, n=seq(10, 80, by=10), a=7,
 #' @param ms minimal number of constructs in each category
 #' @param min.props Proportion of categores to contain at least m constructs.
 #' @export
-#' @keywords external
+#' @family Utilities
 #' @examples
 #' prob <-  dexp(1:30, .05)
 #' n <- seq(10, 80, by=20)
@@ -232,7 +230,7 @@ calc_probabilities <- function(r, n, ms, min.props=c(.9, .95, .99))
 #'
 #' @param d A dataframe as returned by \code{\link{calc_probabilities}}.
 #' @export
-#' @keywords external
+#' @family Plotting
 #' @import ggplot2
 #' @examples
 #' ## simulate
