@@ -16,6 +16,12 @@ if (!("devtools" %in% installed.packages())) {
 } else {
   devtools::install_github("markheckmann/gridsampler")
 }
+
+# Run it:
+gridsampler()
+
+# Or run it in a browser window (recommended):
+gridsampler(launch.browser = "TRUE")
 ```
 
 ### Citing
