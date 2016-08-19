@@ -122,7 +122,7 @@ sim_n_persons_x_times <- function(prob, n, a, ap = rep(1/length(a),
 #' @importFrom stats quantile
 #' @family Utilities
 #' @examples
-#' r <- sim_n_persons_x_times(dexp(1:30, rate=.05), n=50, a=5:7, ap=1:3, 100)
+#' r <- sim_n_persons_x_times(dexp(1:30, rate = .05), n = 50, a = 5:7, ap = 1:3, 100)
 #' expected_frequencies(r)
 #'
 expected_frequencies <- function(r)
@@ -163,8 +163,8 @@ expected_frequencies <- function(r)
 #'
 prob_categories <- function(r, m, min.prop=1)
 {
-  s <- apply(r, 1, function(x, min.prop) {    # does the sample render more than
-         (sum(x >= m) / length(x)) >= min.prop    # min.prop categories with >=  m attributes
+  s <- apply(r, 1, function(x, min.prop) {      # does the sample render more than
+         (sum(x >= m) / length(x)) >= min.prop  # min.prop categories with >=  m attributes
        }, min.prop = min.prop)
   sum(s) / nrow(r)
 }
@@ -215,7 +215,7 @@ sim_n_persons_x_times_many_n <- function(prob, n = seq(10, 80, by = 10), a = 7,
 #' dd <- calc_probabilities(r, n, ms=1:5, min.props = c(0.9, .95, 1))
 #' head(dd)
 #'
-calc_probabilities <- function(r, n, ms, min.props=c(.9, .95, .99))
+calc_probabilities <- function(r, n, ms, min.props = c(.9, .95, .99))
 {
   res <- NULL
   for (m in ms) {
