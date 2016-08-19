@@ -35,14 +35,14 @@ text_to_vector <- function(txt){
   return(txt)
 }
 
-# Prettier display of probabilities inside plots
+# Prettier display of probabilities inside plots, 0.927724 -> '.928'
 prettify_probs <- function(x, round = 3) {
   decimals <- round(x, round)
   decimals <- substring(as.character(decimals), first = 2)
   return(decimals)
 }
 
-# Linear probability function
+# Linear probability function for panel 2, p_k defines the minimum probability allowed
 p_linear <- function(k, p_k = 0) {
   slope     <- (2 - 2 * k * p_k) / (k * (1 - k))
   intercept <- (p_k * (1 + k) - 2) / (1 - k)
@@ -50,7 +50,7 @@ p_linear <- function(k, p_k = 0) {
   return(ret)
 }
 
-# seq that handles NAs
+# seq that handles NAs, used in column 3 for faulty input handling
 seq_robust <- function(from = 1, to = 10, by = 1, ...) {
   if (is.na(from)) {
     from <- 4
@@ -62,7 +62,7 @@ seq_robust <- function(from = 1, to = 10, by = 1, ...) {
   return(s)
 }
 
-# seq_len that handles NA
+# seq_len that handles NA, see seq_robust
 seq_len_robust <- function(length.out = 10) {
   if (is.na(length.out)) {
    length.out <- 15

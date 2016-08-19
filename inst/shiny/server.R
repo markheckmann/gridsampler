@@ -142,7 +142,8 @@ shinyServer(function(input, output, session) {
 
   # Make sure the probability in column 2 is the current value stored in the reactiveValues object
   observeEvent(input$category, {
-    updateNumericInput(session, "probability2", value = values$category_prob[values$category_id == input$category])
+    updateNumericInput(session, "probability2",
+                       value = values$category_prob[values$category_id == input$category])
   })
 
   # Observer to change category properties
@@ -154,7 +155,8 @@ shinyServer(function(input, output, session) {
     if (input$preset_go2 == 0) {
       if (!is.na(input$maximum2)) {
         if (input$maximum2 != length(values$category_prob)) {
-          values$category_prob <- round(dexp(values$category_id, rate = default_category_exp_rate), 3)
+          values$category_prob <- round(dexp(values$category_id,
+                                             rate = default_category_exp_rate), 3)
         }
       }
     }
@@ -168,11 +170,7 @@ shinyServer(function(input, output, session) {
   # Observer for presets in column 2
   observeEvent(input$preset_go2, {
     # Apply presets only if button is pressed
-    if (input$preset_types2 == "Quadratic") {
-      values$category_prob <- input$`2_quad_factor` * (values$category_id - input$`2_quad_min`)^2
-      # Scale back so that sum is = 1, however this makes the 'factor' arg dysfunctional
-      values$category_prob <- values$category_prob / sum(values$category_prob)
-    } else if (input$preset_types2 == "Exponential") {
+    if (input$preset_types2 == "Exponential") {
       values$category_prob <- dexp(values$category_id, rate = input$`2_exp_rate`)
     } else if (input$preset_types2 == "Uniform") {
       values$category_prob <- dunif(values$category_id, min = 1 - 1, max = input$maximum2)
@@ -230,9 +228,11 @@ shinyServer(function(input, output, session) {
 
   # Executes chunk if sample_random button is pushed, stores samples in "values" reactiveValues object
   observeEvent(input$sample_random, {
+      # Input validation
       n <- isolate(input$sample_size)
       validate(need(is.numeric(n) & length(n) > 0, message = "Value (N) must be set!"))
 
+      # Create sample, store in values
       values$sample_plot <- gridsampler::draw_n_person_sample(prob = isolate(values$category_prob),
                                                               n = isolate(input$sample_size),
                                                               a = isolate(values$attributes_id),
@@ -261,10 +261,10 @@ shinyServer(function(input, output, session) {
                                                            a = isolate(values$attributes_id),
                                                            ap = isolate(values$attributes_prob))
                                   return(samples)
-                                  }, .progress = "none")
+                                  }, .progress = "none") # No progress bar to R console
     })
 
-    # Create plot from samples
+    # Create plot from samples, store in values
     values$sample_plot <- expected_frequencies(r) +
                             theme_bw() +
                             theme(plot.background   = element_rect(fill = plot_bg),
@@ -306,6 +306,7 @@ shinyServer(function(input, output, session) {
                                         progress = "none")
       }
 
+      # Store result in values for use in next chunk
       values$simulations <- r
     })
   })
@@ -321,6 +322,7 @@ shinyServer(function(input, output, session) {
     }
 
     # See ?draw_multiple_n_persons_x_times
+    # Use isolate() to avoid unwanted re-execution on input change
     N <- text_to_vector(isolate(input$sample_size2))
     M <- text_to_vector(isolate(input$mincount_m))
     p <- text_to_vector(isolate(input$proportion_k))
@@ -333,14 +335,16 @@ shinyServer(function(input, output, session) {
     # Calculating probabilities & drawing plot
     d <- calc_probabilities(r = values$simulations, n = N, ms = M, min.props = p)
 
-    draw_multiple_n_persons_x_times(d) +
-      theme_bw() +
-      theme(plot.background   = element_rect(fill = plot_bg),
-            panel.background  = element_rect(fill = panel_bg),
-            legend.background =  element_rect(fill = legend_bg),
-            legend.key        = element_rect(fill = legend_bg),
-            strip.background  = element_blank(),
-            strip.text        = element_text(size = rel(1.2)),
-            legend.text       = element_text(size = rel(1.1)))
+    # Drawing the final plot
+    plot_result <- draw_multiple_n_persons_x_times(d) +
+                    theme_bw() +
+                    theme(plot.background   = element_rect(fill = plot_bg),
+                          panel.background  = element_rect(fill = panel_bg),
+                          legend.background =  element_rect(fill = legend_bg),
+                          legend.key        = element_rect(fill = legend_bg),
+                          strip.background  = element_blank(),
+                          strip.text        = element_text(size = rel(1.2)),
+                          legend.text       = element_text(size = rel(1.1)))
+    return(plot_result)
   })
 })
