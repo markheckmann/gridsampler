@@ -17,10 +17,11 @@ desc_col3 <- helpText("")
 # Convert textInput to a vector for inputs in column 3
 text_to_vector <- function(txt){
   if (grepl(":", txt) & grepl(",", txt)) {
-    txt <- strsplit(txt, ",")[[1]]
+    # Handle mix & match of : and , (e.g. '3:8, 12')
+    txt  <- strsplit(txt, ",")[[1]]
     txt1 <- text_to_vector(txt[grepl(pattern = ":", txt)])
     txt2 <- txt[!grepl(pattern = ":", txt)]
-    txt <- c(txt1, txt2)
+    txt  <- c(txt1, txt2)
   } else if (grepl(":", txt)) {
     # If colon notation (e.g. '1:10') is used, use that directly
     txt <- eval(parse(text = txt))
@@ -113,7 +114,7 @@ p_31 <- gridsampler::draw_n_person_sample(prob = default_category_probs,
                                           n = 10,
                                           a = default_attributes,
                                           ap = default_attributes_probs) +
-  theme_bw() +
-  theme(plot.background  = element_rect(fill = plot_bg),
-        panel.background = element_rect(fill = panel_bg))
+          theme_bw() +
+          theme(plot.background  = element_rect(fill = plot_bg),
+                panel.background = element_rect(fill = panel_bg))
 
