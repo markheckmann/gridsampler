@@ -328,7 +328,7 @@ shinyServer(function(input, output, session) {
     # Input validation
     validate(need(is.numeric(N) & length(N) > 0, message = "Value (N) must be set!"))
     validate(need(is.numeric(M) & length(M) > 0, message = "Value (M) must be set!"))
-    validate(need(is.numeric(p) & length(p) > 0, message = "Value (K) must be set!"))
+    validate(need(is.numeric(p) & length(p) > 0, message = "Value (C) must be set!"))
 
     # Calculating probabilities & drawing plot
     d <- calc_probabilities(r = values$simulations, n = N, ms = M, min.props = p)
