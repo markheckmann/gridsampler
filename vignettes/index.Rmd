@@ -60,7 +60,7 @@ gridsampler()
 
 ## Program features
 
-The GUI displayed in the image below consists of a single display made up of three panes. In pane 1. and 2. the parameters for the specific study are set. In pane 3. the simulations are prompted and its results are displayed. In the following the panes are explained.
+The GUI displayed in the image below consists of a single display made up of three panes. In pane 1. and 2. the parameters for the specific study are set. In panel 3. the simulations are prompted and its results are displayed. In the following the panes are explained.
 
 ![](gridsampler_panes.png "gridsampler GUI")
 
