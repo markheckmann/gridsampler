@@ -33,6 +33,7 @@ shinyUI(navbarPage(title = gridsampler_version,
         column(3,
               h3("1. Number of Attributes"),
               desc_col1,
+              # Attribute min / max selection
               fluidRow(
                 column(6, numericInput("minimum1", "Minimum",
                                        value = default_attributes_min,
@@ -94,13 +95,16 @@ shinyUI(navbarPage(title = gridsampler_version,
         column(3,
                h3("2. Probability of Categories"),
                desc_col2,
+               # Panel 2 top input controls
                fluidRow(
                  column(12, numericInput("maximum2", "No. of Categories",
                                          value = default_category_count,
                                          min = 1, step = 1, width = "100%"))
                ),
+               # Panel 2 plot output
                plotOutput("plot2", height = "300px"),
                checkboxInput("plot2_fixy", "Fix y to [0, 1]", value = F),
+               # Panel 2 manual prob adjustment
                fluidRow(
                  column(6, numericInput("category", "Category",
                                         value = 1, min = 1, max = 500,
@@ -109,7 +113,7 @@ shinyUI(navbarPage(title = gridsampler_version,
                                        value = round(default_category_probs[1], 3),
                                        min = 0, max = 1, step = 0.001, width = "100%"))
                 ),
-               # Preset section of column 2
+               # Preset section of panel 2
                wellPanel(
                  h4("Probability Presets"),
                  fluidRow(
@@ -137,12 +141,13 @@ shinyUI(navbarPage(title = gridsampler_version,
                    column(12, actionButton("preset_go2", "Apply Preset", width = "100%"))
                  )
                ) # wellPanel ends here
-        ),
+         ),
 
          #### Column 3 ####
          column(6,
                h3("3. Simulation"),
                desc_col3,
+               # UI controls in panel 3, top
                fluidRow(
                  column(6, numericInput("sample_size", "Sample Size (N)", value = "100")),
                  column(6, numericInput("run_times", "Simulation Runs (R)", value = "10"))
@@ -152,9 +157,11 @@ shinyUI(navbarPage(title = gridsampler_version,
                  column(6, actionButton("run_button", "Run", width = "100%"))
                ),
                tags$br(),
+               # Plot in panel 1, top
                plotOutput("plot3_1", height = "250px"),
                tags$hr(),
                fluidRow(
+                 # Panel 3 bottom input controls, left side
                  column(6,
                  wellPanel(
                    fluidRow(column(12, textInput("sample_size2", "Sample Size (N)",
@@ -163,6 +170,7 @@ shinyUI(navbarPage(title = gridsampler_version,
                                                     value = 100, step = 1))),
                    fluidRow(column(12, actionButton("simulate", "Simulate", width = "100%"))
                  ))),
+                 # Panel 3 bottom input controls, right side
                  column(6,
                  wellPanel(
                    fluidRow(column(12, textInput("mincount_m", "Minimum Count (M)",
@@ -183,12 +191,13 @@ shinyUI(navbarPage(title = gridsampler_version,
          )
         #### End of column 3 ####
       ))
-    ),
+    ), # End of first tabPanel, "Simulate" tab
 
   #### About tab ####
   tabPanel("About", icon = icon("question-circle"),
     fluidPage(
       fluidRow(
+        # Use a smaller column size for better readability
         column(10, offset = 1,
           includeHTML("text/index.html")
         )
