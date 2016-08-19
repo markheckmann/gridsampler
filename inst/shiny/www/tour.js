@@ -103,25 +103,26 @@ var tour = new Tour({
   /*---------- Panel 3 lower ----------*/
 
   {
-    element: ".well > .container-fluid > div:nth-of-type(3) > div:nth-of-type(4) > div:nth-of-type(1)",
+    element: "#sample_size2",
     title: "Sample sizes <i>N</i> to simulate",
     content: "Different sample sizes to use in simulation. Seperate the values by comma or define a range using a colon, e.g. <i>10:20</i>. Alternatively, use <i>seq(from, to, by)</i>.",
     placement: "left"
   },
   {
-    element: ".well > .container-fluid > div:nth-of-type(3) > div:nth-of-type(4) > div:nth-of-type(2)",
-    title: "Minimum number of counts per category",
-    content: "Define the minimal number of counts per category that are visualized. This allows you to steer the level of saturation for the categories.",
-    placement: "left"
-  },
-  {
-    element: ".well > .container-fluid > div:nth-of-type(3) > div:nth-of-type(5) > div:nth-of-type(1)",
+    element: "#runs_per_sample",
     title: "Number of runs",
     content: "Number of samples for each <i>N</i> to be drawn.",
     placement: "left"
   },
   {
-    element: ".well > .container-fluid > div:nth-of-type(3) > div:nth-of-type(5) > div:nth-of-type(2)",
+    element: "#mincount_m",
+    title: "Minimum number of counts per category to display",
+    content: "Define the minimal number of counts per category that are visualized. This allows you to steer the level of saturation for the categories.",
+    placement: "left"
+  },
+
+  {
+    element: "#proportion_k",
     title: "Proportions",
     content: "Some categories will contain the minimal number of categories, others will not. Here you can prompt for which proportions of categories that fulfill the minial count (M) you get a visualization of the according probabilities.",
     placement: "left"
