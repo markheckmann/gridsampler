@@ -1,5 +1,5 @@
 ---
-title: "gridsampler - a sample size simulation tool for multiple grid studies"
+title: "gridsampler - A Sample Size Simulation Tool for Multiple Grid Studies"
 output: 
   rmarkdown::html_vignette:
     toc: true
