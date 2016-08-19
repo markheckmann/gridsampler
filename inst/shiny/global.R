@@ -9,9 +9,9 @@ library(shinythemes)
 gridsampler_version <- paste0("gridsampler v", packageVersion("gridsampler"))
 
 # Column descriptions
-desc_col1 <- helpText("Description of column 1")
-desc_col2 <- helpText("Description of column 2")
-desc_col3 <- helpText("Description of column 3")
+desc_col1 <- helpText("")
+desc_col2 <- helpText("")
+desc_col3 <- helpText("")
 
 #### Convenience functions ####
 # Convert textInput to a vector for inputs in column 3
