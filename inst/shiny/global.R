@@ -16,7 +16,12 @@ desc_col3 <- helpText("")
 #### Convenience functions ####
 # Convert textInput to a vector for inputs in column 3
 text_to_vector <- function(txt){
-  if (grepl(":", txt)) {
+  if (grepl(":", txt) & grepl(",", txt)) {
+    txt <- strsplit(txt, ",")[[1]]
+    txt1 <- text_to_vector(txt[grepl(pattern = ":", txt)])
+    txt2 <- txt[!grepl(pattern = ":", txt)]
+    txt <- c(txt1, txt2)
+  } else if (grepl(":", txt)) {
     # If colon notation (e.g. '1:10') is used, use that directly
     txt <- eval(parse(text = txt))
   } else if (grepl("seq\\(\\.*\\d*, \\.*\\d*, \\.*\\d*\\)", txt, perl = T)) {
