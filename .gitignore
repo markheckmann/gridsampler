@@ -3,7 +3,6 @@
 .Rhistory
 .RData
 .DS_Store
-.Rbuildignore
 .Rproj.user
 vignettes/*.R
 vignettes/*.html
