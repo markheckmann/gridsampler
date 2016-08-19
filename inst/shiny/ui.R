@@ -65,14 +65,21 @@ shinyUI(navbarPage(title = gridsampler_version,
                   column(6,
                          # Show preset arguments depending on distribution selection
                          conditionalPanel("input.preset_types1 == 'Normal'",
-                                          numericInput("1_norm_mean", "Mean", value = default_attributes_norm_mean),
-                                          numericInput("1_norm_sd", "SD", value = default_attributes_norm_sd, min = 0.01, step = 0.01)
+                                          numericInput("1_norm_mean", "Mean",
+                                                       value = default_attributes_norm_mean,
+                                                       step = .1),
+                                          numericInput("1_norm_sd", "SD",
+                                                       value = default_attributes_norm_sd,
+                                                       min = 0.01, step = 0.01)
                                           ),
                          conditionalPanel("input.preset_types1 == 'Poisson'",
-                                          numericInput("1_pois_lambda", "Lamda", value = default_attributes_lambda)
+                                          numericInput("1_pois_lambda", "Lamda",
+                                                       value = default_attributes_lambda)
                                           ),
                          conditionalPanel("input.preset_types1 == 'Exponential'",
-                                          numericInput("1_exp_rate", "Rate", value = default_attributes_exp_rate, step = 0.01)
+                                          numericInput("1_exp_rate", "Rate",
+                                                       value = default_attributes_exp_rate,
+                                                       step = 0.01)
                                           )
                          )
                 ),
@@ -89,15 +96,18 @@ shinyUI(navbarPage(title = gridsampler_version,
                desc_col2,
                fluidRow(
                  column(12, numericInput("maximum2", "No. of Categories",
-                                         value = default_category_count, min = 1, step = 1, width = "100%"))
+                                         value = default_category_count,
+                                         min = 1, step = 1, width = "100%"))
                ),
                plotOutput("plot2", height = "300px"),
                checkboxInput("plot2_fixy", "Fix y to [0, 1]", value = F),
                fluidRow(
                  column(6, numericInput("category", "Category",
-                                        value = 1, min = 1, max = 500, step = 1, width = "100%")),
+                                        value = 1, min = 1, max = 500,
+                                        step = 1, width = "100%")),
                  column(6, numericInput("probability2", "Probability",
-                                       value = round(default_category_probs[1], 3), min = 0, max = 1, step = 0.001, width = "100%"))
+                                       value = round(default_category_probs[1], 3),
+                                       min = 0, max = 1, step = 0.001, width = "100%"))
                 ),
                # Preset section of column 2
                wellPanel(
@@ -112,11 +122,13 @@ shinyUI(navbarPage(title = gridsampler_version,
                         # Show preset arguments depending on distribution selection
                         conditionalPanel("input.preset_types2 == 'Exponential'",
                                          numericInput("2_exp_rate", "Rate",
-                                                      value = default_category_exp_rate, step = 0.01)
+                                                      value = default_category_exp_rate,
+                                                      step = 0.01)
                         ),
                         conditionalPanel("input.preset_types2 == 'Linear'",
                                          numericInput("2_lin_min", "Minimum",
-                                                      value = default_category_lin_min, min = 0.001, step = 0.001)
+                                                      value = default_category_lin_min,
+                                                      min = 0.001, step = 0.001)
                         )
                  )
                  ),
@@ -145,22 +157,27 @@ shinyUI(navbarPage(title = gridsampler_version,
                fluidRow(
                  column(6,
                  wellPanel(
-                   fluidRow(column(12, textInput("sample_size2", "Sample Size (N)", value = "10, 20, 30, 40, 50, 60, 70, 80"))),
-                   fluidRow(column(12, numericInput("runs_per_sample", "Simulation Runs (R)", value = 100, step = 1))),
+                   fluidRow(column(12, textInput("sample_size2", "Sample Size (N)",
+                                                 value = "10, 20, 30, 40, 50, 60, 70, 80"))),
+                   fluidRow(column(12, numericInput("runs_per_sample", "Simulation Runs (R)",
+                                                    value = 100, step = 1))),
                    fluidRow(column(12, actionButton("simulate", "Simulate", width = "100%"))
                  ))),
                  column(6,
                  wellPanel(
-                   fluidRow(column(12, textInput("mincount_m", "Minimum Count (M)", value = "4, 5, 6"))),
-                   fluidRow(column(12, textInput("proportion_k", "Coverage (C)", value = "0.9, 0.95, 1"))),
+                   fluidRow(column(12, textInput("mincount_m", "Minimum Count (M)",
+                                                 value = "4, 5, 6"))),
+                   fluidRow(column(12, textInput("proportion_k", "Coverage (C)",
+                                                 value = "0.9, 0.95, 1"))),
                    fluidRow(column(12, actionButton("redraw", "Redraw", width = "100%"))
                  )))
                ),
                tags$br(),
                # Only show plot if the simulate button has been pressed, show text otherwise
-               conditionalPanel("input.simulate == 0", tags$span(class = "help-block", "No simulations run yet!",
-                                                                 tags$br(),
-                                                                 "A plot will appear here after you press “Simulate“.")),
+               conditionalPanel("input.simulate == 0",
+                                tags$span(class = "help-block", "No simulations run yet!",
+                                tags$br(),
+                                "A plot will appear here after you press “Simulate“.")),
                conditionalPanel("input.simulate > 0", plotOutput("plot3_2", height = "300px")),
                tags$br()
          )
