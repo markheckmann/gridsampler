@@ -1,6 +1,8 @@
 /* make heading smaller */
 h3 {
-  font-size: 13pt
+  font-size: 14pt;
+  /*font-weight: bold;
+  color: rgb(23, 188, 156)*/
 }
 
 h4 {
@@ -68,6 +70,7 @@ h4 {
 .col-sm-6 .well {
   border: solid 1px rgb(149, 165, 166);
 }
+
 
 hr{
   background-color: rgb(149, 165, 166);
