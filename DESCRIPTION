@@ -1,10 +1,10 @@
 Package: gridsampler
 License: GPL-3
-Title: Simulation tool for repertory grid studies
+Title: Simulation Tool for Repertory Grid Studies
 Type: Package
 LazyLoad: yes
 Authors@R: c(person("Mark", "Heckmann", email = "heckmann@uni-bremen.de", role = c("aut", "cre")),
-             person("Lukas", "Burk", email = "lukas@quantenbrot.de", role = c("ctb")))
+             person("Lukas", "Burk", email = "lukas@quantenbrot.de", role = c("aut")))
 Description: Simulation tool to facilitate determination of
     required sample size to achieve category saturation
     for studies using multiple repertory grids in conjunction with
@@ -15,10 +15,10 @@ Imports:
     shiny,
     ggplot2,
     reshape2,
-    plyr
+    plyr,
+    shinythemes
 Suggests:
     knitr,
-    testthat,
-    shinythemes
+    testthat
 VignetteBuilder: knitr
 RoxygenNote: 5.0.1

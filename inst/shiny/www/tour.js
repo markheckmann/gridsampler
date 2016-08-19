@@ -105,7 +105,7 @@ var tour = new Tour({
   {
     element: ".well > .container-fluid > div:nth-of-type(3) > div:nth-of-type(4) > div:nth-of-type(1)",
     title: "Sample sizes <i>N</i> to simulate",
-    content: "Different sample sizes to use in simulation. Seperate the values by comma or define a range using a colon, e.g. <i>10:20</i>.",
+    content: "Different sample sizes to use in simulation. Seperate the values by comma or define a range using a colon, e.g. <i>10:20</i>. Alternatively, use <i>seq(from, to, by)</i>.",
     placement: "left"
   },
   {

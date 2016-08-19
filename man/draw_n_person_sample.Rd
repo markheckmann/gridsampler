@@ -20,8 +20,10 @@ in \code{a}.}
 Produce graphic for a single sample of n persons
 }
 \examples{
-draw_n_person_sample(dexp(1:30, rate=.05), n=100, a=10)
-draw_n_person_sample(dexp(1:30, rate=.05), n=100, a=1:5, ap=5:1)
+draw_n_person_sample(dexp(1:30, rate = .05), n = 100, a = 10)
+draw_n_person_sample(dexp(1:30, rate = .05), n = 100, a = 1:5, ap = 5:1)
 }
-\keyword{external}
+\seealso{
+Other Plotting: \code{\link{draw_multiple_n_persons_x_times}}
+}
 

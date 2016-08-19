@@ -25,9 +25,13 @@ of vector determines number of categories.}
 Complete simulation
 }
 \examples{
-sim_n_persons_x_times(dexp(1:30, .05), n=2, a=c(1,30), ap=1:2, times=100)
-sim_n_persons_x_times(dexp(1:30, .05), n=2, a=c(1,30), ti=200, progress="tk" )
-
+\dontrun{
+sim_n_persons_x_times(dexp(1:30, .05), n = 2, a = c(1,30), ap = 1:2, times = 100)
+sim_n_persons_x_times(dexp(1:30, .05), n = 2, a = c(1,30), times = 200, progress = "tk")
 }
-\keyword{external}
+}
+\seealso{
+Other Simulations: \code{\link{sim_n_persons_x_times_many_n}},
+  \code{\link{sim_n_persons}}, \code{\link{sim_one_person}}
+}
 

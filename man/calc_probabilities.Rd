@@ -11,9 +11,9 @@ calc_probabilities(r, n, ms, min.props = c(0.9, 0.95, 0.99))
 
 \item{n}{Vector of n for which to calculate probabilities.}
 
-\item{m}{minimal number of constructs in each category}
+\item{ms}{minimal number of constructs in each category}
 
-\item{min.prop}{Proportion of categores to contain at least m constructs.}
+\item{min.props}{Proportion of categores to contain at least m constructs.}
 }
 \description{
 Calculate probability for getting certain proportion of categories with at
@@ -21,11 +21,14 @@ least m constructs
 }
 \examples{
 prob <-  dexp(1:30, .05)
-n <- seq(10, 80, by=20)
-r <- sim_n_persons_x_times_many_n(prob, n, a=7, times=100)
-dd <- calc_probabilities(r, n, ms=1:5, min.props=c(0.9, .95, 1))
+n <- seq(10, 80, by = 20)
+r <- sim_n_persons_x_times_many_n(prob, n, a = 7, times = 100)
+dd <- calc_probabilities(r, n, ms=1:5, min.props = c(0.9, .95, 1))
 head(dd)
 
 }
-\keyword{external}
+\seealso{
+Other Utilities: \code{\link{expected_frequencies}},
+  \code{\link{prob_categories}}
+}
 

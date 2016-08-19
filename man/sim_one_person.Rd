@@ -16,9 +16,13 @@ Simulate a single grid
 }
 \examples{
 # draw from exponential distribution
-p <- dexp(1:20, rate=.1)
-sim_one_person(p, a=10)
+p <- dexp(1:20, rate = .1)
+sim_one_person(p, a = 10)
 
 }
-\keyword{external}
+\seealso{
+Other Simulations: \code{\link{sim_n_persons_x_times_many_n}},
+  \code{\link{sim_n_persons_x_times}},
+  \code{\link{sim_n_persons}}
+}
 

@@ -20,11 +20,15 @@ in \code{a}.}
 Function is a simple replicate wrapper around \code{sim_one_person}
 }
 \examples{
-sim_n_persons(dexp(1:30, .05), n=2, a=10)
-sim_n_persons(dexp(1:30, .05), n=2, a=c(1, 30))
-sim_n_persons(dexp(1:30, .05), n=2, a=c(1, 30), ap=c(1,4))
-sim_n_persons(dexp(1:30, .05), n=2, a=1:5, ap=c(1,1,2,2,3))
+sim_n_persons(dexp(1:30, .05), n = 2, a = 10)
+sim_n_persons(dexp(1:30, .05), n = 2, a = c(1, 30))
+sim_n_persons(dexp(1:30, .05), n = 2, a = c(1, 30), ap = c(1,4))
+sim_n_persons(dexp(1:30, .05), n = 2, a = 1:5, ap = c(1,1,2,2,3))
 
 }
-\keyword{external}
+\seealso{
+Other Simulations: \code{\link{sim_n_persons_x_times_many_n}},
+  \code{\link{sim_n_persons_x_times}},
+  \code{\link{sim_one_person}}
+}
 

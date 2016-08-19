@@ -3,27 +3,48 @@ shinyServer(function(input, output, session) {
 
   #### Logic for column 1 ####
 
+  # Input validation
+  observeEvent(input$minimum1, priority = 1, {
+    validate(need(!is.na(input$minimum1), "Value must be set!"))
+    if (is.na(input$minimum1)) {
+      updateNumericInput(session, "minimum1", value = 1)
+    }
+  })
+
   # Updating input elements
   observe({
-    validate(need(!is.na(input$minimum1), "Value must be set!"))
     validate(need(!is.na(input$maximum1), "Value must be set!"))
 
     # Make sure maximum is not smaller than minumum
-    if (input$maximum1 <= input$minimum1) {
-      updateNumericInput(session, "maximum1", value = input$maximum1 + 1, max = input$maximum1 + 1)
+    if (!is.na(input$minimum1) & !is.na(input$maximum1)) {
+      if (input$maximum1 < input$minimum1) {
+        updateNumericInput(session, "maximum1", value = input$maximum1 + 1, max = input$maximum1 + 1)
+      }
     }
 
     # Confine manual selection to limits set before
     updateNumericInput(session, "attribute_num", min = input$minimum1, max = input$maximum1)
 
     # Set attribute selection input to a value guaranteed in range of set limits (minimum1, maximum1)
-    if (input$attribute_num < input$minimum1 | input$attribute_num > input$maximum1) {
-      updateNumericInput(session, "attribute_num", value = input$minimum1)
+    if (!is.na(input$minimum1) & !is.na(input$maximum1)) {
+      if (input$attribute_num < input$minimum1 | input$attribute_num > input$maximum1) {
+        updateNumericInput(session, "attribute_num", value = input$minimum1)
+      }
     }
 
     # Prevent bug #12 https://github.com/markheckmann/gridsampler/issues/12
-    if (length(input$minimum1:input$maximum1) > input$maximum2) {
-      updateNumericInput(session, "maximum1", value = input$maximum1 - 1)
+    if (!is.na(input$maximum2)) {
+      if (length(seq_robust(input$minimum1, input$maximum1)) > input$maximum2) {
+        updateNumericInput(session, "maximum1", value = input$maximum1 - 1)
+      }
+    }
+
+    # Prevent minimum for linear probability distribution to be set to 0, wich would trigger a crash
+    # during simulation attempts
+    if (!is.na(input$`2_lin_min`)) {
+      if (input$`2_lin_min` == 0) {
+        updateNumericInput(session, "2_lin_min", value = 0.001)
+      }
     }
   })
 
@@ -36,7 +57,7 @@ shinyServer(function(input, output, session) {
   # Observer to change attribute properties
   observe({
     # Change number of arributes
-    values$attributes_id <- seq(input$minimum1, input$maximum1, by = 1)
+    values$attributes_id <- seq_robust(input$minimum1, input$maximum1)
 
     # If button isn't pressed yet, insert default values
     # Makes sure that the plot shows the correct number of attributes
@@ -50,7 +71,6 @@ shinyServer(function(input, output, session) {
   })
 
   # Observer for manual probability adjustments (col 1)
-  # TODO: Perform check so that sum of probability approximates 1
   observeEvent(input$probability1, {
     values$attributes_prob[values$attributes_id == input$attribute_num] <- round(input$probability1, 3)
   })
@@ -59,7 +79,6 @@ shinyServer(function(input, output, session) {
   observeEvent(input$preset_go1, {
     # Apply presets only if button is pressed
     if (input$preset_go1 != 0) {
-      cat("pressed preset_go1 \n")
       if (input$preset_types1 == "Normal") {
         values$attributes_prob <- dnorm(values$attributes_id, mean = input$`1_norm_mean`, sd = input$`1_norm_sd`)
       } else if (input$preset_types1 == "Poisson") {
@@ -91,7 +110,7 @@ shinyServer(function(input, output, session) {
           labs(x = "Attribute", y = "Probability") +
           scale_x_continuous(breaks = seq(1, 1000, 1)) +
           theme_bw() +
-          theme(plot.background = element_rect(fill = plot_bg),
+          theme(plot.background  = element_rect(fill = plot_bg),
                 panel.background = element_rect(fill = panel_bg))
 
     # Vertical adjustment if selected
@@ -107,12 +126,17 @@ shinyServer(function(input, output, session) {
   # Updating input elements
   observe({
     validate(need(!is.na(input$maximum2), "Value must be set!"))
+    if (is.na(input$maximum2)) {
+      updateNumericInput(session, "maximum2", value = 15)
+    }
 
     # Confine manual selection to limits set before
     updateNumericInput(session, "category", min = 1, max = input$maximum2)
 
-    if (input$category > input$maximum2) {
-      updateNumericInput(session, "category", value = input$category - 1)
+    if (!is.na(input$maximum2)) {
+      if (input$category > input$maximum2) {
+        updateNumericInput(session, "category", value = input$category - 1)
+      }
     }
   })
 
@@ -124,12 +148,14 @@ shinyServer(function(input, output, session) {
   # Observer to change category properties
   observe({
     # Change number of attributes
-    values$category_id <- seq_len(input$maximum2)
+    values$category_id <- seq_len_robust(input$maximum2)
 
+    # Make sure enough probability values are supplied in default state
     if (input$preset_go2 == 0) {
-      #if (length(values$category_id) != length(values$category_prob)) {
-      if (input$maximum2 != length(values$category_prob)) {
-        values$category_prob <- round(dexp(values$category_id, rate = default_category_exp_rate), 3)
+      if (!is.na(input$maximum2)) {
+        if (input$maximum2 != length(values$category_prob)) {
+          values$category_prob <- round(dexp(values$category_id, rate = default_category_exp_rate), 3)
+        }
       }
     }
   })
@@ -139,7 +165,7 @@ shinyServer(function(input, output, session) {
     values$category_prob[values$category_id == input$category] <- round(input$probability2, 3)
   })
 
-  # Observer for presets in column 1
+  # Observer for presets in column 2
   observeEvent(input$preset_go2, {
     # Apply presets only if button is pressed
     if (input$preset_types2 == "Quadratic") {
@@ -151,7 +177,7 @@ shinyServer(function(input, output, session) {
     } else if (input$preset_types2 == "Uniform") {
       values$category_prob <- dunif(values$category_id, min = 1 - 1, max = input$maximum2)
     } else if (input$preset_types2 == "Linear") {
-      values$category_prob <- p_linear(k = length(values$category_id), p_k = default_category_lin_min)
+      values$category_prob <- p_linear(k = length(values$category_id), p_k = input$`2_lin_min`)
     }
   })
 
@@ -168,12 +194,16 @@ shinyServer(function(input, output, session) {
     data2$mark[data2$x == input$category] <- "Yes"
 
     # x axis labels depending on number of categories, should be tweaked for real-life use cases
-    if (input$maximum2 <= 10) {
-      x_breaks <- seq(1, 10, 1)
-    } else if (input$maximum2 > 10 & input$maximum2 <= 20) {
-      x_breaks <- seq(1, 1000, 2)
+    if (!is.na(input$maximum2)) {
+      if (input$maximum2 <= 10) {
+        x_breaks <- seq(1, 10, 1)
+      } else if (input$maximum2 > 10 & input$maximum2 <= 20) {
+        x_breaks <- seq(1, 1000, 2)
+      } else {
+        x_breaks <- seq(1, 1000, 5)
+      }
     } else {
-      x_breaks <- seq(1, 1000, 5)
+      x_breaks <- seq(1, 10, 1)
     }
 
     p <- ggplot(data = data2, aes(x = x, weight = y, fill = mark)) +
@@ -185,7 +215,7 @@ shinyServer(function(input, output, session) {
           expand_limits(y = max(data2$y + 0.01),
                         x = max(data2$x + 0.9)) +
           theme_bw() +
-          theme(plot.background = element_rect(fill = plot_bg),
+          theme(plot.background  = element_rect(fill = plot_bg),
                 panel.background = element_rect(fill = panel_bg))
 
     # Adjust y scale if selected
@@ -198,31 +228,48 @@ shinyServer(function(input, output, session) {
 
   #### Logic for column 3 ####
 
-  # Executes chunk if sample_random button is pushed, stores values in "values" reactiveValues object
+  # Executes chunk if sample_random button is pushed, stores samples in "values" reactiveValues object
   observeEvent(input$sample_random, {
+      n <- isolate(input$sample_size)
+      validate(need(is.numeric(n) & length(n) > 0, message = "Value (N) must be set!"))
+
       values$sample_plot <- gridsampler::draw_n_person_sample(prob = isolate(values$category_prob),
                                                               n = isolate(input$sample_size),
                                                               a = isolate(values$attributes_id),
                                                               ap = isolate(values$attributes_prob)) +
                               theme_bw() +
-                              theme(plot.background = element_rect(fill = plot_bg),
+                              theme(plot.background  = element_rect(fill = plot_bg),
                                     panel.background = element_rect(fill = panel_bg))
   })
 
-  # Run samples of run_button is pressed
+  # Run samples if run_button is pressed
   observeEvent(input$run_button, {
-    r <- sim_n_persons_x_times(prob = isolate(values$category_prob),
-                               n = isolate(input$sample_size),
-                               a = isolate(values$attributes_id),
-                               ap = isolate(values$attributes_prob),
-                               times = isolate(input$run_times))
+
+    # Initiate progress bar
+    withProgress(value = 0, message = "Running samples...", {
+
+      # Verbatim copy of sim_n_persons_x_times to incorporate progress bar
+      # Runs the samples used in further steps
+      times <- isolate(input$run_times)
+      validate(need(is.numeric(times) & length(times) > 0, message = "Value (R) must be set!"))
+
+      r <- plyr::ldply(seq_len_robust(times), function(x){
+                                  setProgress(session = session, value = x/times,
+                                              message = paste0("Running sample ", x, "/", times))
+                                  samples <- sim_n_persons(prob = isolate(values$category_prob),
+                                                           n = isolate(input$sample_size),
+                                                           a = isolate(values$attributes_id),
+                                                           ap = isolate(values$attributes_prob))
+                                  return(samples)
+                                  }, .progress = "none")
+    })
 
     # Create plot from samples
     values$sample_plot <- expected_frequencies(r) +
                             theme_bw() +
-                            theme(plot.background  = element_rect(fill = plot_bg),
-                                  panel.background = element_rect(fill = panel_bg),
-                                  legend.background =  element_rect(fill = legend_bg))
+                            theme(plot.background   = element_rect(fill = plot_bg),
+                                  panel.background  = element_rect(fill = panel_bg),
+                                  legend.background = element_rect(fill = legend_bg))
   })
 
   # Plot 1 of column 3
@@ -248,12 +295,16 @@ shinyServer(function(input, output, session) {
       r <- list()
       n <- text_to_vector(isolate(input$sample_size2))
       for (i in seq_along(n)) {
-        r[[i]] <- sim_n_persons_x_times(values$category_prob, n = n[i], a = values$attributes_id,
-                                        ap = values$attributes_prob, times = isolate(input$runs_per_sample))
         # Increment progress bar
-        incProgress(amount = 1/length(n), detail = paste("Simulation ", i))
+        incProgress(amount = 1/length(n), detail = paste0("Simulation ", i, "/", length(n)))
+        # Do simulation
+        r[[i]] <- sim_n_persons_x_times(prob  = values$category_prob,
+                                        n     = n[i],
+                                        a     = values$attributes_id,
+                                        ap    = values$attributes_prob,
+                                        times = isolate(input$runs_per_sample),
+                                        progress = "none")
       }
-      r
 
       values$simulations <- r
     })
@@ -273,12 +324,23 @@ shinyServer(function(input, output, session) {
     N <- text_to_vector(isolate(input$sample_size2))
     M <- text_to_vector(isolate(input$mincount_m))
     p <- text_to_vector(isolate(input$proportion_k))
+
+    # Input validation
+    validate(need(is.numeric(N) & length(N) > 0, message = "Value (N) must be set!"))
+    validate(need(is.numeric(M) & length(M) > 0, message = "Value (M) must be set!"))
+    validate(need(is.numeric(p) & length(p) > 0, message = "Value (K) must be set!"))
+
+    # Calculating probabilities & drawing plot
     d <- calc_probabilities(r = values$simulations, n = N, ms = M, min.props = p)
 
     draw_multiple_n_persons_x_times(d) +
       theme_bw() +
-      theme(plot.background = element_rect(fill = plot_bg),
-            panel.background = element_rect(fill = panel_bg),
-            legend.background =  element_rect(fill = legend_bg))
+      theme(plot.background   = element_rect(fill = plot_bg),
+            panel.background  = element_rect(fill = panel_bg),
+            legend.background =  element_rect(fill = legend_bg),
+            legend.key        = element_rect(fill = legend_bg),
+            strip.background  = element_blank(),
+            strip.text        = element_text(size = rel(1.2)),
+            legend.text       = element_text(size = rel(1.1)))
   })
 })

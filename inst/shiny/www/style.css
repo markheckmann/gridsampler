@@ -3,11 +3,20 @@ h3 {
   font-size: 13pt
 }
 
+h4 {
+  margin-top: 2px;
+  margin-bottom: 5px;
+}
+
 
 .form-control {
     height: 25px;
     font-size: 10pt;
     padding: 1px 12px;
+}
+
+.btn {
+    padding: 2px 10px;
 }
 
 
@@ -23,20 +32,20 @@ h3 {
     padding: 10px;
 }
 
-.well > .container-fluid > div:nth-of-type(1) { 
+.well > .container-fluid > div:nth-of-type(1) {
     padding-left: 10px;
     padding-right: 20px;
     border-right: 1px solid rgb(149, 165, 166);
 }
 
-.well > .container-fluid > div:nth-of-type(2) { 
+.well > .container-fluid > div:nth-of-type(2) {
     height: 100%;
     padding-left: 20px;
     padding-right: 20px;
 }
 
 
-.well > .container-fluid > div:nth-of-type(3) { 
+.well > .container-fluid > div:nth-of-type(3) {
     border-left: 1px solid rgb(149, 165, 166);
     padding-left: 20px;
     padding-right: 10px;
@@ -44,16 +53,23 @@ h3 {
 
 .col-sm-3 .well {
   border: solid 1px rgb(149, 165, 166);
+  margin-bottom: 0px;
 }
 
 .col-sm-4 .well {
   border: solid 1px rgb(149, 165, 166);
 }
 
+<<<<<<< HEAD
 .col-sm-5 .well {
   border: solid 1px rgb(149, 165, 166);
 }
 
+=======
+.col-sm-6 .well {
+  border: solid 1px rgb(149, 165, 166);
+}
+>>>>>>> 15b02ea8b447dc45f05e436d9b9a703ee8efbe7b
 
 hr{
   background-color: rgb(149, 165, 166);
@@ -62,7 +78,7 @@ hr{
 
 
 /*
-.well > .container-fluid > div:nth-of-type(3) > div:nth-of-type(4) { 
+.well > .container-fluid > div:nth-of-type(3) > div:nth-of-type(4) {
     border-top: 1px solid #666;
     padding-top: 20px;
     margin-top: 20px;
