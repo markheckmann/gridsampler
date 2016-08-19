@@ -22,11 +22,12 @@ gridsampler <- function(display.mode = "auto",
   shiny::runApp(appDir, display.mode = display.mode, launch.browser = launch.browser)
 }
 
+
 #' Adjusted sampling function
 #'
 #' @inheritParams stats::sample
 #' @keywords internal
-
+#' 
 sample_new <- function(x, size, replace = FALSE, prob = NULL)
 {
   if (length(x) == 1)

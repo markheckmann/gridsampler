@@ -3,11 +3,9 @@
 \docType{package}
 \name{gridsampler-package}
 \alias{gridsampler-package}
-\title{\pkg{gridsampler} contains tools to simulate the sampling of
-multiple repertory grids.}
+\title{\pkg{gridsampler} - A sample size simulation software for repertory grid studies}
 \description{
-\pkg{gridsampler} contains tools to simulate the sampling of
-multiple repertory grids.
+\pkg{gridsampler} - A sample size simulation software for repertory grid studies
 }
 \references{
 \itemize{
