@@ -59,7 +59,7 @@ gridsampler()
 
 The GUI displayed in the image below consists of a single display made up of three panels. In panel 1 and 2, the parameters for the specific study are set. In panel 3, the simulations are prompted and its results are displayed. In the following, the panels are explained.
 
-![](gridsampler_panes.png "gridsampler GUI")
+<img src='gridsampler_panes.png' alt='gridsampler GUI' width = 100%>
 
 1. **Number of attributes per person**
 
@@ -91,7 +91,7 @@ All parameters can either be given as numeric values separated by commas or usin
 
 The following image shows an enlargement of the lower part of panel 3.
 
-![](gridsampler_pane_3a.png "gridsampler result interpretation")
+<img src='gridsampler_pane_3a.png' alt='gridsampler result interpretation' width = 100%>
 
 The graphic contains three facets, with one facet for each requested proportion value. In each facet, the x-axis shows the simulated sample sizes N and the y-axis the probability of getting the specific result. For each value M, i.e. the minimal number of constructs contained in a category, a separate line is drawn, as indicated in the legend on the right. To answer the question 
 
@@ -105,8 +105,7 @@ As a second example, we may choose another common study goal. Often a researcher
 
 It is not necessary to rerun the simulation but simply change the drawing parameters. To request a suitable graphic to evaluate this question we can set the minimum count to $M=1$ and use a proportion of $C=`.95, 1`$. The result is displayed in the figure below. It can be seen that the probability to sample a construct from every category when using $N=40$ is close to $1$. With $N=20$ we can still be confident to recover all categories with a probability of $.75$. This is somewhat different from the rule of thumb of $N \in [15; 25]$ to recover all categories given in the literature [@van_de_kerkhof_repertory_2009; @napier_it_2009; @tan_repertory_2002] and shows that study specific simulations may be useful.
 
-![](gridsampler_pane_3b.png "gridsampler result interpretation")
-
+<img src='gridsampler_pane_3b.png' alt='gridsampler result interpretation' width = 100%>
 
 ## User Feedback
 
