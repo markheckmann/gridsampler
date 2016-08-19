@@ -129,7 +129,7 @@ shinyUI(navbarPage(title = gridsampler_version,
 
          #### Column 3 ####
          column(6,
-               h3("3. Simulate"),
+               h3("3. Simulation"),
                desc_col3,
                fluidRow(
                  column(6, numericInput("sample_size", "Sample Size (N)", value = "100")),
@@ -152,7 +152,7 @@ shinyUI(navbarPage(title = gridsampler_version,
                  column(6,
                  wellPanel(
                    fluidRow(column(12, textInput("mincount_m", "Minimum Count (M)", value = "4, 5, 6"))),
-                   fluidRow(column(12, textInput("proportion_k", "Proportion (K)", value = "0.9, 0.95, 1"))),
+                   fluidRow(column(12, textInput("proportion_k", "Coverage (C)", value = "0.9, 0.95, 1"))),
                    fluidRow(column(12, actionButton("redraw", "Redraw", width = "100%"))
                  )))
                ),
