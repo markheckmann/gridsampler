@@ -251,7 +251,7 @@ draw_multiple_n_persons_x_times <- function(d)
 {
  # dd <- calc_probabilities(r=res, n=n, ms=ms, min.props=min.props)
  d$m <- as.factor(d$m)
- d$min.prop.k <- paste0("K = ", d$min.prop)
+ d$min.prop.k <- paste0("C = ", d$min.prop)
  g <- ggplot(d, aes_string(x = "n", y = "prob", group = "m", shape = "m", color = "m")) +
    geom_line() +
    geom_point() +
