@@ -255,7 +255,7 @@ shinyServer(function(input, output, session) {
 
       r <- plyr::ldply(seq_len_robust(times), function(x){
                                   setProgress(session = session, value = x/times,
-                                              message = paste0("Running sample ", x, "/", times))
+                                               detail = paste0(x, "/", times))
                                   samples <- sim_n_persons(prob = isolate(values$category_prob),
                                                            n = isolate(input$sample_size),
                                                            a = isolate(values$attributes_id),
@@ -288,7 +288,7 @@ shinyServer(function(input, output, session) {
   observeEvent(input$simulate, {
 
     # Initiate progress bar
-    withProgress(message = "Running simulations…", {
+    withProgress(message = "Running simulations...", {
 
       # This is basically a verbatim copy of sim_n_persons_x_times_many_n
       # I extracted it here because for reasons I don't understand it didn't work otherwise
@@ -296,7 +296,7 @@ shinyServer(function(input, output, session) {
       n <- text_to_vector(isolate(input$sample_size2))
       for (i in seq_along(n)) {
         # Increment progress bar
-        incProgress(amount = 1/length(n), detail = paste0("Simulation ", i, "/", length(n)))
+        incProgress(amount = 1/length(n), detail = paste0(i, "/", length(n)))
         # Do simulation
         r[[i]] <- sim_n_persons_x_times(prob  = values$category_prob,
                                         n     = n[i],
