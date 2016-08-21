@@ -7,5 +7,5 @@ citEntry(entry = "article",
   year = "2016",
   doi = "10.5281/zenodo.58014",
   url = "https://github.com/markheckmann/gridsampler",
-  textVersion = "Heckmann, M., Burk, L. (2016). gridsampler: A simulation tool to determine the required sample size for repertory grid studies. R package version 0.4. Zenodo. doi:10.5281/zenodo.58014"
+  textVersion = "Heckmann, M. & Burk, L. (2016). gridsampler: A simulation tool to determine the required sample size for repertory grid studies. R package version 0.4. *Zenodo*. doi:10.5281/zenodo.58014"
 )
