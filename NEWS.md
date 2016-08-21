@@ -2,7 +2,8 @@
 
 ## 0.4 (opened May 2016)
 
-* document internal functions (TODO)
+* automated linux build check via travis-ci
+* document internal functions
 * tour explaining GUI elements added
 * switch from GTK to shiny GUI
 * passes R CMD check without issues
