@@ -13,8 +13,8 @@
 #' gridsampler()
 #' }
 gridsampler <- function(display.mode = "auto",
-                        #launch.browser = getOption("shiny.launch.browser", interactive())
-                        launch.browser = TRUE) {
+                        launch.browser = getOption("shiny.launch.browser", interactive()) ) {
+                        #launch.browser = TRUE) {
   # getOption("shiny.launch.browser", interactive())
   appDir <- paste0(system.file(package = "gridsampler"), "/shiny")
   if (appDir == "") {
