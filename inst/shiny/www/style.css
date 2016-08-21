@@ -86,3 +86,6 @@ hr{
 }
 */
 
+.col-sm-offset-1 {
+  width: 800px;
+}
