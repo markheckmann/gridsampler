@@ -1,11 +1,11 @@
 citHeader("To cite gridsampler in publications, please use:")
 
 citEntry(entry = "article",
-  author = "Mark Heckmann",
-  title = "gridsampler: Determining sample sizes for repertory grid studies",
+  author = "Mark Heckmann, Lukas Burk",
+  title = "gridsampler: A simulation tool to determine the required sample size for repertory grid studies. R package version 0.4.",
   journal = "Zenodo",
   year = "2016",
   doi = "10.5281/zenodo.58014",
   url = "https://github.com/markheckmann/gridsampler",
-  textVersion = "Heckmann, M. (2016). gridsampler: Determining sample sizes for repertory grid studies. R package version 0.4. Zenodo. doi:10.5281/zenodo.58014"
+  textVersion = "Heckmann, M., Burk, L. (2016). gridsampler: A simulation tool to determine the required sample size for repertory grid studies. R package version 0.4. Zenodo. doi:10.5281/zenodo.58014"
 )
