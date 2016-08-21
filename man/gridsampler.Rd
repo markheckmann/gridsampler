@@ -4,7 +4,8 @@
 \alias{gridsampler}
 \title{Run gridsampler app}
 \usage{
-gridsampler(display.mode = "auto", launch.browser = TRUE)
+gridsampler(display.mode = "auto",
+  launch.browser = getOption("shiny.launch.browser", interactive()))
 }
 \arguments{
 \item{display.mode}{\code{auto} by default, can also be \code{showcase}.
