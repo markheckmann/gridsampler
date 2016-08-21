@@ -20,7 +20,8 @@ Imports:
     BiasedUrn
 Suggests:
     knitr,
-    testthat
+    testthat,
+    rmarkdown
 Encoding: UTF-8
 URL: https://github.com/markheckmann/gridsampler
 BugReports: https://github.com/markheckmann/gridsampler/issues
