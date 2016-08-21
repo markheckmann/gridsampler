@@ -11,7 +11,7 @@ gridsampler(display.mode = "auto",
 \item{display.mode}{\code{auto} by default, can also be \code{showcase}.
 See \link[shiny]{runApp}.}
 
-\item{launch.browser}{Boolean, \code{TRUE} (default) to open the app in the browser.
+\item{launch.browser}{Boolean, set \code{TRUE} to open the app in the browser.
 See \link[shiny]{runApp}.}
 }
 \description{
