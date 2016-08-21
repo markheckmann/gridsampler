@@ -1,8 +1,13 @@
 # NEWS
 
-## 0.4 (opened May 2016)
+## 0.5
 
 * automated linux build check via travis-ci
+* unit tests added
+* improved vignette layout
+
+## 0.4
+
 * document internal functions
 * tour explaining GUI elements added
 * switch from GTK to shiny GUI
