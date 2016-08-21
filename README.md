@@ -30,7 +30,7 @@ gridsampler(launch.browser = "TRUE")
 
 If you use gridsampler in your publications, you can cite it as follows. 
  
-Heckmann, M . & Burk, L. (2016). gridsampler: Determining sample sizes for repertory grid studies. R package version 0.4. *Zenodo*. doi:10.5281/zenodo.58014
+Heckmann, M . & Burk, L. (2016). gridsampler: A simulation tool to determine the required sample size for repertory grid studies. R package version 0.4. *Zenodo*. doi:10.5281/zenodo.58014
 
 [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.58014.svg)](http://dx.doi.org/10.5281/zenodo.58014)
 

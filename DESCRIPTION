@@ -1,6 +1,6 @@
 Package: gridsampler
 License: GPL-3
-Title: Simulation Tool for Repertory Grid Studies
+Title: A simulation tool to determine the required sample size for repertory grid studies
 Type: Package
 LazyLoad: yes
 Authors@R: c(person("Mark", "Heckmann", email = "heckmann@uni-bremen.de", role = c("aut", "cre")),
