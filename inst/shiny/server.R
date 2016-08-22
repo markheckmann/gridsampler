@@ -1,6 +1,9 @@
+source("global.R")
+
 #### Shiny server file ####
 shinyServer(function(input, output, session) {
 
+  
   #### Logic for column 1 ####
 
   # Input validation
