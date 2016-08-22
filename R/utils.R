@@ -13,9 +13,7 @@
 #' gridsampler()
 #' }
 gridsampler <- function(display.mode = "auto",
-                        launch.browser = getOption("shiny.launch.browser", interactive()) ) {
-                        #launch.browser = TRUE) {
-  # getOption("shiny.launch.browser", interactive())
+                        launch.browser = getOption("shiny.launch.browser", interactive())) {
   appDir <- paste0(system.file(package = "gridsampler"), "/shiny")
   if (appDir == "") {
     stop("Could not find shiny directory. Try re-installing `gridsampler`.", call. = FALSE)
@@ -29,7 +27,7 @@ gridsampler <- function(display.mode = "auto",
 #'
 #' @inheritParams stats::sample
 #' @keywords internal
-#' 
+#'
 sample_new <- function(x, size, replace = FALSE, prob = NULL)
 {
   if (length(x) == 1)
