@@ -14,7 +14,7 @@
 #' }
 gridsampler <- function(display.mode = "auto",
                         launch.browser = getOption("shiny.launch.browser", interactive())) {
-  appDir <- paste0(system.file(package = "gridsampler"), "/shiny")
+  appDir <- system.file("shiny", package = "gridsampler")
   if (appDir == "") {
     stop("Could not find shiny directory. Try re-installing `gridsampler`.", call. = FALSE)
   }

@@ -4,3 +4,5 @@
 .RData
 .DS_Store
 .Rproj.user
+vignettes/*.R
+vignettes/*.html
