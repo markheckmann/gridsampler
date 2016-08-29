@@ -3,3 +3,4 @@
 docs
 cran-comments.md
 ^\.travis\.yml$
+GPL-3
