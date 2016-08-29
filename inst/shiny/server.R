@@ -3,7 +3,7 @@ source("global.R")
 #### Shiny server file ####
 shinyServer(function(input, output, session) {
 
-  
+
   #### Logic for column 1 ####
 
   # Input validation
@@ -233,11 +233,12 @@ shinyServer(function(input, output, session) {
   observeEvent(input$sample_random, {
       # Input validation
       n <- isolate(input$sample_size)
-      validate(need(is.numeric(n) & length(n) > 0, message = "Value (N) must be set!"))
+      validate(need(is.numeric(n) & length(n) > 0, all(n > 0), message = "Value (N) must be set!"))
+      if (n < 0) {n <- abs(n)}
 
       # Create sample, store in values
       values$sample_plot <- gridsampler::draw_n_person_sample(prob = isolate(values$category_prob),
-                                                              n = isolate(input$sample_size),
+                                                              n = n,
                                                               a = isolate(values$attributes_id),
                                                               ap = isolate(values$attributes_prob)) +
                               theme_bw() +
@@ -254,7 +255,8 @@ shinyServer(function(input, output, session) {
       # Verbatim copy of sim_n_persons_x_times to incorporate progress bar
       # Runs the samples used in further steps
       times <- isolate(input$run_times)
-      validate(need(is.numeric(times) & length(times) > 0, message = "Value (R) must be set!"))
+      validate(need(is.numeric(times) & length(times) > 0, all(times > 0), message = "Value (R) must be set!"))
+      if (times < 0) {times <- abs(times)}
 
       r <- plyr::ldply(seq_len_robust(times), function(x){
                                   setProgress(session = session, value = x/times,
@@ -331,9 +333,9 @@ shinyServer(function(input, output, session) {
     p <- text_to_vector(isolate(input$proportion_k))
 
     # Input validation
-    validate(need(is.numeric(N) & length(N) > 0, message = "Value (N) must be set!"))
-    validate(need(is.numeric(M) & length(M) > 0, message = "Value (M) must be set!"))
-    validate(need(is.numeric(p) & length(p) > 0, message = "Value (C) must be set!"))
+    validate(need(is.numeric(N) & length(N) > 0, all(N > 0), message = "Value (N) must be set!"))
+    validate(need(is.numeric(M) & length(M) > 0, all(M > 0), message = "Value (M) must be set!"))
+    validate(need(is.numeric(p) & length(p) > 0, all(p > 0), message = "Value (C) must be set!"))
 
     # Calculating probabilities & drawing plot
     d <- calc_probabilities(r = values$simulations, n = N, ms = M, min.props = p)
