@@ -25,7 +25,7 @@ text_to_vector <- function(txt){
   } else if (grepl(":", txt)) {
     # If colon notation (e.g. '1:10') is used, use that directly
     txt <- eval(parse(text = txt))
-  } else if (grepl("seq\\(\\.*\\d*, \\.*\\d*, \\.*\\d*\\)", txt, perl = T)) {
+  } else if (grepl("\\(.*\\d*, .*\\d*, .*\\d*\\)", txt, perl = T)) {
     # Detect if seq() is used
     txt <- eval(parse(text = txt))
   } else {
