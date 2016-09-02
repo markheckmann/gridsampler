@@ -15,30 +15,34 @@ desc_col3 <- helpText("")
 
 #### Convenience functions ####
 # Convert textInput to a vector for inputs in column 3
+string_numeric <- function(s) {
+  # wrap in c to get numeric vector for vectors
+  # seperated by comma e.g. 1:3, 3:4
+  s <- paste0("c(", s, ")")
+
+  # can string be evaluated without failing?
+  v <- tryCatch(
+    eval(parse(text = s)),
+    error = function(e) simpleError("no valid R expression")
+  )
+
+  # evaluates to numeric vector?
+  list(check = is.numeric(v) & is.vector(v),
+       vector = v)
+}
+
 text_to_vector <- function(txt){
-  if (grepl(":", txt) & grepl(",", txt)) {
-    # Handle mix & match of : and , (e.g. '3:8, 12')
-    txt  <- strsplit(txt, ",")[[1]]
-    txt1 <- text_to_vector(txt[grepl(pattern = ":", txt)])
-    txt2 <- txt[!grepl(pattern = ":", txt)]
-    txt  <- c(txt1, txt2)
-  } else if (grepl(":", txt)) {
-    # If colon notation (e.g. '1:10') is used, use that directly
-    txt <- eval(parse(text = txt))
-  } else if (grepl("seq\\(.*\\d*, .*\\d*, .*\\d*\\)", txt, perl = T)) {
-    # Detect if seq() is used
-    txt <- eval(parse(text = paste0("c(", txt, ")")))
+
+  check <- string_numeric(txt)
+
+  if (!check$check) {
+    # Return a non-breaking but obviously non-useful 1 on error
+    return(0)
   } else {
-    # Extract substrings separated by ,
-    txt <- strsplit(txt, ",")[[1]]
-    # Replace whitespaces probably introduced in previous step
-    txt <- sub(pattern = " ", replacement = "", x = txt)
+    # Coercion to numeric converts text to NA
+    vec <- as.numeric(check$vector)
+    return(vec)
   }
-  # Coercion to numeric converts text to NA
-  txt <- as.numeric(txt)
-  # Remove NAs introduced by superfluous , or wrong input
-  txt <- txt[!is.na(txt)]
-  return(txt)
 }
 
 # Prettier display of probabilities inside plots, 0.927724 -> '.928'

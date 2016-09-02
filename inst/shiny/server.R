@@ -299,6 +299,10 @@ shinyServer(function(input, output, session) {
       # I extracted it here because for reasons I don't understand it didn't work otherwise
       r <- list()
       n <- text_to_vector(isolate(input$sample_size2))
+      # Insert default values in n is nonsense
+      if (n == 0) {
+        n <- seq(10, 80, 10)
+      }
       for (i in seq_along(n)) {
         # Increment progress bar
         incProgress(amount = 1/length(n), detail = paste0(i, "/", length(n)))
@@ -329,13 +333,17 @@ shinyServer(function(input, output, session) {
     # See ?draw_multiple_n_persons_x_times
     # Use isolate() to avoid unwanted re-execution on input change
     N <- text_to_vector(isolate(input$sample_size2))
+    # Insert default values in n is nonsense
+    if (N == 0) {
+      N <- seq(10, 80, 10)
+    }
     M <- text_to_vector(isolate(input$mincount_m))
     p <- text_to_vector(isolate(input$proportion_k))
 
     # Input validation
-    validate(need(is.numeric(N) & length(N) > 0, all(N > 0), message = "Value (N) must be set!"))
-    validate(need(is.numeric(M) & length(M) > 0, all(M > 0), message = "Value (M) must be set!"))
-    validate(need(is.numeric(p) & length(p) > 0, all(p > 0), message = "Value (C) must be set!"))
+    validate(need(is.numeric(N) & length(N) > 0, all(N > 0), message = "Value (N) must be set and parseable as valid R!"))
+    validate(need(is.numeric(M) & length(M) > 0, all(M > 0), message = "Value (M) must be set and parseable as valid R!"))
+    validate(need(is.numeric(p) & length(p) > 0, all(p > 0), message = "Value (C) must be set and parseable as valid R!"))
 
     # Calculating probabilities & drawing plot
     d <- calc_probabilities(r = values$simulations, n = N, ms = M, min.props = p)
