@@ -10,7 +10,7 @@ Description: Simulation tool to facilitate determination of
     for studies using multiple repertory grids in conjunction with
     content analysis.
 Version: 0.5
-Date: 2016-08-21
+Date: 2016-09-02
 Imports:
     shiny,
     ggplot2,
