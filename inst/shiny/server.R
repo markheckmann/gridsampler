@@ -300,9 +300,12 @@ shinyServer(function(input, output, session) {
       r <- list()
       n <- text_to_vector(isolate(input$sample_size2))
       # Insert default values in n is nonsense
-      if (n == 0) {
-        n <- seq(10, 80, 10)
+      if (length(n) == 1){
+        if (n == 0) {
+          n <- seq(10, 80, 10)
+        }
       }
+
       for (i in seq_along(n)) {
         # Increment progress bar
         incProgress(amount = 1/length(n), detail = paste0(i, "/", length(n)))
@@ -334,9 +337,12 @@ shinyServer(function(input, output, session) {
     # Use isolate() to avoid unwanted re-execution on input change
     N <- text_to_vector(isolate(input$sample_size2))
     # Insert default values in n is nonsense
-    if (N == 0) {
-      N <- seq(10, 80, 10)
+    if (length(N) == 1){
+      if (N == 0) {
+        N <- seq(10, 80, 10)
+      }
     }
+
     M <- text_to_vector(isolate(input$mincount_m))
     p <- text_to_vector(isolate(input$proportion_k))
 
