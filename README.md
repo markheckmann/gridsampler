@@ -6,20 +6,29 @@
 
 A common approach for evaluating multiple repertory grids is to sort the elicited constructs into categories using content analysis (e.g. Green, 2004; Jankowicz, 2004). Sometimes the question arises what sample size would be needed in order to achieve a minimum saturation of a certain number of constructs per category. The gridsampler GUI allows to run simulations in order to answer these type of questions.
 
-An introduction to its usage can be found on [github pages](http://markheckmann.github.io/gridsampler/). Please report any bugs [here](https://github.com/markheckmann/gridsampler/issues).
+An introduction to its usage can be found on [GitHub pages](http://markheckmann.github.io/gridsampler/). Please report any bugs [here](https://github.com/markheckmann/gridsampler/issues).
 
 ### Installation 
 
-You can install the software from [github](https://github.com/markheckmann/gridsampler).
+You can install the software from CRAN:
 
+```r
+install.packages("grindsampler")
 ```
+
+or from [GitHub](https://github.com/markheckmann/gridsampler):
+
+```r
 if (!("devtools" %in% installed.packages())) {
   install.packages("devtools")
 } else {
   devtools::install_github("markheckmann/gridsampler")
 }
+```
 
-# Run it:
+To run it, simply type this:
+
+```r
 gridsampler()
 
 # Or run it in a browser window (recommended):
