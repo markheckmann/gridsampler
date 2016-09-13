@@ -3,6 +3,7 @@ library(shiny)
 library(ggplot2)
 library(gridsampler)
 library(shinythemes)
+enableBookmarking(store = "url")
 
 #### UI variables defined here for convenience ####
 # Current gridsampler version (displayed in header)

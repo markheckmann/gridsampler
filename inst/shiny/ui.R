@@ -17,8 +17,9 @@ header <- list(tags$script(src = "bootstrap-tour-0.10.3/js/bootstrap-tour.min.js
 footer <- tags$script(src = "tour.js")  # add tour
 
 #### End Intro Tour components, begin shinyUI  ####
-
-shinyUI(navbarPage(title = gridsampler_version,
+function(request) {
+#shinyUI(
+        navbarPage(title = gridsampler_version,
                    id = "ourNavbar",
                    inverse = T,
                    theme = shinytheme("flatly"),
@@ -140,7 +141,9 @@ shinyUI(navbarPage(title = gridsampler_version,
                    # Action button in column 2
                    column(12, actionButton("preset_go2", "Apply Preset", width = "100%"))
                  )
-               ) # wellPanel ends here
+               ), # wellPanel ends here
+         # Experimental bookmark button
+         bookmarkButton()
          ),
 
          #### Column 3 ####
@@ -206,4 +209,5 @@ shinyUI(navbarPage(title = gridsampler_version,
   ),
   tabPanel("Tour", icon = icon("question-circle")  # trigger intro tour
   )
-))
+)#)
+}
