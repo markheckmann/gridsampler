@@ -150,7 +150,7 @@ shinyUI(navbarPage(title = gridsampler_version,
                # UI controls in panel 3, top
                fluidRow(
                  column(6, numericInput("sample_size", "Sample Size (N)", value = "100")),
-                 column(6, numericInput("run_times", "Simulation Runs (R)", value = "10"))
+                 column(6, numericInput("run_times", "Simulation Runs (R)", value = "1000"))
                ),
                fluidRow(
                  column(6, actionButton("sample_random", "Random Sample", width = "100%")),
@@ -167,7 +167,7 @@ shinyUI(navbarPage(title = gridsampler_version,
                    fluidRow(column(12, textInput("sample_size2", "Sample Size (N)",
                                                  value = "10, 20, 30, 40, 50, 60, 70, 80"))),
                    fluidRow(column(12, numericInput("runs_per_sample", "Simulation Runs (R)",
-                                                    value = 100, step = 1))),
+                                                    value = 1000, step = 1))),
                    fluidRow(column(12, actionButton("simulate", "Simulate", width = "100%"))
                  ))),
                  # Panel 3 bottom input controls, right side
