@@ -41,10 +41,10 @@ By reviewing the corresponding probabilities calculated by means of simulation (
 
 ## Install and load
 
-To install the software from CRAN, use the following command:
+To install the software from CRAN (recommended), use the following command:
 
 ```{r eval=FALSE}
-install_github("gridsampler") 
+install.packages("gridsampler") 
 ```
 
 If you prefer to install from GitHub, use the `devtools` package.

@@ -9,7 +9,7 @@ knitr::opts_chunk$set(
 )
 
 ## ----eval=FALSE----------------------------------------------------------
-#  install_github("gridsampler")
+#  install.packages("gridsampler")
 
 ## ----eval=FALSE----------------------------------------------------------
 #  library(devtools)
