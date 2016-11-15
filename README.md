@@ -13,7 +13,7 @@ An introduction to its usage can be found on [GitHub pages](http://markheckmann.
 You can install the software from CRAN:
 
 ```r
-install.packages("grindsampler")
+install.packages("gridsampler")
 ```
 
 or from [GitHub](https://github.com/markheckmann/gridsampler):
