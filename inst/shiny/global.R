@@ -3,6 +3,7 @@ library(shiny)
 library(ggplot2)
 library(gridsampler)
 library(shinythemes)
+library(shinyBS)
 
 #### UI variables defined here for convenience ####
 # Current gridsampler version (displayed in header)
@@ -122,3 +123,6 @@ p_31 <- gridsampler::draw_n_person_sample(prob = default_category_probs,
           theme(plot.background  = element_rect(fill = plot_bg),
                 panel.background = element_rect(fill = panel_bg))
 
+#### Tooltips ####
+
+tooltip_opts <- list(delay = list(show = 1000, hide = 100))

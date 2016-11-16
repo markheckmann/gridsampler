@@ -190,7 +190,20 @@ shinyUI(navbarPage(title = gridsampler_version,
                tags$br()
          )
         #### End of column 3 ####
-      ))
+      )),
+      #### Tolltip definitions ####
+      bsTooltip("preset_go1", options = tooltip_opts,
+                title = "Apply the distribution parameters to the ‘Attribute‘ distribution above"),
+      bsTooltip("preset_go2", options = tooltip_opts,
+                title = "Apply the distribution parameters to the ‘Category‘ distribution above"),
+      bsTooltip("sample_random", options = tooltip_opts,
+                title = "Draws a single random sample of the specified size (N)"),
+      bsTooltip("run_button", options = tooltip_opts,
+                title = "Run R samples of specified size N"),
+      bsTooltip("simulate", options = tooltip_opts,
+                title = "Primary simulation: Run R samples for each specified N"),
+      bsTooltip("redraw", options = tooltip_opts,
+                title = "Redraws the plot if cou change proportion or minimum count settings")
     ), # End of first tabPanel, "Simulate" tab
 
   #### About tab ####
