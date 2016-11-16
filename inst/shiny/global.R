@@ -124,5 +124,5 @@ p_31 <- gridsampler::draw_n_person_sample(prob = default_category_probs,
                 panel.background = element_rect(fill = panel_bg))
 
 #### Tooltips ####
-
+# See tooltip options: http://www.w3schools.com/bootstrap/bootstrap_ref_js_tooltip.asp
 tooltip_opts <- list(delay = list(show = 1000, hide = 100))
