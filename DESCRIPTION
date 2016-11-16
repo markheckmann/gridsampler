@@ -17,7 +17,8 @@ Imports:
     reshape2,
     plyr,
     shinythemes,
-    BiasedUrn
+    BiasedUrn,
+    shinyBS
 Suggests:
     knitr,
     testthat,
