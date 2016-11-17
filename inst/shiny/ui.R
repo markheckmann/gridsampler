@@ -150,7 +150,7 @@ shinyUI(navbarPage(title = gridsampler_version,
                # UI controls in panel 3, top
                fluidRow(
                  column(6, numericInput("sample_size", "Sample Size (N)", value = "50")),
-                 column(6, numericInput("run_times", "Simulation Runs (R) per Sample Size (N)", value = "1000"))
+                 column(6, numericInput("run_times", "Simulation Runs (R)", value = "1000"))
                ),
                fluidRow(
                  column(6, actionButton("sample_random", "One Random Sample of Size N", width = "100%")),
@@ -166,7 +166,7 @@ shinyUI(navbarPage(title = gridsampler_version,
                  wellPanel(
                    fluidRow(column(12, textInput("sample_size2", "Range of Sample Sizes (N)",
                                                  value = "10, 20, 30, 40, 50, 60, 70, 80"))),
-                   fluidRow(column(12, numericInput("runs_per_sample", "Simulation Runs (R)",
+                   fluidRow(column(12, numericInput("runs_per_sample", "Simulation Runs (R) per Sample Size (N)",
                                                     value = 1000, step = 1))),
                    fluidRow(column(12, actionButton("simulate", "Simulate R Samples for Each N", width = "100%"))
                  ))),
@@ -193,17 +193,17 @@ shinyUI(navbarPage(title = gridsampler_version,
       )),
       #### Tolltip definitions ####
       bsTooltip("preset_go1", options = tooltip_opts,
-                title = "Apply the distribution parameters to the ‘Attribute‘ distribution above"),
+                title = "Use the selected preset probability distribution as the distribution of the ‘Number of Attributes‘ above"),
       bsTooltip("preset_go2", options = tooltip_opts,
-                title = "Apply the distribution parameters to the ‘Category‘ distribution above"),
+                title = "Use the selected preset probability distribution as the distribution of the ‘Probability of Categories‘ above"),
       bsTooltip("sample_random", options = tooltip_opts,
-                title = "Draws a single random sample of the specified size (N)"),
+                title = "Draw a single random sample of size N, i.e., simulate the results of N repertory grid interviews."),
       bsTooltip("run_button", options = tooltip_opts,
-                title = "Run R samples of specified size N"),
+                title = "Draw R random samples of size N. Repeats the process of simulating the results of N repertory grid interviews R times and displays aggregated results."),
       bsTooltip("simulate", options = tooltip_opts,
-                title = "Primary simulation: Run R samples for each specified N"),
+                title = "Main simulation: Draw R random samples for each specified N. This is the same simulation as above, but conducted for many different N."),
       bsTooltip("redraw", options = tooltip_opts,
-                title = "Redraws the plot if cou change proportion or minimum count settings")
+                title = "Draw a plot which shows the probabilities of obtaining C % of the categories with at least M attributes each. Show for all specified samples sizes N.")
     ), # End of first tabPanel, "Simulate" tab
 
   #### About tab ####
