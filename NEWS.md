@@ -1,5 +1,11 @@
 # NEWS
 
+## 0.6
+
+* Add tooltips for various buttons via `shinyBS` package
+* Tweaked various input element labels
+* Tweaked default values for better results
+
 ## 0.5
 
 * automated linux build check via travis-ci
