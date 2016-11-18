@@ -40,7 +40,7 @@ test_that("Converges to theoretical MWNHD means for fixed number of attributes",
     M <- rep(1, length(P))                  # initial nuber of balls in urn 
     mu <- meanMWNCHypergeo(m = M, n=N, odds = P, precision = 0)  # Wallenius' means
     
-    compare
+    # compare
     res[i] <- all.equal.numeric(target = mu,
                                 current = mu.sim,
                                 check.attributes = FALSE, use.names = FALSE,
