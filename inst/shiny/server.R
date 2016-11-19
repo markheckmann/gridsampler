@@ -15,11 +15,11 @@ shinyServer(function(input, output, session) {
   })
 
   observeEvent(input$probability1, {
-    values$attributes_prob <- values$attributes_prob/sum(values$attributes_prob)
+    values$attributes_prob <- round(values$attributes_prob/sum(values$attributes_prob), 3)
   })
 
   observeEvent(input$probability2, {
-    values$category_prob <- values$category_prob/sum(values$category_prob)
+    values$category_prob <- round(values$category_prob/sum(values$category_prob), 3)
   })
 
   #### Logic for column 1 ####
@@ -164,7 +164,7 @@ shinyServer(function(input, output, session) {
   # Make sure the probability in column 2 is the current value stored in the reactiveValues object
   observeEvent(input$category, {
     updateNumericInput(session, "probability2",
-                       value = values$category_prob[values$category_id == input$category])
+                       value = round(values$category_prob[values$category_id == input$category], 3))
   })
 
   # Observer to change category properties
