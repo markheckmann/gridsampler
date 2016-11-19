@@ -49,6 +49,14 @@ shinyServer(function(input, output, session) {
         updateNumericInput(session, "2_lin_min", value = 0.001)
       }
     }
+
+    # Prevent probability inputs from going above 1
+    if (input$probability1 > 1) {
+      updateNumericInput(session, "probability1", value = 1)
+    }
+    if (input$probability2 > 1) {
+      updateNumericInput(session, "probability2", value = 1)
+    }
   })
 
   # Make sure the probability in column 1 is the current value stored in the reactiveValues object
