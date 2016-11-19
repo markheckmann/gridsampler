@@ -3,30 +3,6 @@ source("global.R")
 #### Shiny server file ####
 shinyServer(function(input, output, session) {
 
-  # Observers to maintain probability consistency
-  observe({
-    # Prevent probability inputs from going above 1
-    if (!is.na(input$probability1)) {
-      if (isolate(input$probability1) > 1) {
-        updateNumericInput(session, "probability1", value = 1)
-      }
-    }
-
-    if (!is.na(input$probability2)) {
-      if (isolate(input$probability2) > 1) {
-        updateNumericInput(session, "probability2", value = 1)
-      }
-    }
-  })
-
-  observeEvent(input$probability1, {
-    values$attributes_prob <- round(values$attributes_prob/sum(values$attributes_prob), 3)
-  })
-
-  observeEvent(input$probability2, {
-    values$category_prob <- round(values$category_prob/sum(values$category_prob), 3)
-  })
-
   #### Logic for column 1 ####
 
   # Input validation
@@ -98,7 +74,31 @@ shinyServer(function(input, output, session) {
 
   # Observer for manual probability adjustments (col 1)
   observeEvent(input$probability1, {
-    values$attributes_prob[values$attributes_id == input$attribute_num] <- round(input$probability1, 3)
+    # Prevent probability inputs from going above 1
+    if (!is.na(input$probability1)) {
+      if (isolate(input$probability1) > 1) {
+        updateNumericInput(session, "probability1", value = 1)
+      }
+    }
+
+    input_prob <- round(input$probability1, 3)
+
+    # Change selected probability
+    values$attributes_prob[values$attributes_id == input$attribute_num] <- input_prob
+
+    # Scale probabilities back to 1
+
+    # This causes inconsistency between chosen prob and displayed prob
+    # values$attributes_prob <- round(values$attributes_prob/sum(values$attributes_prob), 3)
+
+    # Different approach: scale non-selected probs to 1 - (selected prob)
+    # Causes all kinds of weirdness
+    # if (round(sum(values$attributes_prob), 3) != 1) {
+    #   other_probs <- values$attributes_prob[values$attributes_id != input$attribute_num]
+    #   other_probs <- other_probs / (sum(other_probs)/(input_prob))
+    #
+    #   values$attributes_prob[values$attributes_id != input$attribute_num] <- other_probs
+    # }
   })
 
   # Observer for presets in column 1
@@ -194,7 +194,17 @@ shinyServer(function(input, output, session) {
 
   # Observer for manual probability adjustments (col 2)
   observeEvent(input$probability2, {
+    if (!is.na(input$probability2)) {
+      if (isolate(input$probability2) > 1) {
+        updateNumericInput(session, "probability2", value = 1)
+      }
+    }
+
+    # Change selected probability
     values$category_prob[values$category_id == input$category] <- round(input$probability2, 3)
+
+    # Scale probs back to 1
+    values$category_prob <- round(values$category_prob/sum(values$category_prob), 3)
   })
 
   # Observer for presets in column 2
