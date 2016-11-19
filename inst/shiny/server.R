@@ -14,6 +14,14 @@ shinyServer(function(input, output, session) {
     }
   })
 
+  observeEvent(input$probability1, {
+    values$attributes_prob <- values$attributes_prob/sum(values$attributes_prob)
+  })
+
+  observeEvent(input$probability2, {
+    values$category_prob <- values$category_prob/sum(values$category_prob)
+  })
+
   #### Logic for column 1 ####
 
   # Input validation
