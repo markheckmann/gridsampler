@@ -5,12 +5,18 @@ shinyServer(function(input, output, session) {
 
   # Observers to maintain probability consistency
   observe({
+    cat(input$probability1, "\n")
     # Prevent probability inputs from going above 1
-    if (input$probability1 > 1) {
-      updateNumericInput(session, "probability1", value = 1)
+    if (!is.na(input$probability1)) {
+      if (isolate(input$probability1) > 1) {
+        updateNumericInput(session, "probability1", value = 1)
+      }
     }
-    if (input$probability2 > 1) {
-      updateNumericInput(session, "probability2", value = 1)
+
+    if (!is.na(input$probability2)) {
+      if (isolate(input$probability2) > 1) {
+        updateNumericInput(session, "probability2", value = 1)
+      }
     }
   })
 
@@ -110,6 +116,10 @@ shinyServer(function(input, output, session) {
         values$attributes_prob <- dunif(values$attributes_id, min = input$minimum1 - 1, max = input$maximum1)
       }
     }
+
+    # Update manual probability input
+    updateNumericInput(session, "probability1",
+                       value = round(values$attributes_prob[values$attributes_id == input$attribute_num], 3))
   })
 
   # Plot in column 1
@@ -198,6 +208,10 @@ shinyServer(function(input, output, session) {
     } else if (input$preset_types2 == "Linear") {
       values$category_prob <- p_linear(k = length(values$category_id), p_k = input$`2_lin_min`)
     }
+
+    # Update manual probability input field
+    updateNumericInput(session, "probability2",
+                       value = round(values$category_prob[values$category_id == input$category], 3))
   })
 
   # Plot for column 2
