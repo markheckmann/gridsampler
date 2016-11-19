@@ -3,6 +3,16 @@ source("global.R")
 #### Shiny server file ####
 shinyServer(function(input, output, session) {
 
+  # Observers to maintain probability consistency
+  observe({
+    # Prevent probability inputs from going above 1
+    if (input$probability1 > 1) {
+      updateNumericInput(session, "probability1", value = 1)
+    }
+    if (input$probability2 > 1) {
+      updateNumericInput(session, "probability2", value = 1)
+    }
+  })
 
   #### Logic for column 1 ####
 
@@ -48,14 +58,6 @@ shinyServer(function(input, output, session) {
       if (input$`2_lin_min` == 0) {
         updateNumericInput(session, "2_lin_min", value = 0.001)
       }
-    }
-
-    # Prevent probability inputs from going above 1
-    if (input$probability1 > 1) {
-      updateNumericInput(session, "probability1", value = 1)
-    }
-    if (input$probability2 > 1) {
-      updateNumericInput(session, "probability2", value = 1)
     }
   })
 
