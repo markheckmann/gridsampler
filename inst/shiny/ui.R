@@ -48,7 +48,8 @@ shinyUI(navbarPage(title = gridsampler_version,
               fluidRow(
                 column(6, numericInput("attribute_num", "No. of Attributes",
                                     value = default_attributes_min,
-                                    min = default_attributes_min, max = default_attributes_max, step = 1, width = "100%")
+                                    min = default_attributes_min,
+                                    max = default_attributes_max, step = 1, width = "100%")
                 ),
                 column(6, numericInput("probability1", "Probability",
                                     value = round(default_attributes_probs[1], 3),
