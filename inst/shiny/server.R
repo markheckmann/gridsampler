@@ -87,18 +87,13 @@ shinyServer(function(input, output, session) {
     values$attributes_prob[values$attributes_id == input$attribute_num] <- input_prob
 
     # Scale probabilities back to 1
-
-    # This causes inconsistency between chosen prob and displayed prob
-    # values$attributes_prob <- round(values$attributes_prob/sum(values$attributes_prob), 3)
-
     # Different approach: scale non-selected probs to 1 - (selected prob)
-    # Causes all kinds of weirdness
-    # if (round(sum(values$attributes_prob), 3) != 1) {
-    #   other_probs <- values$attributes_prob[values$attributes_id != input$attribute_num]
-    #   other_probs <- other_probs / (sum(other_probs)/(input_prob))
-    #
-    #   values$attributes_prob[values$attributes_id != input$attribute_num] <- other_probs
-    # }
+    if (round(sum(values$attributes_prob), 4) != 1) {
+      other_probs <- values$attributes_prob[values$attributes_id != input$attribute_num]
+      other_probs <- other_probs / (sum(other_probs)/(1 - input_prob))
+
+      values$attributes_prob[values$attributes_id != input$attribute_num] <- other_probs
+    }
   })
 
   # Observer for presets in column 1
@@ -200,11 +195,19 @@ shinyServer(function(input, output, session) {
       }
     }
 
+    input_prob <- round(input$probability2, 3)
+
     # Change selected probability
-    values$category_prob[values$category_id == input$category] <- round(input$probability2, 3)
+    values$category_prob[values$category_id == input$category] <- input_prob
 
     # Scale probs back to 1
-    values$category_prob <- round(values$category_prob/sum(values$category_prob), 3)
+    # Different approach: scale non-selected probs to 1 - (selected prob)
+    if (round(sum(values$category_prob), 4) != 1) {
+      other_probs <- values$category_prob[values$category_id != input$category]
+      other_probs <- other_probs / (sum(other_probs)/(1 - input_prob))
+
+      values$category_prob[values$category_id != input$category] <- other_probs
+    }
   })
 
   # Observer for presets in column 2
