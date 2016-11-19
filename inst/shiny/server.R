@@ -5,7 +5,6 @@ shinyServer(function(input, output, session) {
 
   # Observers to maintain probability consistency
   observe({
-    cat(input$probability1, "\n")
     # Prevent probability inputs from going above 1
     if (!is.na(input$probability1)) {
       if (isolate(input$probability1) > 1) {
