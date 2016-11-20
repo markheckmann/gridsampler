@@ -111,6 +111,9 @@ shinyServer(function(input, output, session) {
       }
     }
 
+    # Adjust scaling
+    values$attributes_prob <- values$attributes_prob/sum(values$attributes_prob)
+
     # Update manual probability input
     updateNumericInput(session, "probability1",
                        value = round(values$attributes_prob[values$attributes_id == input$attribute_num], 3))
@@ -220,6 +223,9 @@ shinyServer(function(input, output, session) {
     } else if (input$preset_types2 == "Linear") {
       values$category_prob <- p_linear(k = length(values$category_id), p_k = input$`2_lin_min`)
     }
+
+    # Adjust scaling
+    values$category_prob <- values$category_prob/sum(values$category_prob)
 
     # Update manual probability input field
     updateNumericInput(session, "probability2",
