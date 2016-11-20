@@ -303,8 +303,12 @@ shinyServer(function(input, output, session) {
       if (times < 0) {times <- abs(times)}
 
       r <- plyr::ldply(seq_len_robust(times), function(x){
-                                  setProgress(session = session, value = x/times,
-                                               detail = paste0(x, "/", times))
+                                  if (x%%10 == 0) {
+                                    # Only update progress bar every 10 iterations to reudce lag
+                                    setProgress(session = session, value = x/times,
+                                                detail = paste0(x, "/", times))
+                                  }
+
                                   samples <- sim_n_persons(prob = isolate(values$category_prob),
                                                            n = isolate(input$sample_size),
                                                            a = isolate(values$attributes_id),
