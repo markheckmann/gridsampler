@@ -121,18 +121,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><strong>Simulate sample</strong></li>
 </ol>
 <p>The rightmost panel is split into an upper and a lower part.</p>
-<p><em>Upper part</em>: In the upper part, a simulation can be prompted for a given sample size (number of subjects) by pressing “Random Sample”. By pressing the button “Run” samples are repeatedly generated and the distribution of the results per category are indicated using selected percentiles. From the image, it can be inferred that the median number of occurrences of category 1 was 29, the 5th percentile at 23 and the 95th at 36. This gives the user a rough idea about the category counts to be expected.</p>
+<p><em>Upper part</em>: In the upper part, a simulation can be prompted for a given sample size (number of subjects) by pressing “One Random Sample of Size N”. By pressing the button “R Random Samples of Size N” samples are repeatedly generated and the distribution of the results per category are indicated using selected percentiles. From the image, it can be inferred that the median number of occurrences of category 1 was 29, the 5th percentile at 23 and the 95th at 36. This gives the user a rough idea about the category counts to be expected.</p>
 <p><em>Lower part</em>: In the lower part of panel 3, this simulation is conducted for different samples sizes. The following parameters can be set:</p>
 <ul>
 <li>The sample sizes N to simulate</li>
 <li>Number of simulations for each run</li>
 </ul>
-<p>The simulation is prompted by pressing “Simulate”. Right below the simulation parameters the drawing parameters can be defined. These are independent of the simulation itself and only determine which values are displayed. To redraw the graphic with different parameters press the “Redraw” button.</p>
+<p>The simulation is prompted by pressing “Simulate R Samples for Each N”. Right below the simulation parameters the drawing parameters can be defined. These are independent of the simulation itself and only determine which values are displayed. To redraw the graphic with different parameters press the “Redraw with New Settings” button.</p>
 <ul>
-<li>Minimal count: the minimal number of construct per category to occur</li>
+<li>Minimum count: the minimal number of construct per category to occur</li>
 <li>Coverage: the proportion of categories that fulfill the minimal count</li>
 </ul>
-<p>All parameters can either be given as numeric values separated by commas or using the colon operator from R, i.e. <code>1:3</code> for <code>1, 2, 3</code>. Additionally, it is also possible to use the <code>seq()</code> function in the input field, e.g. <code>seq(20, 80, by = 5)</code>.</p>
+<p>All parameters can either be given as numeric values separated by commas or using the colon operator from <em>R</em>, i.e. <code>1:3</code> for <code>1, 2, 3</code>. Additionally, it is also possible to use the <code>seq()</code> function in the input field, e.g. <code>seq(20, 80, by = 5)</code>.</p>
 </div>
 <div id="interpretation-of-results" class="section level2">
 <h2>Interpretation of results</h2>
