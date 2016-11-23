@@ -38,7 +38,7 @@ test_that("Converges to theoretical MWNHD means for fixed number of attributes",
     
     # theoretical
     M <- rep(1, length(P))                  # initial nuber of balls in urn 
-    mu <- meanMWNCHypergeo(m = M, n=N, odds = P, precision = 0)  # Wallenius' means
+    mu <- BiasedUrn::meanMWNCHypergeo(m = M, n=N, odds = P, precision = 0)  # Wallenius' means
     
     # compare
     res[i] <- all.equal.numeric(target = mu,
@@ -91,7 +91,7 @@ test_that("Covergence to theoretical MWNHD means for random number of attributes
     mu.sim <- h * sum(ap * NN)          # relative average number of attributes
     
     # theoretical compound distribution
-    MU <- mapply(meanMWNCHypergeo, n=NN, 
+    MU <- mapply(BiasedUrn::meanMWNCHypergeo, n=NN, 
                  MoreArgs = list(m = M, odds = P, precision = 0))
     MU <- t(MU)
     mu <- as.vector(ap %*% MU)         # calculate weights means
