@@ -69,6 +69,11 @@ seq_robust <- function(from = 1, to = 10, by = 1, ...) {
   if (is.na(to)) {
     to <- 8
   }
+
+  if (to < from) {
+    to <- from
+  }
+
   s <- seq(from, to, by, ...)
   return(s)
 }
