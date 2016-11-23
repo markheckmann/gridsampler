@@ -7,8 +7,6 @@
 
 0 errors | 0 warnings | 0 notes
 
-This is the first release. 
-
 ## Reverse dependencies
 
 There are no reverse dependencies.
