@@ -1,0 +1,10 @@
+name: shiny
+title:
+username:
+account: markheckmann
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 826236
+bundleId: 1975483
+url: https://markheckmann.shinyapps.io/shiny/
+when: 1553958149.25624
