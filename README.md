@@ -1,7 +1,10 @@
 # gridsampler
 
+[![](https://www.r-pkg.org/badges/version/gridsampler?color=green)](https://cran.r-project.org/package=gridsampler)
+[![](https://img.shields.io/badge/devel%20version-0.6-green.svg)](https://github.com/markheckmann/gridsampler)
 [![Build Status](https://travis-ci.org/markheckmann/gridsampler.svg?branch=master)](https://travis-ci.org/markheckmann/gridsampler)
 [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/markheckmann/gridsampler?branch=master&svg=true)](https://ci.appveyor.com/project/markheckmann/gridsampler)
+[![](https://img.shields.io/github/languages/code-size/markheckmann/gridsampler.svg)](https://github.com/markheckmann/gridsampler)
 
 ### Introduction
 
