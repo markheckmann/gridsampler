@@ -1,6 +1,7 @@
 # gridsampler
 
 [![Build Status](https://travis-ci.org/markheckmann/gridsampler.svg?branch=master)](https://travis-ci.org/markheckmann/gridsampler)
+[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/markheckmann/gridsampler?branch=master&svg=true)](https://ci.appveyor.com/project/markheckmann/gridsampler)
 
 ### Introduction
 
