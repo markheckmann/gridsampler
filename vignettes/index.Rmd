@@ -51,7 +51,7 @@ If you prefer to install from GitHub, use the `devtools` package.
 
 ```{r eval=FALSE}
 library(devtools)
-install_github("gridsampler/markheckmann") 
+install_github("markheckmann/gridsampler") 
 ```
 
 To load and start the GUI type
